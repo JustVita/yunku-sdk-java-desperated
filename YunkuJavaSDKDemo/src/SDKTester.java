@@ -9,17 +9,44 @@ import org.apache.http.HttpStatus;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "412635195@qq.com";
-    public static final String PASSWORD = "bozaihoho";
-    public static final String CLIENT_ID = "4379c43c790bdc46788feb13e41973db";
-    public static final String CLIENT_SECRET = "23413f4422a238d0a7a47f8a2fed60f9";
+    public static final String UESRNAME = "";
+    public static final String PASSWORD = "";
+    public static final String CLIENT_ID = "";
+    public static final String CLIENT_SECRET = "";
 
     private static YunkuEngine mSdk;
 
     public static void main(String[] args) {
         YunkuEngine.PRINT_LOG = true;
         mSdk = new YunkuEngine(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
-        deserializeOauth(mSdk.accessToken());
+        mSdk.accessToken(true);
+//获取库列表
+//        deserializeOauth(mSdk.getLibList());
+        //获取库授权
+//        deserializeOauth(mSdk.bindLib(146540,"",""));
+        //取消库授权
+//        deserializeOauth(mSdk.unBindLib("9affb8f78fd5914a7218d7561db6ddec"));
+        //获取库中文件
+//        deserializeOauth(mSdk.getFileList("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int)Util.getUnixDateline(), 0, ""));
+
+        //获取更新列表
+//        deserializeOauth(mSdk.getUpdateList("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), false, 0));
+
+        //获取文件(夹)信息
+//        deserializeOauth(mSdk.getFileInfo("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test"));
+        //创建文件夹
+//        deserializeOauth(mSdk.createFolder("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
+        //上传文件
+//        deserializeOauth(mSdk.createFile("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon","D:\\test.txt"));
+        //删除文件
+//        deserializeOauth(mSdk.del("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
+        //移动文件
+//        deserializeOauth(mSdk.move("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","1/test","Brandon"));
+        //文件连接
+        deserializeOauth(mSdk.link("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "1/test"));
+//发送消息
+        deserializeOauth(mSdk.sendmsg("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
+
     }
 
     private static void deserializeOauth(String result) {
@@ -37,7 +64,7 @@ public class SDKTester {
 
             } else {
                 //解析result中的内容
-                System.out.println(OauthErrorMsg.convertMsg(data.getError()));
+                System.out.println(data.getError());
 
             }
         }
