@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * Created by Brandon on 2014/8/6.
  */
 public class YunkuEngine extends ParentEngine {
-    private static final String DEFAULT_PATH = "YunKuExtApi\\Team\\";
     private static final String OAUTH_HOST = "http://a.goukuai.cn";
     private static final String LIB_HOST = "http://a-lib.goukuai.cn";
     private static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token";
