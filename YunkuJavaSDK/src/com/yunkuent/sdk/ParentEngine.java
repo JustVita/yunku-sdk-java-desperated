@@ -11,7 +11,7 @@ import java.util.TreeSet;
 /**
  * Created by Brandon on 2014/8/6.
  */
-public class ParentEngine {
+class ParentEngine {
 
     protected String mClientId;
     protected String mClientSecret;

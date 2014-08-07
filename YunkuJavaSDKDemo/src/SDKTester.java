@@ -9,16 +9,17 @@ import org.apache.http.HttpStatus;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "";
-    public static final String PASSWORD = "";
-    public static final String CLIENT_ID = "";
-    public static final String CLIENT_SECRET = "";
+    public static final String UESRNAME = "Brandon";
+    public static final String PASSWORD = "123456";
+    public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
+    public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
 
     private static YunkuEngine mSdk;
 
     public static void main(String[] args) {
         YunkuEngine.PRINT_LOG = true;
         mSdk = new YunkuEngine(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        //获取认证
         mSdk.accessToken(true);
 //获取库列表
 //        deserializeOauth(mSdk.getLibList());
@@ -36,14 +37,14 @@ public class SDKTester {
 //        deserializeOauth(mSdk.getFileInfo("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test"));
         //创建文件夹
 //        deserializeOauth(mSdk.createFolder("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
-        //上传文件
+        //上传文件 文件不得超过50MB
 //        deserializeOauth(mSdk.createFile("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon","D:\\test.txt"));
         //删除文件
 //        deserializeOauth(mSdk.del("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
         //移动文件
 //        deserializeOauth(mSdk.move("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","1/test","Brandon"));
         //文件连接
-        deserializeOauth(mSdk.link("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "1/test"));
+//        deserializeOauth(mSdk.link("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "1/test"));
 //发送消息
         deserializeOauth(mSdk.sendmsg("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
