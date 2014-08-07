@@ -29,28 +29,11 @@ class ParentEngine {
         mClientSecret = clientSecrect;
     }
 
-    private ParentEngine(String username, String password, String clientId, String clientSecrect, String token, String refreshToken) {
-        mUsername = username;
-        mPassword = password;
-        mClientId = clientId;
-        mClientSecret = clientSecrect;
-        mToken = token;
-        mRefreshToken = refreshToken;
-
-    }
 
     public String getToken() {
         return mToken;
     }
 
-    /**
-     * copy a object
-     *
-     * @return
-     */
-    public ParentEngine clone() {
-        return new ParentEngine(mUsername, mPassword, mClientId, mClientSecret, mToken, mRefreshToken);
-    }
 
     /**
      * 签名

@@ -38,6 +38,13 @@ public class YunkuEngine extends ParentEngine {
         super(username, password, clientId, clientSecrect);
     }
 
+    private YunkuEngine(String username, String password, String clientId, String clientSecrect, String token, String refreshToken) {
+        super(username, password, clientId, clientSecrect);
+        mToken = token;
+        mRefreshToken = refreshToken;
+
+    }
+
     /**
      * 获取token
      *
@@ -267,7 +274,7 @@ public class YunkuEngine extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    public String move(String orgClientId, String orgClientSecret, int dateline, String fullPath, String destFullPath,String opName) {
+    public String move(String orgClientId, String orgClientSecret, int dateline, String fullPath, String destFullPath, String opName) {
         String method = "POST";
         String url = URL_API_MOVE_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -305,6 +312,10 @@ public class YunkuEngine extends ParentEngine {
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params), orgClientSecret)));
         return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public YunkuEngine clone() {
+        return new YunkuEngine(mUsername, mPassword, mClientId, mClientSecret, mToken, mRefreshToken);
     }
 
 }
