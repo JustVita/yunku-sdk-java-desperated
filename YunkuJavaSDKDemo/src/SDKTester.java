@@ -1,5 +1,6 @@
 import Model.OauthData;
 import com.yunkuent.sdk.DebugConfig;
+import com.yunkuent.sdk.EntFileManager;
 import com.yunkuent.sdk.EntLibManager;
 import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
@@ -13,19 +14,20 @@ import java.util.ArrayList;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "";
-    public static final String PASSWORD = "";
-    public static final String CLIENT_ID = "";
-    public static final String CLIENT_SECRET = "";
+    public static final String UESRNAME = "gktest1";
+    public static final String PASSWORD = "111111";
+    public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
+    public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
 
     private static EntLibManager mEntLibManger;
     private static EntManager mEntManger;
+    private static EntFileManager mFileManager;
 
     public static void main(String[] args) {
         DebugConfig.PRINT_LOG = true;
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
- //==========================云库企业库操作==========================//
+        //==========================云库企业库操作==========================//
         mEntLibManger = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 //        //获取认证
         mEntLibManger.accessToken(true);
@@ -34,11 +36,9 @@ public class SDKTester {
         //获取库列表
 //        deserializeReturn(mEntLibManger.getLibList());
         //获取库授权
-//        deserializeReturn(mEntLibManger.bind(146540,"",""));
+        deserializeReturn(mEntLibManger.bind(32662,"",""));
         //取消库授权
 //        deserializeReturn(mEntLibManger.unBind("9affb8f78fd5914a7218d7561db6ddec"));
-        //获取当前所有可用角色
-//        deserializeReturn(mEntLibManger.getRoles());
 
         //添加库成员
 //        deserializeReturn(mEntLibManger.addMembers(150998,2892,new int[]{4}));
@@ -61,32 +61,35 @@ public class SDKTester {
         //设置分组上的角色
 //        deserializeReturn(mEntLibManger.setGroupRole(150998,4448,2894));
 
+        String orgClientId = "0b7bd4e22c1a9eb8e3ddba2b6c37f6e2";
+        String orgClientSecret = "2cfe3be53d4c4f18a23c7e01f9f8724d";
+        EntFileManager manager=new EntFileManager(orgClientId,orgClientSecret);
         //获取库中文件
-//        deserializeReturn(mEntLibManger.getFileList("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int)Util.getUnixDateline(), 0, ""));
+//        deserializeReturn(manager.getFileList((int)Util.getUnixDateline(), 0, ""));
 
         //获取更新列表
-//        deserializeReturn(mEntLibManger.getUpdateList("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), false, 0));
+//        deserializeReturn(manager.getUpdateList((int) Util.getUnixDateline(), false, 0));
 
         //获取文件(夹)信息
-//        deserializeReturn(mEntLibManger.getFileInfo("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test"));
+//        deserializeReturn(manager.getFileInfo((int) Util.getUnixDateline(),"test"));
         //创建文件夹
-//        deserializeReturn(mEntLibManger.createFolder("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
+//        deserializeReturn(manager.createFolder((int) Util.getUnixDateline(),"test","Brandon"));
         //上传文件 文件不得超过50MB
-//        deserializeReturn(mEntLibManger.createFile("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon","D:\\test.txt"));
-        //删除文件
-//        deserializeReturn(mEntLibManger.del("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","Brandon"));
-        //移动文件
-//        deserializeReturn(mEntLibManger.move("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b",(int) Util.getUnixDateline(),"test","1/test","Brandon"));
-        //文件连接
-//        deserializeReturn(mEntLibManger.link("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "1/test"));
-        //发送消息
-//        deserializeReturn(mEntLibManger.sendmsg("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
+//        deserializeReturn(manager.createFile((int) Util.getUnixDateline(),"test/test.txt","Brandon","D:\\test.txt"));
+//        //删除文件
+//        deserializeReturn(manager.del((int) Util.getUnixDateline(),"test","Brandon"));
+//        //移动文件
+//        deserializeReturn(manager.move((int) Util.getUnixDateline(),"test/test.txt","1/test.txt","Brandon"));
+//        //文件连接
+//        deserializeReturn(manager.link( (int) Util.getUnixDateline(), "1/test.txt"));
+//        //发送消息
+//        deserializeReturn(manager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
 
 //==========================云库企业操作==========================//
-        mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
-        //获取认证
-        mEntManger.accessToken(true);
+//        mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+//        //获取认证
+//        mEntManger.accessToken(true);
 //获取角色
 //        deserializeReturn(mEntManger.getRoles());
 //获取分组

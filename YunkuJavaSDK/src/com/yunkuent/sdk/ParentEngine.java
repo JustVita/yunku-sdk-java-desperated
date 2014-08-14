@@ -78,15 +78,6 @@ abstract class ParentEngine implements HostConifg {
         return URLEncoder.encodeUTF8(Util.getHmacSha1(string_sign, mClientSecret));
     }
 
-    protected String generateSign(String[] array, String orgClientSecret) {
-        String string_sign = "";
-        for (int i = 0; i < array.length; i++) {
-            string_sign += array[i] + (i == array.length - 1 ? "" : "\n");
-        }
-
-        return URLEncoder.encodeUTF8(Util.getHmacSha1(string_sign, orgClientSecret));
-    }
-
     protected String[] paramSorted(ArrayList<NameValuePair> params) {
         if (params != null) {
             SortedSet<KeyValuePair> sortedSet = new TreeSet<KeyValuePair>();
