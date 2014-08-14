@@ -21,7 +21,7 @@ class LogPrint {
 
     public static void print(String log) {
 
-        if (ParentEngine.PRINT_LOG) {
+        if (DebugConfig.PRINT_LOG) {
             YunkuMemoryHandler mt = getInstance();
             // 在MemoryHandler中缓存日志记录
             mt.getLogger().log(Level.INFO, log);

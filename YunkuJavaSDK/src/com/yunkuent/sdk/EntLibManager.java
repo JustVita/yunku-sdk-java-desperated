@@ -15,10 +15,8 @@ import java.util.ArrayList;
 /**
  * Created by Brandon on 2014/8/6.
  */
-public class YunkuEngine extends ParentEngine {
-    private static final String OAUTH_HOST = "http://a.goukuai.cn";
-    private static final String LIB_HOST = "http://a-lib.goukuai.cn";
-    private static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token";
+public class EntLibManager extends ParentEngine {
+
     private static final String URL_API_CREATE_LIB = LIB_HOST + "/1/org/create";
     private static final String URL_API_GET_LIB_LIST = LIB_HOST + "/1/org/ls";
     private static final String URL_API_BIND = LIB_HOST + "/1/org/bind";
@@ -32,45 +30,25 @@ public class YunkuEngine extends ParentEngine {
     private static final String URL_API_MOVE_FILE = LIB_HOST + "/1/file/move";
     private static final String URL_API_LINK_FILE = LIB_HOST + "/1/file/link";
     private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
+    private static final String URL_API_GET_ROLES = LIB_HOST + "/1/org/get_roles";
+    private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/org/get_members";
+    private static final String URL_API_ADD_MEMBERS = LIB_HOST + "/1/org/add_member";
+    private static final String URL_API_SET_MEMBER_ROLE = LIB_HOST + "/1/org/set_member_role";
+    private static final String URL_API_DEL_MEMBER = LIB_HOST + "/1/org/del_member";
+    private static final String URL_API_GET_GROUPS = LIB_HOST + "/1/org/get_groups";
+    private static final String URL_API_ADD_GROUP = LIB_HOST + "/1/org/add_group";
+    private static final String URL_API_DEL_GROUP = LIB_HOST + "/1/org/del_group";
+    private static final String URL_API_SET_GROUP_ROLE = LIB_HOST + "/1/org/set_group_role";
 
 
-    public YunkuEngine(String username, String password, String clientId, String clientSecrect) {
+    public EntLibManager(String username, String password, String clientId, String clientSecrect) {
         super(username, password, clientId, clientSecrect);
     }
 
-    private YunkuEngine(String username, String password, String clientId, String clientSecrect, String token, String refreshToken) {
+    private EntLibManager(String username, String password, String clientId, String clientSecrect, String token) {
         super(username, password, clientId, clientSecrect);
         mToken = token;
-        mRefreshToken = refreshToken;
 
-    }
-
-    /**
-     * 获取token
-     *
-     * @return
-     */
-    public String accessToken(boolean isEnt) {
-
-        String method = "POST";
-        String url = URL_API_TOKEN;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", mUsername));
-        params.add(new BasicNameValuePair("password", Util.convert2MD532(mPassword)));
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("client_secret", mClientSecret));
-        params.add(new BasicNameValuePair("grant_type", isEnt ? "ent_password" : "password"));
-
-        String result = NetConnection.sendRequest(url, method, params, null);
-        ReturnResult returnResult = ReturnResult.create(result);
-        LogPrint.print("accessToken:==>result:" + result);
-
-        if (returnResult.getStatusCode() == HttpStatus.SC_OK) {
-            LogPrint.print("accessToken:==>StatusCode:200");
-            OauthData data = OauthData.create(returnResult.getResult());
-            mToken = data.getToken();
-        }
-        return result;
     }
 
     /**
@@ -82,7 +60,7 @@ public class YunkuEngine extends ParentEngine {
      * @param orgDesc
      * @return
      */
-    public String createLib(String orgName, int orgCapacity, String storagePointName, String orgDesc) {
+    public String create(String orgName, int orgCapacity, String storagePointName, String orgDesc) {
         String method = "POST";
         String url = URL_API_CREATE_LIB;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -109,7 +87,7 @@ public class YunkuEngine extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    public String bindLib(int orgId, String title, String linkUrl) {
+    public String bind(int orgId, String title, String linkUrl) {
         String method = "POST";
         String url = URL_API_BIND;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -122,7 +100,7 @@ public class YunkuEngine extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    public String unBindLib(String orgClientId) {
+    public String unBind(String orgClientId) {
         String method = "POST";
         String url = URL_API_UNBIND;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -314,8 +292,119 @@ public class YunkuEngine extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    public YunkuEngine clone() {
-        return new YunkuEngine(mUsername, mPassword, mClientId, mClientSecret, mToken, mRefreshToken);
+    public String getRoles() {
+        String method = "GET";
+        String url = URL_API_GET_ROLES;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
     }
+
+    public String getMembers(int start, int size, int orgId) {
+        String method = "GET";
+        String url = URL_API_GET_MEMBERS;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("start", start + ""));
+        params.add(new BasicNameValuePair("size", size + ""));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String addMembers(int orgId, int roleId, int[] memberIds) {
+        String method = "POST";
+        String url = URL_API_ADD_MEMBERS;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("role_id", roleId + ""));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String setMemberRole(int orgId, int roleId, int[] memberIds) {
+        String method = "POST";
+        String url = URL_API_SET_MEMBER_ROLE;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("role_id", roleId + ""));
+        params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String delMember(int orgId, int[] memberIds) {
+        String method = "POST";
+        String url = URL_API_DEL_MEMBER;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String getGroups(int orgId) {
+        String method = "GET";
+        String url = URL_API_GET_GROUPS;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String addGroup(int orgId, int groupId, int roleId) {
+        String method = "POST";
+        String url = URL_API_ADD_GROUP;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("group_id", groupId + ""));
+        params.add(new BasicNameValuePair("role_id", roleId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String delGroup(int orgId, int groupId) {
+        String method = "POST";
+        String url = URL_API_DEL_GROUP;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("group_id", groupId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public String setGroupRole(int orgId, int groupId, int roleId) {
+        String method = "POST";
+        String url = URL_API_SET_GROUP_ROLE;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        params.add(new BasicNameValuePair("group_id", groupId + ""));
+        params.add(new BasicNameValuePair("role_id", roleId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    public EntLibManager clone() {
+        return new EntLibManager(mUsername, mPassword, mClientId, mClientSecret, mToken);
+    }
+
 
 }

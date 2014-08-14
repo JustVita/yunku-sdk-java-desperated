@@ -154,6 +154,18 @@ public class Util {
         return strReturn;
     }
 
+    public static String intArrayToString(int[] intArray, String conv){
+        String strReturn = "";
+        int length = intArray.length;
+        if (length > 0) {
+            for (int i = 0; i < length - 1; i++) {
+                strReturn += intArray[i] + conv;
+            }
+            strReturn += intArray[length - 1];
+        }
+        return strReturn;
+    }
+
 
     /**
      * @param data 待加密的数据
