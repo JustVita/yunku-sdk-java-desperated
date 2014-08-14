@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="807207da-f73c-4c93-b50c-c0227381417c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" afterPath="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -36,8 +34,8 @@
       <file leaf-file-name="SDKTester.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3537736" vertical-offset="857" max-vertical-offset="2603">
-              <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.4033019" vertical-offset="0" max-vertical-offset="2603">
+              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -82,9 +80,9 @@
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/DebugConfig.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntLibManager.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/ParentEngine.java" />
-        <option value="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" />
+        <option value="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" />
       </list>
     </option>
   </component>
@@ -488,7 +486,11 @@
       <created>1408009041616</created>
       <updated>1408009041616</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="添加注释">
+      <created>1408009452994</created>
+      <updated>1408009452994</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -541,7 +543,8 @@
     <MESSAGE value="修改ent org 企业和库方法分离" />
     <MESSAGE value="Demo修改" />
     <MESSAGE value="添加EntFileManager类" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加EntFileManager类" />
+    <MESSAGE value="添加注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加注释" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -920,8 +923,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3537736" vertical-offset="857" max-vertical-offset="2603">
-          <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.4033019" vertical-offset="0" max-vertical-offset="2603">
+          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
           <folding />
         </state>
       </provider>
