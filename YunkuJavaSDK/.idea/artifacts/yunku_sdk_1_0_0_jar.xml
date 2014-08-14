@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="yunku_sdk_1.0.0.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/yunku_sdk_1_0_0_jar</output-path>
+    <root id="root">
+      <element id="archive" name="YunkuJavaSDK.jar">
+        <element id="module-output" name="YunkuJavaSDK" />
+      </element>
+      <element id="library" level="project" name="commons-httpclient-3.1" />
+    </root>
+  </artifact>
+</component>

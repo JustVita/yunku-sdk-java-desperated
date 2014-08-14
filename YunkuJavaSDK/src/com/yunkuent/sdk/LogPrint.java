@@ -1,9 +1,6 @@
 package com.yunkuent.sdk;
 
-import com.yunkuent.sdk.log.YunkuMemoryHandler;
-
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 输出日志   System.out.println

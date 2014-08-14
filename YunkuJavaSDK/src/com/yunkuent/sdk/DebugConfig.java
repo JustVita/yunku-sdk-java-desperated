@@ -5,5 +5,5 @@ package com.yunkuent.sdk;
  */
 public class DebugConfig {
     public static boolean PRINT_LOG = false;
-//    public static String LOG_PATH="";
+    public static String LOG_PATH="D://";
 }

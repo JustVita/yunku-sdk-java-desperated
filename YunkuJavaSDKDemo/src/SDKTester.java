@@ -13,17 +13,19 @@ import java.util.ArrayList;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "gktest1";
-    public static final String PASSWORD = "111111";
-    public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
-    public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
+    public static final String UESRNAME = "";
+    public static final String PASSWORD = "";
+    public static final String CLIENT_ID = "";
+    public static final String CLIENT_SECRET = "";
 
     private static EntLibManager mEntLibManger;
     private static EntManager mEntManger;
 
     public static void main(String[] args) {
         DebugConfig.PRINT_LOG = true;
+//        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
+ //==========================云库企业库操作==========================//
         mEntLibManger = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 //        //获取认证
         mEntLibManger.accessToken(true);
@@ -81,6 +83,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManger.sendmsg("9affb8f78fd5914a7218d7561db6ddec", "0af31f7a64bff5d6ed2abf0bb7da1d6b", (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
 
+//==========================云库企业操作==========================//
         mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
         //获取认证
         mEntManger.accessToken(true);
