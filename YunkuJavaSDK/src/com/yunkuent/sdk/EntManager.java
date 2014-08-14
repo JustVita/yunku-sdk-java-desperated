@@ -30,6 +30,10 @@ public class EntManager extends ParentEngine {
 //        return NetConnection.sendRequest(url, method, params, null);
 //    }
 
+    /**
+     * 获取角色
+     * @return
+     */
     public String getRoles() {
         String method = "GET";
         String url = URL_API_GET_ROLES;
@@ -40,6 +44,12 @@ public class EntManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 获取成员
+     * @param start
+     * @param size
+     * @return
+     */
     public String getMembers(int start, int size) {
         String method = "GET";
         String url = URL_API_GET_MEMBERS;
@@ -53,7 +63,10 @@ public class EntManager extends ParentEngine {
     }
 
 
-
+    /**
+     * 获取分组
+     * @return
+     */
     public String getGroups() {
         String method = "GET";
         String url = URL_API_GET_GROUPS;

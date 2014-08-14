@@ -79,6 +79,13 @@ public class EntFileManager implements HostConifg {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     *
+     * 获取文件信息
+     * @param dateline
+     * @param fullPath
+     * @return
+     */
     public String getFileInfo(int dateline, String fullPath) {
         String method = "GET";
         String url = URL_API_FILE_INFO;
@@ -90,6 +97,13 @@ public class EntFileManager implements HostConifg {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 创建文件夹
+     * @param dateline
+     * @param fullPath
+     * @param opName
+     * @return
+     */
     public String createFolder(int dateline, String fullPath, String opName) {
         String method = "POST";
         String url = URL_API_CREATE_FOLDER;
@@ -175,6 +189,13 @@ public class EntFileManager implements HostConifg {
 
     }
 
+    /**
+     * 删除文件
+     * @param dateline
+     * @param fullPath
+     * @param opName
+     * @return
+     */
     public String del(int dateline, String fullPath, String opName) {
         String method = "POST";
         String url = URL_API_DEL_FILE;
@@ -187,6 +208,14 @@ public class EntFileManager implements HostConifg {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 移动文件
+     * @param dateline
+     * @param fullPath
+     * @param destFullPath
+     * @param opName
+     * @return
+     */
     public String move(int dateline, String fullPath, String destFullPath, String opName) {
         String method = "POST";
         String url = URL_API_MOVE_FILE;
@@ -200,6 +229,12 @@ public class EntFileManager implements HostConifg {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 获取文件链接
+     * @param dateline
+     * @param fullPath
+     * @return
+     */
     public String link(int dateline, String fullPath) {
         String method = "POST";
         String url = URL_API_LINK_FILE;
@@ -212,6 +247,16 @@ public class EntFileManager implements HostConifg {
     }
 
 
+    /**
+     * 发送消息
+     * @param dateline
+     * @param title
+     * @param text
+     * @param image
+     * @param linkUrl
+     * @param opName
+     * @return
+     */
     public String sendmsg(int dateline, String title, String text, String image, String linkUrl, String opName) {
         String method = "POST";
         String url = URL_API_SENDMSG;

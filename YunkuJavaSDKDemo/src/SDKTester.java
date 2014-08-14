@@ -36,7 +36,7 @@ public class SDKTester {
         //获取库列表
 //        deserializeReturn(mEntLibManger.getLibList());
         //获取库授权
-        deserializeReturn(mEntLibManger.bind(32662,"",""));
+//        deserializeReturn(mEntLibManger.bind(32662,"",""));
         //取消库授权
 //        deserializeReturn(mEntLibManger.unBind("9affb8f78fd5914a7218d7561db6ddec"));
 
@@ -61,29 +61,37 @@ public class SDKTester {
         //设置分组上的角色
 //        deserializeReturn(mEntLibManger.setGroupRole(150998,4448,2894));
 
+//=======文件操作========//
+
         String orgClientId = "0b7bd4e22c1a9eb8e3ddba2b6c37f6e2";
         String orgClientSecret = "2cfe3be53d4c4f18a23c7e01f9f8724d";
-        EntFileManager manager=new EntFileManager(orgClientId,orgClientSecret);
+        mFileManager=new EntFileManager(orgClientId,orgClientSecret);
         //获取库中文件
-//        deserializeReturn(manager.getFileList((int)Util.getUnixDateline(), 0, ""));
+//        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
 
         //获取更新列表
-//        deserializeReturn(manager.getUpdateList((int) Util.getUnixDateline(), false, 0));
+//        deserializeReturn(mFileManager.getUpdateList((int) Util.getUnixDateline(), false, 0));
 
         //获取文件(夹)信息
-//        deserializeReturn(manager.getFileInfo((int) Util.getUnixDateline(),"test"));
+//        deserializeReturn(mFileManager.getFileInfo((int) Util.getUnixDateline(),"test"));
+
         //创建文件夹
-//        deserializeReturn(manager.createFolder((int) Util.getUnixDateline(),"test","Brandon"));
+//        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test","Brandon"));
+
         //上传文件 文件不得超过50MB
-//        deserializeReturn(manager.createFile((int) Util.getUnixDateline(),"test/test.txt","Brandon","D:\\test.txt"));
-//        //删除文件
-//        deserializeReturn(manager.del((int) Util.getUnixDateline(),"test","Brandon"));
-//        //移动文件
-//        deserializeReturn(manager.move((int) Util.getUnixDateline(),"test/test.txt","1/test.txt","Brandon"));
-//        //文件连接
-//        deserializeReturn(manager.link( (int) Util.getUnixDateline(), "1/test.txt"));
-//        //发送消息
-//        deserializeReturn(manager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
+//        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"test/test.txt","Brandon","D:\\test.txt"));
+
+        //删除文件
+//        deserializeReturn(mFileManager.del((int) Util.getUnixDateline(),"test","Brandon"));
+
+        //移动文件
+//        deserializeReturn(mFileManager.move((int) Util.getUnixDateline(),"test/test.txt","test.txt","Brandon"));
+
+        //文件连接
+//        deserializeReturn(mFileManager.link( (int) Util.getUnixDateline(), "test.txt"));
+
+        //发送消息
+//        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
 
 //==========================云库企业操作==========================//

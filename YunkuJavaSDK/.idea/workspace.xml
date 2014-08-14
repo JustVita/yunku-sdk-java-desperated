@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="807207da-f73c-4c93-b50c-c0227381417c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/DebugConfig.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/DebugConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntLibManager.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntLibManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/ParentEngine.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/ParentEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" afterPath="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" afterPath="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -38,50 +36,9 @@
       <file leaf-file-name="SDKTester.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6226415" vertical-offset="1370" max-vertical-offset="2451">
-              <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.3537736" vertical-offset="857" max-vertical-offset="2603">
+              <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntFileManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="5225">
-              <caret line="218" column="71" selection-start-line="218" selection-start-column="71" selection-end-line="218" selection-end-column="71" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1764#1779#0" expanded="true" />
-                <element signature="e#2566#2581#0" expanded="true" />
-                <element signature="e#3267#3282#0" expanded="true" />
-                <element signature="e#3871#3886#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ParentEngine.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/ParentEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="2033">
-              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntLibManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/EntLibManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2436" max-vertical-offset="4560">
-              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2958#2973#0" expanded="true" />
-                <element signature="e#3566#3581#0" expanded="true" />
-                <element signature="e#4312#4327#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -119,15 +76,15 @@
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/IYunkuOuath.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/HostConfig.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/LogPrint.java" />
-        <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/data/SyncMemberData.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/log/YunkuMemoryHandler.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/YunkuMemoryHandler.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/DebugConfig.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntLibManager.java" />
         <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/ParentEngine.java" />
-        <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
         <option value="$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java" />
+        <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java" />
+        <option value="$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java" />
       </list>
     </option>
   </component>
@@ -527,7 +484,11 @@
       <created>1407995403719</created>
       <updated>1407995403720</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="添加EntFileManager类">
+      <created>1408009041616</created>
+      <updated>1408009041616</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -579,7 +540,8 @@
     <MESSAGE value="修改clone 方法" />
     <MESSAGE value="修改ent org 企业和库方法分离" />
     <MESSAGE value="Demo修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="Demo修改" />
+    <MESSAGE value="添加EntFileManager类" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加EntFileManager类" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -899,16 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="114" max-vertical-offset="1406">
-          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/DebugConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="304">
@@ -940,22 +892,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/EntFileManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4438" max-vertical-offset="5225">
-          <caret line="218" column="71" selection-start-line="218" selection-start-column="71" selection-end-line="218" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4503" max-vertical-offset="6118">
+          <caret line="250" column="11" selection-start-line="250" selection-start-column="11" selection-end-line="250" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1764#1779#0" expanded="true" />
             <element signature="e#2566#2581#0" expanded="true" />
-            <element signature="e#3267#3282#0" expanded="true" />
-            <element signature="e#3871#3886#0" expanded="true" />
+            <element signature="e#3365#3380#0" expanded="true" />
+            <element signature="e#4080#4095#0" expanded="true" />
+            <element signature="e#9630#9645#0" expanded="true" />
+            <element signature="e#10726#10740#0" expanded="true" />
+            <element signature="e#11471#11472#0" expanded="true" />
+            <element signature="e#11522#11523#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yunkuent/sdk/EntManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1653">
+          <caret line="68" column="7" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../YunkuJavaSDKDemo/src/SDKTester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6226415" vertical-offset="1370" max-vertical-offset="2451">
-          <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.3537736" vertical-offset="857" max-vertical-offset="2603">
+          <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
           <folding />
         </state>
       </provider>
