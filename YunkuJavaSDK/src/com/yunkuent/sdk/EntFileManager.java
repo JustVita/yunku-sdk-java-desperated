@@ -128,7 +128,7 @@ public class EntFileManager implements HostConifg {
      */
     public String createFile(int dateline, String fullPath, String opName, FileInputStream stream, String fileName) {
         try {
-            if (stream.available() > 51200) {
+            if (stream.available() > 52428800) {
                 LogPrint.print("文件大小超过50MB");
                 return "";
             }
