@@ -18,6 +18,7 @@ import java.util.TreeSet;
  */
 public class EntFileManager implements HostConifg {
 
+    private static final int UPLOAD_LIMIT_SIZE = 52428800;
     private static final String URL_API_FILELIST = LIB_HOST + "/1/file/ls";
     private static final String URL_API_UPDATE_LIST = LIB_HOST + "/1/file/updates";
     private static final String URL_API_FILE_INFO = LIB_HOST + "/1/file/info";
@@ -80,8 +81,8 @@ public class EntFileManager implements HostConifg {
     }
 
     /**
-     *
      * 获取文件信息
+     *
      * @param dateline
      * @param fullPath
      * @return
@@ -99,6 +100,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 创建文件夹
+     *
      * @param dateline
      * @param fullPath
      * @param opName
@@ -128,7 +130,7 @@ public class EntFileManager implements HostConifg {
      */
     public String createFile(int dateline, String fullPath, String opName, FileInputStream stream, String fileName) {
         try {
-            if (stream.available() > 52428800) {
+            if (stream.available() > UPLOAD_LIMIT_SIZE) {
                 LogPrint.print("文件大小超过50MB");
                 return "";
             }
@@ -191,6 +193,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 删除文件
+     *
      * @param dateline
      * @param fullPath
      * @param opName
@@ -210,6 +213,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 移动文件
+     *
      * @param dateline
      * @param fullPath
      * @param destFullPath
@@ -231,6 +235,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 获取文件链接
+     *
      * @param dateline
      * @param fullPath
      * @return
@@ -249,6 +254,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 发送消息
+     *
      * @param dateline
      * @param title
      * @param text
