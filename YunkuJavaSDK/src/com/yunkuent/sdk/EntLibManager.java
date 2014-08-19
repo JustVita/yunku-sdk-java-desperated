@@ -128,6 +128,14 @@ public class EntLibManager extends ParentEngine {
 //        return NetConnection.sendRequest(url, method, params, null);
 //    }
 
+    /**
+     *
+     * 获取库成员列表
+     * @param start
+     * @param size
+     * @param orgId
+     * @return
+     */
     public String getMembers(int start, int size, int orgId) {
         String method = "GET";
         String url = URL_API_GET_MEMBERS;
@@ -141,6 +149,13 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 添加库成员
+     * @param orgId
+     * @param roleId
+     * @param memberIds
+     * @return
+     */
     public String addMembers(int orgId, int roleId, int[] memberIds) {
         String method = "POST";
         String url = URL_API_ADD_MEMBERS;
@@ -154,6 +169,13 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 修改库成员角色
+     * @param orgId
+     * @param roleId
+     * @param memberIds
+     * @return
+     */
     public String setMemberRole(int orgId, int roleId, int[] memberIds) {
         String method = "POST";
         String url = URL_API_SET_MEMBER_ROLE;
@@ -167,6 +189,12 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 删除库成员
+     * @param orgId
+     * @param memberIds
+     * @return
+     */
     public String delMember(int orgId, int[] memberIds) {
         String method = "POST";
         String url = URL_API_DEL_MEMBER;
@@ -179,6 +207,11 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 获取库分组列表
+     * @param orgId
+     * @return
+     */
     public String getGroups(int orgId) {
         String method = "GET";
         String url = URL_API_GET_GROUPS;
@@ -190,6 +223,13 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 库上添加分组
+     * @param orgId
+     * @param groupId
+     * @param roleId
+     * @return
+     */
     public String addGroup(int orgId, int groupId, int roleId) {
         String method = "POST";
         String url = URL_API_ADD_GROUP;
@@ -203,6 +243,12 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 删除库上的分组
+     * @param orgId
+     * @param groupId
+     * @return
+     */
     public String delGroup(int orgId, int groupId) {
         String method = "POST";
         String url = URL_API_DEL_GROUP;
@@ -215,6 +261,13 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 修改库上分组的角色
+     * @param orgId
+     * @param groupId
+     * @param roleId
+     * @return
+     */
     public String setGroupRole(int orgId, int groupId, int roleId) {
         String method = "POST";
         String url = URL_API_SET_GROUP_ROLE;
@@ -228,6 +281,10 @@ public class EntLibManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
+    /**
+     * 复制EntLibManager对象
+     * @return
+     */
     public EntLibManager clone() {
         return new EntLibManager(mUsername, mPassword, mClientId, mClientSecret, mToken);
     }
