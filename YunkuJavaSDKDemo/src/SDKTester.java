@@ -1,23 +1,21 @@
-import Model.OauthData;
+import Model.BaseData;
 import com.yunkuent.sdk.DebugConfig;
 import com.yunkuent.sdk.EntFileManager;
 import com.yunkuent.sdk.EntLibManager;
 import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
-import com.yunkuent.sdk.data.SyncMemberData;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
-
-import java.util.ArrayList;
 
 /**
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "";
-    public static final String PASSWORD = "";
-    public static final String CLIENT_ID = "";
-    public static final String CLIENT_SECRET = "";
+    public static final String UESRNAME = "gktest1";
+    public static final String PASSWORD = "111111";
+    public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
+    public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
+
 
     private static EntLibManager mEntLibManger;
     private static EntManager mEntManger;
@@ -38,7 +36,7 @@ public class SDKTester {
         //获取库授权
 //        deserializeReturn(mEntLibManger.bind(32662,"",""));
         //取消库授权
-//        deserializeReturn(mEntLibManger.unBind("9affb8f78fd5914a7218d7561db6ddec"));
+//        deserializeReturn(mEntLibManger.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
 
         //添加库成员
 //        deserializeReturn(mEntLibManger.addMembers(150998,2892,new int[]{4}));
@@ -63,8 +61,8 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "0b7bd4e22c1a9eb8e3ddba2b6c37f6e2";
-        String orgClientSecret = "2cfe3be53d4c4f18a23c7e01f9f8724d";
+        String orgClientId = "6f186d1812210357aba18f3a91e6948e";
+        String orgClientSecret = "99e43a27238a41b9cbccfc795ac89e1d";
         mFileManager=new EntFileManager(orgClientId,orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -93,17 +91,25 @@ public class SDKTester {
         //发送消息
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
+        //获取当前库所有外链(new)
+//        deserializeReturn(mFileManager.getLink((int)Util.getUnixDateline()));
+
 
 //==========================云库企业操作==========================//
-//        mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
-//        //获取认证
-//        mEntManger.accessToken(true);
-//获取角色
+        mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        //获取认证
+        mEntManger.accessToken(true);
+          //获取角色
 //        deserializeReturn(mEntManger.getRoles());
-//获取分组
+           //获取分组
 //        deserializeReturn(mEntManger.getGroups());
-//获取成员
+        //获取成员
 //        deserializeReturn(mEntManger.getMembers(0, 2));
+
+        //根据成员id获取成员个人库外链(new)
+//        deserializeReturn(mEntManger.getMemberFileLink(21122));
+        //根据外部成员id获取成员信息(new)
+//        deserializeReturn(mEntManger.getMemberByOutid(new String[]{"outId"}));
     }
 
     /**
@@ -113,27 +119,24 @@ public class SDKTester {
      */
     private static void deserializeReturn(String result) {
 
+        //解析结果
         ReturnResult returnResult = ReturnResult.create(result);
-        //如果是auth内容，则解析获取认证结果
-        OauthData data = OauthData.create(returnResult.getResult());
-        if (data != null) {
 
-            if (returnResult.getStatusCode() == HttpStatus.SC_OK) {
-                //成功的结果
-//                System.out.println(mEntLibManger.getToken());
-//                System.out.println(mEntManger.getToken());
-                System.out.println(data.getToken()); //两者方法都可以拿到
+        if (returnResult.getStatusCode() == HttpStatus.SC_OK) {
+            //成功的结果
+            System.out.println("return 200");
 
-            } else {
-                //解析result中的内容
-                System.out.println(data.getError());
-
+        } else {
+            //解析result中的内容
+            BaseData data = BaseData.create(returnResult.getResult());
+            if (data != null) {
+                //如果可解析，则返回错误信息和错误号
+                System.out.println(data.getErrorCode() + ":" + data.getErrorMsg());
             }
         }
-
+        System.out.println(returnResult.getResult());
         //复制到剪贴板
         Util.copyToClipboard(returnResult.getResult());
-        System.out.println(returnResult.getResult());
     }
 
 

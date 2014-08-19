@@ -27,6 +27,8 @@ public class EntFileManager implements HostConifg {
     private static final String URL_API_MOVE_FILE = LIB_HOST + "/1/file/move";
     private static final String URL_API_LINK_FILE = LIB_HOST + "/1/file/link";
     private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
+    private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/get_link";
+
 
     private String mOrgClientId;
     private String mOrgSecret;
@@ -270,6 +272,23 @@ public class EntFileManager implements HostConifg {
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
+    }
+
+
+    /**
+     * 获取当前库所有外链
+     * @return
+     * @param dateline
+     */
+    public String getLink(int dateline){
+        String method = "GET";
+        String url = URL_API_GET_LINK;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
+        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+
     }
 
     protected String generateSign(String[] array) {
