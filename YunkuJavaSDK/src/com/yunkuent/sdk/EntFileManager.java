@@ -286,15 +286,17 @@ public class EntFileManager implements HostConifg {
      * @return
      * @param dateline
      */
-    public String links(int dateline){
+    public String links(int dateline, boolean fileOnly){
         String method = "GET";
         String url = URL_API_GET_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", dateline + ""));
+        if (fileOnly) {
+            params.add(new BasicNameValuePair("file", "1"));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
-
     }
 
     protected String generateSign(String[] array) {
