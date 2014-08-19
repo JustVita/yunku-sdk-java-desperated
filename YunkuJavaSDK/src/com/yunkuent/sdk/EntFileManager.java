@@ -27,7 +27,7 @@ public class EntFileManager implements HostConifg {
     private static final String URL_API_MOVE_FILE = LIB_HOST + "/1/file/move";
     private static final String URL_API_LINK_FILE = LIB_HOST + "/1/file/link";
     private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
-    private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/get_link";
+    private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/links";
 
 
     private String mOrgClientId;
@@ -280,7 +280,7 @@ public class EntFileManager implements HostConifg {
      * @return
      * @param dateline
      */
-    public String getLink(int dateline){
+    public String links(int dateline){
         String method = "GET";
         String url = URL_API_GET_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();

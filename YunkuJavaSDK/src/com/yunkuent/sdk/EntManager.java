@@ -106,7 +106,7 @@ public class EntManager extends ParentEngine {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("member_id", Util.strArrayToString(outIds,",")+""));
+        params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds,",")+""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
 

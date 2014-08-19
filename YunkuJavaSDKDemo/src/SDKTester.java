@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "gktest1";
+    public static final String UESRNAME = "gktest";
     public static final String PASSWORD = "111111";
     public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
     public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
@@ -34,7 +34,7 @@ public class SDKTester {
         //获取库列表
 //        deserializeReturn(mEntLibManger.getLibList());
         //获取库授权
-//        deserializeReturn(mEntLibManger.bind(32662,"",""));
+//        deserializeReturn(mEntLibManger.bind(21340,"",""));
         //取消库授权
 //        deserializeReturn(mEntLibManger.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
 
@@ -61,8 +61,8 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "6f186d1812210357aba18f3a91e6948e";
-        String orgClientSecret = "99e43a27238a41b9cbccfc795ac89e1d";
+        String orgClientId = "bab623c8a80283689c6a77fec0ecede1";
+        String orgClientSecret = "fd5ba40932fa31dd18170881b9f00e77";
         mFileManager=new EntFileManager(orgClientId,orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -92,12 +92,12 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
         //获取当前库所有外链(new)
-//        deserializeReturn(mFileManager.getLink((int)Util.getUnixDateline()));
+//        deserializeReturn(mFileManager.links((int) Util.getUnixDateline()));
 
 
 //==========================云库企业操作==========================//
         mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
-        //获取认证
+        //获取认证k
         mEntManger.accessToken(true);
           //获取角色
 //        deserializeReturn(mEntManger.getRoles());
@@ -107,9 +107,9 @@ public class SDKTester {
 //        deserializeReturn(mEntManger.getMembers(0, 2));
 
         //根据成员id获取成员个人库外链(new)
-//        deserializeReturn(mEntManger.getMemberFileLink(21122));
+//        deserializeReturn(mEntManger.getMemberFileLink(52));
         //根据外部成员id获取成员信息(new)
-//        deserializeReturn(mEntManger.getMemberByOutid(new String[]{"outId"}));
+//        deserializeReturn(mEntManger.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
     }
 
     /**
