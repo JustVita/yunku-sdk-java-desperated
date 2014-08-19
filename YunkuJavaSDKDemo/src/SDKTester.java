@@ -11,10 +11,10 @@ import org.apache.http.HttpStatus;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "gktest";
-    public static final String PASSWORD = "111111";
-    public static final String CLIENT_ID = "b2b54fa4261f9cf5e4772e6359f96161";
-    public static final String CLIENT_SECRET = "134dba8e0adc4e59b511c09aa1ebf71e";
+    public static final String UESRNAME = "";
+    public static final String PASSWORD = "";
+    public static final String CLIENT_ID = "";
+    public static final String CLIENT_SECRET = "";
 
 
     private static EntLibManager mEntLibManger;
@@ -92,7 +92,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
         //获取当前库所有外链(new)
-//        deserializeReturn(mFileManager.links((int) Util.getUnixDateline()));
+        deserializeReturn(mFileManager.links((int) Util.getUnixDateline()));
 
 
 //==========================云库企业操作==========================//
