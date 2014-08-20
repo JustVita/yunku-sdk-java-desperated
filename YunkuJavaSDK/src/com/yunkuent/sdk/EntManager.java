@@ -96,13 +96,16 @@ public class EntManager extends ParentEngine {
      * @return
      */
 
-    public String getMemberFileLink(int memberId){
+    public String getMemberFileLink(int memberId, boolean fileOnly){
         String method = "GET";
         String url = URL_API_GET_MEMBER_FILE_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
         params.add(new BasicNameValuePair("member_id", memberId+""));
+        if (fileOnly) {
+            params.add(new BasicNameValuePair("file", "1"));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

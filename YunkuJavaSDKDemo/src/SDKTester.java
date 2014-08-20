@@ -92,7 +92,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
         //获取当前库所有外链(new)
-        deserializeReturn(mFileManager.links((int) Util.getUnixDateline()));
+//        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
 
 
 //==========================云库企业操作==========================//
@@ -107,7 +107,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManger.getMembers(0, 2));
 
         //根据成员id获取成员个人库外链(new)
-//        deserializeReturn(mEntManger.getMemberFileLink(52));
+        deserializeReturn(mEntManger.getMemberFileLink(52, true));
         //根据外部成员id获取成员信息(new)
 //        deserializeReturn(mEntManger.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
     }
