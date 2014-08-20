@@ -15,6 +15,7 @@ import java.util.logging.MemoryHandler;
  */
 class YunkuMemoryHandler {
     public static final int NUM_LINES = 10000;
+    public final static String LOG_TAG="YunkuMemoryHandler";
 
     FileHandler fhandler;
     Logger logger;
@@ -62,7 +63,7 @@ class YunkuMemoryHandler {
             // 为记录器添加一个MemoryHandler
             logger.addHandler(mhandler);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogPrint.print(Level.WARNING,LOG_TAG+":"+e.getMessage());
         }
     }
 }

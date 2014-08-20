@@ -24,6 +24,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * http请求
@@ -103,7 +104,7 @@ final class NetConnection {
 
 
         } catch (Exception e) {
-            LogPrint.print(LOG_TAG + " sendRequest(): Exception is: " + e.toString());
+            LogPrint.print(Level.WARNING,LOG_TAG + " sendRequest(): Exception is: " + e.toString());
         } finally {
             httpclient.getConnectionManager().shutdown();
         }

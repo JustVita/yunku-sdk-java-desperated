@@ -5,7 +5,6 @@
       <element id="archive" name="YunkuJavaSDK.jar">
         <element id="module-output" name="YunkuJavaSDK" />
       </element>
-      <element id="library" level="project" name="commons-httpclient-3.1" />
     </root>
   </artifact>
 </component>

@@ -22,6 +22,11 @@ public class EntManager extends ParentEngine {
         super(username, password, clientId, clientSecrect);
     }
 
+//    /**
+//     * 同步成员和组织架构
+//     * @param members
+//     * @return
+//     */
 //    public String syncMembers(String members) {
 //        String method = "POST";
 //        String url = URL_API_SYNC_MEMBER;

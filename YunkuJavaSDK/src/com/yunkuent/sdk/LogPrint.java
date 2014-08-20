@@ -17,13 +17,16 @@ class LogPrint {
     }
 
     public static void print(String log) {
+        print(Level.INFO, log);
+    }
 
+
+    public static void print(Level level, String log) {
         if (DebugConfig.PRINT_LOG) {
             YunkuMemoryHandler mt = getInstance();
             // 在MemoryHandler中缓存日志记录
-            mt.getLogger().log(Level.INFO, log);
+            mt.getLogger().log(level, log);
             mt.getMhandler().push();
         }
-
     }
 }
