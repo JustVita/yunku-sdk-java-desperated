@@ -338,4 +338,12 @@ public class EntFileManager implements HostConifg {
         }
     }
 
+    /**
+     * 复制一个EntFileManager对象
+     * @return
+     */
+    public EntFileManager clone(){
+        return new EntFileManager(mOrgClientId,mOrgSecret);
+    }
+
 }

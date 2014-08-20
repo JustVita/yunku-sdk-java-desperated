@@ -22,6 +22,11 @@ public class EntManager extends ParentEngine {
         super(username, password, clientId, clientSecrect);
     }
 
+    protected EntManager(String username, String password, String clientId, String clientSecrect,String token){
+        super(username, password, clientId, clientSecrect);
+        mToken=token;
+    }
+
 //    /**
 //     * 同步成员和组织架构
 //     * @param members
@@ -117,5 +122,12 @@ public class EntManager extends ParentEngine {
 
     }
 
+    /**
+     * 复制一个EntManager对象
+     * @return
+     */
+    public EntManager clone(){
+        return new EntManager(mUsername,mPassword,mClientId,mClientSecret,mToken);
+    }
 
 }
