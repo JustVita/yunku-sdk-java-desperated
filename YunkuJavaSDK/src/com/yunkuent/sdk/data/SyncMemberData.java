@@ -8,18 +8,21 @@ import java.util.ArrayList;
  * Created by Brandon on 2014/8/8.
  */
 
-////        SyncMemberData.Person person=new SyncMemberData.Person(0,"认证帐号","显示名称","邮箱","联系电话");
-//        ArrayList<Object> list=new ArrayList<Object>();
+//同步成员和组织架构
+//
+//SyncMemberData.Person person = new SyncMemberData.Person(0, "认证帐号", "显示名称", "邮箱", "联系电话");
+//        ArrayList<Object> list = new ArrayList<Object>();
 //        list.add(person);//添加成员
 //        list.add(person);//添加成员
 //        list.add(person);//添加成员
-//        SyncMemberData.Group group=new SyncMemberData.Group(0,"分组名称",list);
-//        ArrayList<Object> list2=new ArrayList<Object>();
+//        SyncMemberData.Group group = new SyncMemberData.Group(0, "分组名称", list);
+//        ArrayList<Object> list2 = new ArrayList<Object>();
 //        list2.add(group);//添加组
 //        list2.add(person);//添加成员
-//        SyncMemberData.Group group2=new SyncMemberData.Group(0,"分组名称",list2);
+//        SyncMemberData.Group group2 = new SyncMemberData.Group(0, "分组名称", list2);
 //
 //        deserializeReturn(mEntManger.syncMembers(new SyncMemberData(person, group2).toJsonString()));
+
 public class SyncMemberData {
 
     private Person person;

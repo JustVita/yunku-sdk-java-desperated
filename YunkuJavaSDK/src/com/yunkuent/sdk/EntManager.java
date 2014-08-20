@@ -29,16 +29,17 @@ public class EntManager extends ParentEngine {
 
 //    /**
 //     * 同步成员和组织架构
-//     * @param members
+//     * @param membersJsonStr
 //     * @return
 //     */
-//    public String syncMembers(String members) {
+//
+//    public String syncMembers(String membersJsonStr) {
 //        String method = "POST";
 //        String url = URL_API_SYNC_MEMBER;
 //        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 //        params.add(new BasicNameValuePair("token", mToken));
 //        params.add(new BasicNameValuePair("token_type", "ent"));
-//        params.add(new BasicNameValuePair("members", members));
+//        params.add(new BasicNameValuePair("members", membersJsonStr));
 //        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
 //        return NetConnection.sendRequest(url, method, params, null);
 //    }
