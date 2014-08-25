@@ -30,9 +30,14 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_SET_GROUP_ROLE = LIB_HOST + "/1/org/set_group_role";
 
 
-    public EntLibManager(String username, String password, String clientId, String clientSecrect) {
-        super(username, password, clientId, clientSecrect);
+//    @Deprecated
+    public EntLibManager(String username, String password, String clientId, String clientSecret) {
+        super(username, password, clientId, clientSecret);
     }
+
+//    public EntLibManager(){
+//        super(Config.UESRNAME, Config.PASSWORD, Config.CLIENT_ID, Config.CLIENT_SECRET);
+//    }
 
     private EntLibManager(String username, String password, String clientId, String clientSecrect, String token) {
         super(username, password, clientId, clientSecrect);
