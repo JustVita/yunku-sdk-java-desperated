@@ -33,7 +33,6 @@ final class NetConnection {
 
     private static final String LOG_TAG = "NetConnection";
     public static final int TIMEOUT = 30000;
-    public static final String USER_AGENT = "GokuaiJavaSDK";
 
     /**
      * 发送请求
@@ -82,7 +81,7 @@ final class NetConnection {
             HttpMethod httpmethod = new HttpMethod(url);
             httpmethod.setMethod(method);
             httpmethod.addHeader("User-Agent", System.getProperties()
-                    .getProperty("http.agent") + USER_AGENT);
+                    .getProperty("http.agent") + Config.USER_AGENT);
             if (!method.equals("GET") && params != null && !params.isEmpty()) {
                 LogPrint.print(
                         "sendRequest(): params is: " + params.toString());
