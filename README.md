@@ -400,6 +400,84 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	}
 
 ---
+### 添加或修改同步成员
+	addSyncMember(String oudId,String memberName,
+	String account,String memberEmail,String memberPhone)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| oudId | 是 | string | 成员在外部系统的唯一id |
+| memberName | 是 | string | 显示名称 |
+| account | 是 | string | 成员在外部系统的登录帐号 |
+| memberEmail | 否 | string | 邮箱 |
+| memberPhone | 否 | string | 联系电话 |
+
+#### 返回结果
+
+    HTTP 200
+
+---
+
+### 删除同步成员
+	delSyncMember(String[] members)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| members | 是 | array | 成员在外部系统的唯一id数组|
+
+#### 返回结果
+
+    HTTP 200
+
+---
+
+### 添加或修改同步分组
+	addSyncGroup(String outId,String name,String parentOutId)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| outId | 是 | string | 分组在外部系统的唯一id |
+| name | 是 | string | 显示名称 |
+| parentOutId | 否 | string | 如果分组在另一个分组的下级, 需要指定上级分组唯一id, 不传表示在顶层, 修改分组时该字段无效 |
+
+#### 返回结果
+
+    HTTP 200
+
+---
+### 删除同步分组
+	delSyncGroup(String[]groups)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| groups | 是 | string | 分组在外部系统的唯一id数组|
+
+#### 返回结果
+
+    HTTP 200
+---
+### 添加同步分组的成员
+	addSyncGroupMember(String groupOutId,String[] members)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| groupOutId | 否 | string | 外部分组的唯一id, 不传表示顶层 |
+| members | 是 | array | 成员在外部系统的唯一id数组 |
+#### 返回结果
+
+    HTTP 200
+---
+### 删除同步分组的成员
+	delSyncGroupMember(String groupOutId, String[] members)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| groupOutId | 否 | string | 外部分组的唯一id, 不传表示顶层 |
+| members | 是 | string | 成员在外部系统的唯一id数组 |
+#### 返回结果
+
+    HTTP 200
+---
 
 
 ## 企业文件管理（**EntFileManager.java** ）
