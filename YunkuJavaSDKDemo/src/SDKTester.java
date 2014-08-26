@@ -1,14 +1,8 @@
 import Model.BaseData;
-import com.yunkuent.sdk.DebugConfig;
-import com.yunkuent.sdk.EntFileManager;
-import com.yunkuent.sdk.EntLibManager;
-import com.yunkuent.sdk.EntManager;
+import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
-import com.yunkuent.sdk.data.SyncMemberData;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
-
-import java.util.ArrayList;
 
 /**
  * Created by Brandon on 2014/8/6.
@@ -20,8 +14,8 @@ public class SDKTester {
     public static final String CLIENT_SECRET = "";
 
 
-    private static EntLibManager mEntLibManger;
-    private static EntManager mEntManger;
+    private static EntLibManager mEntLibManager;
+    private static EntManager mEntManager;
     private static EntFileManager mFileManager;
 
     public static void main(String[] args) {
@@ -29,45 +23,45 @@ public class SDKTester {
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
         //==========================云库企业库操作==========================//
-        mEntLibManger = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        mEntLibManager = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 //        //获取认证
-        mEntLibManger.accessToken(true);
+//        mEntLibManager.accessToken(true);
 
         //创建云库
-//        deserializeReturn(mEntLibManger.create("city2", 10, "city2", "test lib"));
+//        deserializeReturn(mEntLibManager.create("city2", 10, "city2", "test lib"));
 
         //获取库列表
-//        deserializeReturn(mEntLibManger.getLibList());
+//        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManger.bind(21340,"",""));
+//        deserializeReturn(mEntLibManager.bind(21340,"",""));
 
         //取消库授权
-//        deserializeReturn(mEntLibManger.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
+//        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
 
         //添加库成员
-//        deserializeReturn(mEntLibManger.addMembers(150998,2892,new int[]{4}));
+//        deserializeReturn(mEntLibManager.addMembers(150998,2892,new int[]{4}));
 
         //获取某一个库的成员
-//        deserializeReturn(mEntLibManger.getMembers(0, 2, 32662));
+//        deserializeReturn(mEntLibManager.getMembers(0, 2, 32662));
 
         //批量修改单库中成员角色
-//        deserializeReturn(mEntLibManger.setMemberRole(150998,2894,new int[]{4}));
+//        deserializeReturn(mEntLibManager.setMemberRole(150998,2894,new int[]{4}));
 
         //从库中删除成员
-//        deserializeReturn(mEntLibManger.delMember(150998,new int[]{4}));
+//        deserializeReturn(mEntLibManager.delMember(150998,new int[]{4}));
 
         //获取某一个企业分组列表
-//        deserializeReturn(mEntLibManger.getGroups(32657));
+//        deserializeReturn(mEntLibManager.getGroups(32657));
 
         //库上添加分组
-//        deserializeReturn(mEntLibManger.addGroup(150998,4448,2892));
+//        deserializeReturn(mEntLibManager.addGroup(150998,4448,2892));
 
         //库上删除分组
-//        deserializeReturn(mEntLibManger.delGroup(150998,4448));
+//        deserializeReturn(mEntLibManager.delGroup(150998,4448));
 
         //设置分组上的角色
-//        deserializeReturn(mEntLibManger.setGroupRole(150998,4448,2894));
+//        deserializeReturn(mEntLibManager.setGroupRole(150998,4448,2894));
 
 //=======文件操作========//
 
@@ -106,26 +100,48 @@ public class SDKTester {
 
 
 //==========================云库企业操作==========================//
-        mEntManger = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        mEntManager = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 
         //获取认证
-        mEntManger.accessToken(true);
+        mEntManager.accessToken(true);
 
         //获取角色
-//        deserializeReturn(mEntManger.getRoles());
+//        deserializeReturn(mEntManager.getRoles());
 
         //获取分组
-//        deserializeReturn(mEntManger.getGroups());
+//        deserializeReturn(mEntManager.getGroups());
 
         //获取成员
-//        deserializeReturn(mEntManger.getMembers(0, 2));
+//        deserializeReturn(mEntManager.getMembers(0, 2));
 
         //根据成员id获取成员个人库外链(new)
-//        deserializeReturn(mEntManger.getMemberFileLink(52, true));
+//        deserializeReturn(mEntManager.getMemberFileLink(52, true));
 
         //根据外部成员id获取成员信息(new)
-//        deserializeReturn(mEntManger.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
+//        deserializeReturn(mEntManager.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
 
+        //添加或修改同步成员
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", ""));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", ""));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest3", "Member3", "Member3", "", ""));
+
+        //添加或修改同步分组
+//        deserializeReturn(mEntManager.delSyncMember(new String[]{"MemberTest", "MemberTest1", "MemberTest2"}));
+
+//        deserializeReturn(mEntManager.addSyncGroup("ParentGroup", "ParentGroup", ""));
+//        deserializeReturn(mEntManager.addSyncGroup("GroupTest", "Group", "ParentGroup"));
+
+
+        //删除同步分组
+//        deserializeReturn(mEntManager.delSyncGroup(new String[] { "ParentGroup", "GroupTest" }));
+
+        //添加同步分组的成员
+
+//        deserializeReturn(mEntManager.addSyncGroupMember("GroupTest",new String[]{"MemberTest1"}));
+//        deserializeReturn(mEntManager.addSyncGroupMember("ParentGroup", new String[] { "MemberTest2","MemberTest3" }));
+
+        //删除同步分组的成员
+        deserializeReturn(mEntManager.delSyncGroupMember("ParentGroup", new String[] { "MemberTest2", "MemberTest3" }));
     }
 
     /**
