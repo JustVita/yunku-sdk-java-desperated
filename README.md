@@ -8,7 +8,7 @@ Robots: noindex,nofollow
 
 #够快云库Java SDK使用说明
 
-版本：1.0.1
+版本：1.0.3
 
 创建：2014-08-25
 
@@ -21,19 +21,25 @@ Robots: noindex,nofollow
 ## 企业库管理（**EntLibManager.java** ）
 
 ###构造方法
-	new EntLibManager（Username，Password,ClientId,ClientSecret）
+
+```java
+new EntLibManager（String username，String password,String clientId, String clientSecret）
+```
+
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| Username | 是 | string | 用户名 |
-| Password | 是 | string | 密码|
-| ClientId | 是 | string | 申请应用时分配的AppKey |
-| ClientSecret | 是 | string | 申请应用时分配的AppSecret |
+| username | 是 | string | 用户名 |
+| password | 是 | string | 密码|
+| clientId | 是 | string | 申请应用时分配的AppKey |
+| clientSecret | 是 | string | 申请应用时分配的AppSecret |
 
 ---
 
 ### 授权
+```java
 	accessToken(boolean isEnt)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -56,8 +62,10 @@ Robots: noindex,nofollow
 
 ---
 ### 创建库
+```java
 	create(String orgName, int orgCapacity, 
 	String storagePointName, String orgDesc) 
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -80,7 +88,9 @@ Robots: noindex,nofollow
 
 ---
 ### 获取库列表
+```java
 	getLibList()
+```
 #### 参数 
 (无)
 #### 返回结果
@@ -103,7 +113,9 @@ Robots: noindex,nofollow
 ---
 
 ### 获取库授权
+```java
 	bind(int orgId, String title, String linkUrl)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -129,7 +141,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 
 ### 取消库授权
+```java
 	unBind(String orgClientId) 
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -142,7 +156,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 获取库成员列表
+```java
 	getMembers(int start, int size, int orgId)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -169,7 +185,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 添加库成员
+```java
 	addMembers(int orgId, int roleId, int[] memberIds) 
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -183,7 +201,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 修改库成员角色
+```java
 	setMemberRole(int orgId, int roleId, int[] memberIds) 
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -197,7 +217,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 删除库成员
+```java
 	delMember(int orgId, int[] memberIds)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -209,7 +231,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 获取库分组列表
+```java
 	getGroups(int orgId)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -226,7 +250,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 库上添加分组
+```java
 	addGroup(int orgId, int groupId, int roleId)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -239,7 +265,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 删除库上的分组
+```java
 	delGroup(int orgId, int groupId)
+```
 #### 参数 
  参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -251,7 +279,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 修改库上分组的角色
+```java
 	setGroupRole(int orgId, int groupId, int roleId)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -268,7 +298,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ## 企业管理（**EntManager.java** ）
 ###构造方法
+```java
 	new EntManager（Username，Password,ClientId,ClientSecret）
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -280,7 +312,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 授权
+```java
 	accessToken(boolean isEnt)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -303,7 +337,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###获取角色
+```java
 	getRoles() 
+```
 #### 参数
 （无） 
 #### 返回结果
@@ -318,7 +354,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ###获取成员
+```java
 	getMembers(int start, int size)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -343,7 +381,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###获取分组
+```java
 	getGroups() 
+```
 #### 参数 
 （无）
 #### 返回结果
@@ -362,7 +402,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ###根据成员id获取成员个人库外链
+```java
 	getMemberFileLink(int memberId, boolean fileOnly)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -382,7 +424,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###根据外部成员id获取成员信息
+```java
 	getMemberByOutid(String outIds[])
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -401,8 +445,10 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 添加或修改同步成员
+```java
 	addSyncMember(String oudId,String memberName,
 	String account,String memberEmail,String memberPhone)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -419,7 +465,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 删除同步成员
+```java
 	delSyncMember(String[] members)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -432,7 +480,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 添加或修改同步分组
+```java
 	addSyncGroup(String outId,String name,String parentOutId)
+```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -446,7 +496,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 删除同步分组
+```java
 	delSyncGroup(String[]groups)
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -457,7 +509,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
     HTTP 200
 ---
 ### 添加同步分组的成员
+```java
 	addSyncGroupMember(String groupOutId,String[] members)
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -468,12 +522,14 @@ org_client_secret用于调用库文件相关API签名时的密钥
     HTTP 200
 ---
 ### 删除同步分组的成员
+```java
 	delSyncGroupMember(String groupOutId, String[] members)
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | groupOutId | 否 | string | 外部分组的唯一id, 不传表示顶层 |
-| members | 是 | string | 成员在外部系统的唯一id数组 |
+| members | 是 | array | 成员在外部系统的唯一id数组 |
 #### 返回结果
 
     HTTP 200
@@ -482,7 +538,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ## 企业文件管理（**EntFileManager.java** ）
 ###构造方法
+```java
 	new EntFileManager(String orgClientId,String orgClientSecret);
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -491,7 +549,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###获取文件列表
+```java
 	getFileList(int dateline, int start, String fullPath) 
+	```
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -540,7 +600,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###获取更新列表
+```java
 	getUpdateList(int dateline, boolean isCompare, long fetchDateline)
+	```
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -570,7 +632,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ###获取文件信息
+```java
 	getFileInfo(int dateline, String fullPath) 
+	```
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -608,8 +672,10 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###创建文件夹
+```java
 	createFolder(int dateline, String fullPath, 
 	String opName)
+	```
 #### 参数 
 
 | 参数 | 必须 | 类型 | 说明 |
@@ -626,8 +692,10 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###通过文件流上传（50M以内文件）
+```java
 	createFile(int dateline, String fullPath, 
 	String opName, FileInputStream stream, String fileName) 
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
@@ -647,7 +715,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###通过本地路径上传（50M以内文件）
+```java
 	createFile(int dateline, String fullPath, String opName, String localPath)
+	```
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
@@ -666,7 +736,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###删除文件
+```java
 	del(int dateline, String fullPath, String opName)
+	```
 #### 参数 
 | 参数 | 必需 | 类型 | 说明 |
 |------|------|------|------|
@@ -677,7 +749,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	正常返回 HTTP 200
 ---
 ###移动文件
+```java
 	move(int dateline, String fullPath, String destFullPath, String opName)
+	```
 #### 参数 
 
 | 参数 | 必需 | 类型 | 说明 |
@@ -691,7 +765,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	正常返回 HTTP 200
 ---
 ###获取文件链接
+```java
 	link(int dateline, String fullPath) 
+	```
 #### 参数 
 | 参数 | 必需 | 类型 | 说明 |
 |------|------|------|------|
@@ -700,8 +776,10 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 #### 返回结果
 ###发送消息
+```java
 	sendmsg(int dateline, String title, 
 	String text, String image, String linkUrl, String opName) 
+	```
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -716,7 +794,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ###获取当前库所有外链
+```java
 	links(int dateline, boolean fileOnly)
+	```
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
