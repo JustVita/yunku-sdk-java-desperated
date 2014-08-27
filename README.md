@@ -268,7 +268,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ## 企业管理（**EntManager.java** ）
 ###构造方法
-	new EntManager（Username，Password,ClientId,ClientSecret）
+	new EntManager（String Username，String Password, String ClientId,String ClientSecret）
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -401,8 +401,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 ### 添加或修改同步成员
-	addSyncMember(String oudId,String memberName,
-	String account,String memberEmail,String memberPhone)
+	addSyncMember(String oudId,String memberName,String account,String memberEmail,String memberPhone)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
