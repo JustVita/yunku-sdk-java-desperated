@@ -8,10 +8,6 @@ import org.apache.http.HttpStatus;
  * Created by Brandon on 2014/8/6.
  */
 public class SDKTester {
-    public static final String UESRNAME = "";
-    public static final String PASSWORD = "";
-    public static final String CLIENT_ID = "";
-    public static final String CLIENT_SECRET = "";
 
     private static EntLibManager mEntLibManager;
     private static EntManager mEntManager;
@@ -22,7 +18,7 @@ public class SDKTester {
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
         //==========================云库企业库操作==========================//
-        mEntLibManager = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        mEntLibManager = new EntLibManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 //        //获取认证
         mEntLibManager.accessToken(true);
 
@@ -102,7 +98,7 @@ public class SDKTester {
 
 
 //==========================云库企业操作==========================//
-        mEntManager = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
+        mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
 //        mEntManager.accessToken(true);
