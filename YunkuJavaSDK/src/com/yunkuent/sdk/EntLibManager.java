@@ -28,6 +28,7 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_ADD_GROUP = LIB_HOST + "/1/org/add_group";
     private static final String URL_API_DEL_GROUP = LIB_HOST + "/1/org/del_group";
     private static final String URL_API_SET_GROUP_ROLE = LIB_HOST + "/1/org/set_group_role";
+    private static final String URL_API_DESTROY= LIB_HOST + "/1/org/destroy";
 
 
 //    @Deprecated
@@ -285,6 +286,23 @@ public class EntLibManager extends ParentEngine {
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
+
+    /**
+     * 删除库
+     * @param orgClientId
+     * @return
+     */
+    public String destroy(String orgClientId){
+        String method = "POST";
+        String url = URL_API_DESTROY;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_client_id", orgClientId+""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
 
     /**
      * 复制EntLibManager对象

@@ -13,7 +13,6 @@ public class SDKTester {
     public static final String CLIENT_ID = "";
     public static final String CLIENT_SECRET = "";
 
-
     private static EntLibManager mEntLibManager;
     private static EntManager mEntManager;
     private static EntFileManager mFileManager;
@@ -25,16 +24,16 @@ public class SDKTester {
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 //        //获取认证
-//        mEntLibManager.accessToken(true);
+        mEntLibManager.accessToken(true);
 
         //创建云库
-//        deserializeReturn(mEntLibManager.create("city2", 10, "city2", "test lib"));
+//        deserializeReturn(mEntLibManager.create("destroy", 10, "destroy", "test lib"));
 
         //获取库列表
 //        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(21340,"",""));
+//        deserializeReturn(mEntLibManager.bind(48714,"",""));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -62,6 +61,9 @@ public class SDKTester {
 
         //设置分组上的角色
 //        deserializeReturn(mEntLibManager.setGroupRole(150998,4448,2894));
+
+        //删除库
+//        deserializeReturn(mEntLibManager.destroy("7b381ec385a96bc9f4e7f3fca01e2351"));
 
 //=======文件操作========//
 
@@ -96,14 +98,14 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
 
         //获取当前库所有外链(new)
-        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
+//        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
 
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(UESRNAME, PASSWORD, CLIENT_ID, CLIENT_SECRET);
 
         //获取认证
-        mEntManager.accessToken(true);
+//        mEntManager.accessToken(true);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -141,7 +143,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.addSyncGroupMember("ParentGroup", new String[] { "MemberTest2","MemberTest3" }));
 
         //删除同步分组的成员
-        deserializeReturn(mEntManager.delSyncGroupMember("ParentGroup", new String[] { "MemberTest2", "MemberTest3" }));
+//        deserializeReturn(mEntManager.delSyncGroupMember("ParentGroup", new String[] { "MemberTest2", "MemberTest3" }));
     }
 
     /**
