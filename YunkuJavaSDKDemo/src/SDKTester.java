@@ -20,7 +20,7 @@ public class SDKTester {
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 //        //获取认证
-        mEntLibManager.accessToken(true);
+//        mEntLibManager.accessToken(true);
 
         //创建云库
 //        deserializeReturn(mEntLibManager.create("destroy", 10, "destroy", "test lib"));
@@ -29,7 +29,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(48714,"",""));
+//        deserializeReturn(mEntLibManager.bind(48715,"",""));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -59,7 +59,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.setGroupRole(150998,4448,2894));
 
         //删除库
-//        deserializeReturn(mEntLibManager.destroy("7b381ec385a96bc9f4e7f3fca01e2351"));
+//        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
 
 //=======文件操作========//
 
@@ -101,7 +101,7 @@ public class SDKTester {
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-//        mEntManager.accessToken(true);
+        mEntManager.accessToken(true);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -111,6 +111,9 @@ public class SDKTester {
 
         //获取成员
 //        deserializeReturn(mEntManager.getMembers(0, 2));
+
+        //分组成员列表
+        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));
 
         //根据成员id获取成员个人库外链(new)
 //        deserializeReturn(mEntManager.getMemberFileLink(52, true));

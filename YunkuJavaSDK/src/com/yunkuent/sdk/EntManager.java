@@ -11,12 +11,12 @@ import java.util.ArrayList;
  */
 public class EntManager extends ParentEngine {
 
-    private static final String URL_API_GET_GROUPS= LIB_HOST + "/1/ent/get_groups";
+    private static final String URL_API_GET_GROUPS = LIB_HOST + "/1/ent/get_groups";
     private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/ent/get_members";
-    private static final String URL_API_GET_ROLES= LIB_HOST + "/1/ent/get_roles";
+    private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
     private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
-    private static final String URL_API_GET_MEMBER_FILE_LINK= LIB_HOST + "/1/ent/get_member_file_link";
-    private static final String URL_API_GET_MEMBER_BY_OUT_ID= LIB_HOST + "/1/ent/get_member_by_out_id";
+    private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
+    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
 
     private static final String URL_API_ADD_SYNC_MEMBER = LIB_HOST + "/1/ent/add_sync_member";
     private static final String URL_API_DEL_SYNC_MEMBER = LIB_HOST + "/1/ent/del_sync_member";
@@ -24,8 +24,9 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_DEL_SYNC_GROUP = LIB_HOST + "/1/ent/del_sync_group";
     private static final String URL_API_ADD_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/add_sync_group_member";
     private static final String URL_API_DEL_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/del_sync_group_member";
+    private static final String URL_API_GET_GROUP_MEMBERS = LIB_HOST + "/1/ent/get_group_members";
 
-//    @Deprecated
+    //    @Deprecated
     public EntManager(String username, String password, String clientId, String clientSecret) {
         super(username, password, clientId, clientSecret);
     }
@@ -34,9 +35,9 @@ public class EntManager extends ParentEngine {
 //        super(Config.UESRNAME, Config.PASSWORD, Config.CLIENT_ID, Config.CLIENT_SECRET);
 //    }
 
-    protected EntManager(String username, String password, String clientId, String clientSecrect,String token){
+    protected EntManager(String username, String password, String clientId, String clientSecrect, String token) {
         super(username, password, clientId, clientSecrect);
-        mToken=token;
+        mToken = token;
     }
 
 //    /**
@@ -58,6 +59,7 @@ public class EntManager extends ParentEngine {
 
     /**
      * 获取角色
+     *
      * @return
      */
     public String getRoles() {
@@ -72,6 +74,7 @@ public class EntManager extends ParentEngine {
 
     /**
      * 获取成员
+     *
      * @param start
      * @param size
      * @return
@@ -91,6 +94,7 @@ public class EntManager extends ParentEngine {
 
     /**
      * 获取分组
+     *
      * @return
      */
     public String getGroups() {
@@ -105,17 +109,18 @@ public class EntManager extends ParentEngine {
 
     /**
      * 根据成员id获取成员个人库外链
+     *
      * @param memberId
      * @return
      */
 
-    public String getMemberFileLink(int memberId, boolean fileOnly){
+    public String getMemberFileLink(int memberId, boolean fileOnly) {
         String method = "GET";
         String url = URL_API_GET_MEMBER_FILE_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("member_id", memberId+""));
+        params.add(new BasicNameValuePair("member_id", memberId + ""));
         if (fileOnly) {
             params.add(new BasicNameValuePair("file", "1"));
         }
@@ -126,13 +131,13 @@ public class EntManager extends ParentEngine {
     /**
      * 根据外部成员id获取成员信息
      */
-    public String getMemberByOutid(String outIds[]){
+    public String getMemberByOutid(String outIds[]) {
         String method = "GET";
         String url = URL_API_GET_MEMBER_BY_OUT_ID;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds,",")+""));
+        params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
 
@@ -140,6 +145,7 @@ public class EntManager extends ParentEngine {
 
     /**
      * 添加或修改同步成员
+     *
      * @param oudId
      * @param memberName
      * @param account
@@ -147,7 +153,7 @@ public class EntManager extends ParentEngine {
      * @param memberPhone
      * @return
      */
-    public String addSyncMember(String oudId,String memberName,String account,String memberEmail,String memberPhone){
+    public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone) {
         String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -164,34 +170,36 @@ public class EntManager extends ParentEngine {
 
     /**
      * 删除同步成员
+     *
      * @param members
      * @return
      */
-    public String delSyncMember(String[] members){
+    public String delSyncMember(String[] members) {
         String method = "POST";
         String url = URL_API_DEL_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type",  "ent"));
-        params.add(new BasicNameValuePair("members",  Util.strArrayToString(members, ",")));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
 
     /**
      * 添加或修改同步分组
+     *
      * @param outId
      * @param name
      * @param parentOutId
      * @return
      */
-    public String addSyncGroup(String outId,String name,String parentOutId){
+    public String addSyncGroup(String outId, String name, String parentOutId) {
 
         String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type",  "ent"));
+        params.add(new BasicNameValuePair("token_type", "ent"));
         params.add(new BasicNameValuePair("out_id", outId));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("parent_out_id", parentOutId));
@@ -201,52 +209,77 @@ public class EntManager extends ParentEngine {
 
     /**
      * 删除同步分组
+     *
      * @param groups
      * @return
      */
-    public String delSyncGroup(String[]groups){
+    public String delSyncGroup(String[] groups) {
         String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type",  "ent"));
-        params.add(new BasicNameValuePair("groups",  Util.strArrayToString(groups, ",")));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("groups", Util.strArrayToString(groups, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
 
     /**
      * 添加同步分组的成员
+     *
      * @param groupOutId
      * @param members
      * @return
      */
-    public String addSyncGroupMember(String groupOutId,String[] members){
+    public String addSyncGroupMember(String groupOutId, String[] members) {
         String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type",  "ent"));
-        params.add(new BasicNameValuePair("group_out_id",  groupOutId));
-        params.add(new BasicNameValuePair("members",  Util.strArrayToString(members, ",")));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("group_out_id", groupOutId));
+        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
 
     /**
-     *删除同步分组的成员
+     * 删除同步分组的成员
+     *
      * @param groupOutId
      * @param members
      * @return
      */
-    public String delSyncGroupMember(String groupOutId, String[] members){
+    public String delSyncGroupMember(String groupOutId, String[] members) {
         String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type",  "ent"));
-        params.add(new BasicNameValuePair("group_out_id",  groupOutId));
-        params.add(new BasicNameValuePair("members",  Util.strArrayToString(members, ",")));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("group_out_id", groupOutId));
+        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 分组成员列表
+     * @param groupId
+     * @param start
+     * @param size
+     * @param showChild
+     * @return
+     */
+    public String getGroupMembers(int groupId, int start, int size, boolean showChild) {
+        String method = "GET";
+        String url = URL_API_GET_GROUP_MEMBERS;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("group_id", groupId + ""));
+        params.add(new BasicNameValuePair("start", start + ""));
+        params.add(new BasicNameValuePair("size", size + ""));
+        params.add(new BasicNameValuePair("show_child", (showChild ? 1 : 0) + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -254,10 +287,11 @@ public class EntManager extends ParentEngine {
 
     /**
      * 复制一个EntManager对象
+     *
      * @return
      */
-    public EntManager clone(){
-        return new EntManager(mUsername,mPassword,mClientId,mClientSecret,mToken);
+    public EntManager clone() {
+        return new EntManager(mUsername, mPassword, mClientId, mClientSecret, mToken);
     }
 
 }

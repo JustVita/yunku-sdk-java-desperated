@@ -250,6 +250,23 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	正常返回 HTTP 200
 
 ---
+### 分组成员列表
+	getGroupMembers(int groupId, int start, int size, boolean showChild) 
+#### 参数 
+ 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| groupId | 是 | int | 分组id |
+| start | 是 | int | 记录开始位置 |
+| size | 是 | int | 返回条数 |
+| showChild | 是 | boolean | [0,1] 是否显示子分组内的成员 |
+#### 返回结果
+	
+	正常返回 HTTP 200
+
+---
+
 ### 修改库上分组的角色
 	setGroupRole(int orgId, int groupId, int roleId)
 #### 参数 
