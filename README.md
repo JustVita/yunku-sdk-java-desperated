@@ -263,7 +263,22 @@ org_client_secret用于调用库文件相关API签名时的密钥
 | showChild | 是 | boolean | [0,1] 是否显示子分组内的成员 |
 #### 返回结果
 	
-	正常返回 HTTP 200
+	
+	{
+		list:
+		[
+			{
+				"member_id": 成员id,
+				"out_id": 成员外部id,
+				"account": 外部账号,
+				"member_name": 成员显示名,
+				"member_email": 成员邮箱,
+				"state": 成员状态。1：已接受，2：未接受,
+			},
+			...
+		],
+		count: 成员总数
+	}
 
 ---
 
