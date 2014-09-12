@@ -113,13 +113,16 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMembers(0, 2));
 
         //分组成员列表
-        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));
+//        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));
 
-        //根据成员id获取成员个人库外链(new)
+        //根据成员id获取成员个人库外链
 //        deserializeReturn(mEntManager.getMemberFileLink(52, true));
 
-        //根据外部成员id获取成员信息(new)
+        //根据外部成员id获取成员信息
 //        deserializeReturn(mEntManager.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
+
+        //根据外部成员登录帐号获取成员信息（new）
+        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
 
         //添加或修改同步成员
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", ""));
@@ -143,6 +146,7 @@ public class SDKTester {
 
         //删除同步分组的成员
 //        deserializeReturn(mEntManager.delSyncGroupMember("ParentGroup", new String[] { "MemberTest2", "MemberTest3" }));
+
     }
 
     /**

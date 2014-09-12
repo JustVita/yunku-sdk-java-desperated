@@ -130,17 +130,42 @@ public class EntManager extends ParentEngine {
 
     /**
      * 根据外部成员id获取成员信息
+     *
+     * @return
      */
     public String getMemberByOutid(String outIds[]) {
+        if (outIds == null) {
+            throw new NullPointerException("outIds is null");
+        }
+        return getMemberByIds(null, outIds);
+
+    }
+
+    /**
+     * 根据外部成员登录帐号获取成员信息
+     *
+     * @return
+     */
+    public String getMemberByUserId(String[] userIds) {
+        if (userIds == null) {
+            throw new NullPointerException("userIds is null");
+        }
+        return getMemberByIds(userIds, null);
+    }
+
+    private String getMemberByIds(String[] userIds, String[] outIds) {
         String method = "GET";
         String url = URL_API_GET_MEMBER_BY_OUT_ID;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
+        if (outIds != null) {
+            params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
+        } else {
+            params.add(new BasicNameValuePair("user_ids", Util.strArrayToString(userIds, ",") + ""));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
-
     }
 
     /**
@@ -264,6 +289,7 @@ public class EntManager extends ParentEngine {
 
     /**
      * 分组成员列表
+     *
      * @param groupId
      * @param start
      * @param size
