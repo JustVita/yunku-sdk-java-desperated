@@ -41,7 +41,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getMembers(0, 10, 32647));
 //
         //查询库成员信息
-        deserializeReturn(mEntLibManager. getMember(4405,MemberType.ACCOUNT,new String[]{"qwdqwdq1"}));
+//        deserializeReturn(mEntLibManager. getMember(4405,MemberType.ACCOUNT,new String[]{"qwdqwdq1"}));
 
         //批量修改单库中成员角色
 //        deserializeReturn(mEntLibManager.setMemberRole(150998,2894,new int[]{4}));
@@ -65,7 +65,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
 
         //修改库信息 1T="1099511627776" 1G＝“1073741824”；
-//        deserializeReturn(mEntLibManager.set(109654, "ssss", "1073741824", "", ""));
+        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
 
 //=======文件操作========//
 

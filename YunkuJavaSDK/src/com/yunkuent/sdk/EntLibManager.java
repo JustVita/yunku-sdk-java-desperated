@@ -319,31 +319,31 @@ public class EntLibManager extends ParentEngine {
      * 修改库信息
      *
      * @param orgId
-     * @param name
-     * @param capacity
-     * @param description
-     * @param logo
+     * @param orgName
+     * @param orgCapacity
+     * @param orgDes
+     * @param orgLogo
      * @return
      */
-    public String set(int orgId, String name, String capacity, String description, String logo) {
+    public String set(int orgId, String orgName, String orgCapacity, String orgDes, String orgLogo) {
         String method = "POST";
         String url = URL_API_SET;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
-        if (name != null && !name.isEmpty()) {
-            params.add(new BasicNameValuePair("name", name));
+        if (orgName != null && !orgName.isEmpty()) {
+            params.add(new BasicNameValuePair("org_name", orgName));
         }
-        if (capacity != null && !capacity.isEmpty()) {
-            params.add(new BasicNameValuePair("capacity", capacity + ""));
+        if (orgCapacity != null && !orgCapacity.isEmpty()) {
+            params.add(new BasicNameValuePair("org_capacity", orgCapacity + ""));
         }
-        if (description != null && !description.isEmpty()) {
-            params.add(new BasicNameValuePair("description", description));
+        if (orgDes != null && !orgDes.isEmpty()) {
+            params.add(new BasicNameValuePair("org_desc", orgDes));
         }
 
-        if (description != null && !description.isEmpty()) {
-            params.add(new BasicNameValuePair("logo", logo));
+        if (orgDes != null && !orgDes.isEmpty()) {
+            params.add(new BasicNameValuePair("org_logo", orgLogo));
         }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
