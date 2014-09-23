@@ -15,6 +15,7 @@ Robots: noindex,nofollow
 ## 引用 
 将**[yunku-java-sdk].jar**文件引用进项目，包括YunkuJavaSDKlibs下的jar文件，或者将**YunkuJavaSDK**做为依赖项目。
 
+
 ## 初始化
 要使用云库api，您需要有效的CLIENT_ID和CLIENT_SECRET,和获得云库后台管理账号。
 
@@ -65,6 +66,10 @@ Robots: noindex,nofollow
 | orgCapacity | 否 | int | 库容量上限, 单位字节, 默认无上限|
 | storagePointName | 否 | string | 库归属存储点名称, 默认使用够快存储|
 | orgDesc | 否 | string | 库描述|
+
+####数值参考
+1T="1099511627776" 
+1G＝“1073741824”；
 
 #### 返回结果
 
@@ -277,6 +282,27 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
+### 修改库信息
+
+	set(int orgId, String name, String capacity, String description, String logo) 
+#### 参数 
+| 名称 | 必需 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| orgId | 是 | int | 库id |
+| name | 否 | string | 库名称 |
+| capacity | 否 | string | 库容量限制，单位B |
+| description | 否 | string | 库描述 |
+| logo | 否 | string | 库logo |
+
+#### 返回结果 
+   正常返回 HTTP 200
+   
+---
+
+####数值参考
+1T="1099511627776" 
+1G＝“1073741824”；
+
 
 ## 企业管理（**EntManager.java** ）
 ###构造方法
@@ -354,6 +380,33 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	}
 
 ---
+
+### 查询库成员信息
+	getMember(int orgid, MemberType type, String[] ids)
+
+#### 参数 
+	
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| orgid | 是 | int | 库id |
+| type | 是 | enum | ACCOUNT,OUT_ID,MEMBER_ID |
+| ids | 是 | array | 多个id数组 |
+
+#### 返回结果
+		
+		{
+			"id(传入时的id))":{
+				"member_id": 成员id,
+				"out_id": 成员外部id,
+				"account": 外部账号,
+				"member_name": 成员显示名,
+				"member_email": 成员邮箱
+			},
+			...
+		}
+
+---
+
 ###获取分组
 	getGroups() 
 #### 参数 
@@ -795,4 +848,4 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
-  
+

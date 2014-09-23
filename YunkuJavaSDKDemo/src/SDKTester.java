@@ -20,10 +20,10 @@ public class SDKTester {
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 //        //获取认证
-//        mEntLibManager.accessToken(true);
+        mEntLibManager.accessToken(true);
 
-        //创建云库
-//        deserializeReturn(mEntLibManager.create("destroy", 10, "destroy", "test lib"));
+        //创建云库 1T="1099511627776" 1G＝“1073741824”；
+//        deserializeReturn(mEntLibManager.create("destroy", "1073741824", "destroy", "test lib"));
 
         //获取库列表
 //        deserializeReturn(mEntLibManager.getLibList());
@@ -38,7 +38,10 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.addMembers(150998,2892,new int[]{4}));
 
         //获取某一个库的成员
-//        deserializeReturn(mEntLibManager.getMembers(0, 2, 32662));
+//        deserializeReturn(mEntLibManager.getMembers(0, 10, 32647));
+//
+        //查询库成员信息
+        deserializeReturn(mEntLibManager. getMember(4405,MemberType.ACCOUNT,new String[]{"qwdqwdq1"}));
 
         //批量修改单库中成员角色
 //        deserializeReturn(mEntLibManager.setMemberRole(150998,2894,new int[]{4}));
@@ -60,6 +63,9 @@ public class SDKTester {
 
         //删除库
 //        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
+
+        //修改库信息 1T="1099511627776" 1G＝“1073741824”；
+//        deserializeReturn(mEntLibManager.set(109654, "ssss", "1073741824", "", ""));
 
 //=======文件操作========//
 
@@ -101,7 +107,7 @@ public class SDKTester {
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-        mEntManager.accessToken(true);
+//        mEntManager.accessToken(true);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -122,7 +128,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
 
         //根据外部成员登录帐号获取成员信息（new）
-        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
+//        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
 
         //添加或修改同步成员
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", ""));

@@ -28,10 +28,12 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_ADD_GROUP = LIB_HOST + "/1/org/add_group";
     private static final String URL_API_DEL_GROUP = LIB_HOST + "/1/org/del_group";
     private static final String URL_API_SET_GROUP_ROLE = LIB_HOST + "/1/org/set_group_role";
-    private static final String URL_API_DESTROY= LIB_HOST + "/1/org/destroy";
+    private static final String URL_API_DESTROY = LIB_HOST + "/1/org/destroy";
+    private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/org/get_member";
+    private static final String URL_API_SET = LIB_HOST + "/1/org/set";
 
 
-//    @Deprecated
+    //    @Deprecated
     public EntLibManager(String username, String password, String clientId, String clientSecret) {
         super(username, password, clientId, clientSecret);
     }
@@ -55,7 +57,7 @@ public class EntLibManager extends ParentEngine {
      * @param orgDesc
      * @return
      */
-    public String create(String orgName, int orgCapacity, String storagePointName, String orgDesc) {
+    public String create(String orgName, String orgCapacity, String storagePointName, String orgDesc) {
         String method = "POST";
         String url = URL_API_CREATE_LIB;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -73,6 +75,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 获取库列表
+     *
      * @return
      */
     public String getLibList() {
@@ -88,6 +91,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 获取库授权
+     *
      * @param orgId
      * @param title
      * @param linkUrl 可以不传
@@ -108,6 +112,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 取消库授权
+     *
      * @param orgClientId
      * @return
      */
@@ -123,7 +128,6 @@ public class EntLibManager extends ParentEngine {
     }
 
 
-
 //    public String getRoles() {
 //        String method = "GET";
 //        String url = URL_API_GET_ROLES;
@@ -135,8 +139,8 @@ public class EntLibManager extends ParentEngine {
 //    }
 
     /**
-     *
      * 获取库成员列表
+     *
      * @param start
      * @param size
      * @param orgId
@@ -157,6 +161,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 添加库成员
+     *
      * @param orgId
      * @param roleId
      * @param memberIds
@@ -177,6 +182,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 修改库成员角色
+     *
      * @param orgId
      * @param roleId
      * @param memberIds
@@ -197,6 +203,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 删除库成员
+     *
      * @param orgId
      * @param memberIds
      * @return
@@ -215,6 +222,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 获取库分组列表
+     *
      * @param orgId
      * @return
      */
@@ -231,6 +239,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 库上添加分组
+     *
      * @param orgId
      * @param groupId
      * @param roleId
@@ -251,6 +260,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 删除库上的分组
+     *
      * @param orgId
      * @param groupId
      * @return
@@ -269,6 +279,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 修改库上分组的角色
+     *
      * @param orgId
      * @param groupId
      * @param roleId
@@ -289,16 +300,72 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 删除库
+     *
      * @param orgClientId
      * @return
      */
-    public String destroy(String orgClientId){
+    public String destroy(String orgClientId) {
         String method = "POST";
         String url = URL_API_DESTROY;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("org_client_id", orgClientId+""));
+        params.add(new BasicNameValuePair("org_client_id", orgClientId + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 修改库信息
+     *
+     * @param orgId
+     * @param name
+     * @param capacity
+     * @param description
+     * @param logo
+     * @return
+     */
+    public String set(int orgId, String name, String capacity, String description, String logo) {
+        String method = "POST";
+        String url = URL_API_SET;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
+        if (name != null && !name.isEmpty()) {
+            params.add(new BasicNameValuePair("name", name));
+        }
+        if (capacity != null && !capacity.isEmpty()) {
+            params.add(new BasicNameValuePair("capacity", capacity + ""));
+        }
+        if (description != null && !description.isEmpty()) {
+            params.add(new BasicNameValuePair("description", description));
+        }
+
+        if (description != null && !description.isEmpty()) {
+            params.add(new BasicNameValuePair("logo", logo));
+        }
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 查询库成员信息
+     *
+     * @param orgid
+     * @param type
+     * @param ids
+     * @return
+     */
+    public String getMember(int orgid, MemberType type, String[] ids) {
+        String method = "GET";
+        String url = URL_API_GET_MEMBER;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgid + ""));
+        params.add(new BasicNameValuePair("type", type.toString().toLowerCase()));
+        params.add(new BasicNameValuePair("ids", Util.strArrayToString(ids, ",") + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -306,6 +373,7 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 复制EntLibManager对象
+     *
      * @return
      */
     public EntLibManager clone() {
