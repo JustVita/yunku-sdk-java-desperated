@@ -29,6 +29,7 @@ public class EntFileManager implements HostConifg {
     private static final String URL_API_LINK_FILE = LIB_HOST + "/1/file/link";
     private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
     private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/links";
+    private static final String URL_API_UPDATE_COUNT = LIB_HOST + "/1/file/updates_count";
 
 
     private String mOrgClientId;
@@ -283,10 +284,11 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 获取当前库所有外链
-     * @return
+     *
      * @param dateline
+     * @return
      */
-    public String links(int dateline, boolean fileOnly){
+    public String links(int dateline, boolean fileOnly) {
         String method = "GET";
         String url = URL_API_GET_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -295,6 +297,28 @@ public class EntFileManager implements HostConifg {
         if (fileOnly) {
             params.add(new BasicNameValuePair("file", "1"));
         }
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+
+    /**
+     * 文件更新数量
+     * @param dateline
+     * @param beginDateline
+     * @param endDateline
+     * @param showDelete
+     * @return
+     */
+    public String getUpdateCounts(int dateline, long beginDateline, long endDateline, boolean showDelete) {
+        String method = "GET";
+        String url = URL_API_UPDATE_COUNT;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
+        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("begin_dateline", beginDateline + ""));
+        params.add(new BasicNameValuePair("end_dateline", endDateline + ""));
+        params.add(new BasicNameValuePair("showdel", (showDelete ? 1 : 0) + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -342,10 +366,11 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 复制一个EntFileManager对象
+     *
      * @return
      */
-    public EntFileManager clone(){
-        return new EntFileManager(mOrgClientId,mOrgSecret);
+    public EntFileManager clone() {
+        return new EntFileManager(mOrgClientId, mOrgSecret);
     }
 
 }

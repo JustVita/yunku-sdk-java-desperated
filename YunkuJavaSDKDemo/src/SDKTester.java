@@ -4,6 +4,9 @@ import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Brandon on 2014/8/6.
  */
@@ -29,7 +32,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(48715,"",""));
+//        deserializeReturn(mEntLibManager.bind(27123,"",""));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -65,12 +68,12 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
 
         //修改库信息 1T="1099511627776" 1G＝“1073741824”；
-        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
+//        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
 
 //=======文件操作========//
 
-        String orgClientId = "bab623c8a80283689c6a77fec0ecede1";
-        String orgClientSecret = "fd5ba40932fa31dd18170881b9f00e77";
+        String orgClientId = "183925acbe239a820aea71862e4b44a2";
+        String orgClientSecret = "cc7c632dc5e8bdb1651e0113a600c000";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -78,11 +81,19 @@ public class SDKTester {
         //获取更新列表
 //        deserializeReturn(mFileManager.getUpdateList((int) Util.getUnixDateline(), false, 0));
 
+        //文件更新数量
+        //
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);//昨天
+        Date date = calendar.getTime();
+
+        deserializeReturn(mFileManager.getUpdateCounts((int) Util.getUnixDateline(), date.getTime(), System.currentTimeMillis(), false));
+
         //获取文件(夹)信息
 //        deserializeReturn(mFileManager.getFileInfo((int) Util.getUnixDateline(),"test"));
 
         //创建文件夹
-//        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test","Brandon"));
+//        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test2","Brandon"));
 
         //上传文件 文件不得超过50MB
 //        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"test/test.txt","Brandon","D:\\test.txt"));
