@@ -4,10 +4,6 @@ import com.yunkuent.sdk.utils.Util;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +27,7 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_DESTROY = LIB_HOST + "/1/org/destroy";
     private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/org/get_member";
     private static final String URL_API_SET = LIB_HOST + "/1/org/set";
+    private static final String URL_API_GET_INFO = LIB_HOST + "/1/org/info";
 
 
     //    @Deprecated
@@ -352,20 +349,36 @@ public class EntLibManager extends ParentEngine {
     /**
      * 查询库成员信息
      *
-     * @param orgid
+     * @param orgId
      * @param type
      * @param ids
      * @return
      */
-    public String getMember(int orgid, MemberType type, String[] ids) {
+    public String getMember(int orgId, MemberType type, String[] ids) {
         String method = "GET";
         String url = URL_API_GET_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("org_id", orgid + ""));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("type", type.toString().toLowerCase()));
         params.add(new BasicNameValuePair("ids", Util.strArrayToString(ids, ",") + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 获取库信息
+     * @param orgId
+     * @return
+     */
+    public String getInfo(int orgId){
+        String method = "GET";
+        String url = URL_API_GET_INFO;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

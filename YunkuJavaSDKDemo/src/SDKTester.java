@@ -28,6 +28,12 @@ public class SDKTester {
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.create("destroy", "1073741824", "destroy", "test lib"));
 
+        //修改库信息 1T="1099511627776" 1G＝“1073741824”；
+//        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
+
+        //获取库信息
+        deserializeReturn(mEntLibManager.getInfo(27123));
+
         //获取库列表
 //        deserializeReturn(mEntLibManager.getLibList());
 
@@ -67,8 +73,9 @@ public class SDKTester {
         //删除库
 //        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
 
-        //修改库信息 1T="1099511627776" 1G＝“1073741824”；
-//        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
+
+
+
 
 //=======文件操作========//
 
@@ -83,11 +90,11 @@ public class SDKTester {
 
         //文件更新数量
         //
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);//昨天
-        Date date = calendar.getTime();
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.DATE, -1);//昨天
+//        Date date = calendar.getTime();
 
-        deserializeReturn(mFileManager.getUpdateCounts((int) Util.getUnixDateline(), date.getTime(), System.currentTimeMillis(), false));
+//        deserializeReturn(mFileManager.getUpdateCounts((int) Util.getUnixDateline(), date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
 //        deserializeReturn(mFileManager.getFileInfo((int) Util.getUnixDateline(),"test"));
