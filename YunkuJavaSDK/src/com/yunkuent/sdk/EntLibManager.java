@@ -54,7 +54,7 @@ public class EntLibManager extends ParentEngine {
      * @param orgDesc
      * @return
      */
-    public String create(String orgName, String orgCapacity, String storagePointName, String orgDesc) {
+    public String create(String orgName, String orgCapacity, String storagePointName, String orgDesc, String orgLogo) {
         String method = "POST";
         String url = URL_API_CREATE_LIB;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -64,6 +64,7 @@ public class EntLibManager extends ParentEngine {
         params.add(new BasicNameValuePair("org_capacity", String.valueOf(orgCapacity)));
         params.add(new BasicNameValuePair("storage_point_name", storagePointName));
         params.add(new BasicNameValuePair("org_desc", orgDesc));
+        params.add(new BasicNameValuePair("org_logo", orgLogo));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
 
         return NetConnection.sendRequest(url, method, params, null);
@@ -369,10 +370,11 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 获取库信息
+     *
      * @param orgId
      * @return
      */
-    public String getInfo(int orgId){
+    public String getInfo(int orgId) {
         String method = "GET";
         String url = URL_API_GET_INFO;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();

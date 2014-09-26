@@ -66,6 +66,7 @@ Robots: noindex,nofollow
 | orgCapacity | 否 | int | 库容量上限, 单位字节, 默认无上限|
 | storagePointName | 否 | string | 库归属存储点名称, 默认使用够快存储|
 | orgDesc | 否 | string | 库描述|
+| orgLogo | 否 | string | 库logo |
 
 ####数值参考
 1T="1099511627776" 

@@ -26,13 +26,13 @@ public class SDKTester {
         mEntLibManager.accessToken(true);
 
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
-//        deserializeReturn(mEntLibManager.create("destroy", "1073741824", "destroy", "test lib"));
+//        deserializeReturn(mEntLibManager.create("destroy2", "1073741824", "destroy", "test lib",""));
 
         //修改库信息 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
 
         //获取库信息
-        deserializeReturn(mEntLibManager.getInfo(27123));
+//        deserializeReturn(mEntLibManager.getInfo(255166));
 
         //获取库列表
 //        deserializeReturn(mEntLibManager.getLibList());
