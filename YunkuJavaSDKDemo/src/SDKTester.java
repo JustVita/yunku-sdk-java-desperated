@@ -74,9 +74,6 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.destroy("b2013df96cbc23b4b0dd72f075e5cbf7"));
 
 
-
-
-
 //=======文件操作========//
 
         String orgClientId = "183925acbe239a820aea71862e4b44a2";
@@ -125,7 +122,7 @@ public class SDKTester {
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-//        mEntManager.accessToken(true);
+        mEntManager.accessToken(true);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -134,7 +131,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getGroups());
 
         //获取成员
-//        deserializeReturn(mEntManager.getMembers(0, 2));
+//        deserializeReturn(mEntManager.getMembers(0, 99));
 
         //分组成员列表
 //        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));
@@ -149,9 +146,9 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
 
         //添加或修改同步成员
-//        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", ""));
-//        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", ""));
-//        deserializeReturn(mEntManager.addSyncMember("MemberTest3", "Member3", "Member3", "", ""));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", "", "123"));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", "", ""));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest3", "Member3", "Member3", "", "", ""));
 
         //添加或修改同步分组
 //        deserializeReturn(mEntManager.delSyncMember(new String[]{"MemberTest", "MemberTest1", "MemberTest2"}));

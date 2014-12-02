@@ -176,9 +176,11 @@ public class EntManager extends ParentEngine {
      * @param account
      * @param memberEmail
      * @param memberPhone
+     * @param password 如果需要由够快验证帐号密码,密码为必须参数
      * @return
      */
-    public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone) {
+
+    public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone, String password) {
         String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -189,6 +191,7 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("account", account));
         params.add(new BasicNameValuePair("member_email", memberEmail));
         params.add(new BasicNameValuePair("member_phone", memberPhone));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
