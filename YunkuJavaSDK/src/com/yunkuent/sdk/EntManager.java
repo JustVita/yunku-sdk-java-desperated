@@ -176,7 +176,7 @@ public class EntManager extends ParentEngine {
      * @param account
      * @param memberEmail
      * @param memberPhone
-     * @param password 如果需要由够快验证帐号密码,密码为必须参数
+     * @param password    如果需要由够快验证帐号密码,密码为必须参数
      * @return
      */
 

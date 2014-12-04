@@ -146,7 +146,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
 
         //添加或修改同步成员
-//        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", "", "123"));
+        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "", "", ""));
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", "", ""));
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest3", "Member3", "Member3", "", "", ""));
 

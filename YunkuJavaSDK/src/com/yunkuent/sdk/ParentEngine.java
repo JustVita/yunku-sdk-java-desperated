@@ -82,6 +82,9 @@ abstract class ParentEngine implements HostConifg {
         if (params != null) {
             SortedSet<KeyValuePair> sortedSet = new TreeSet<KeyValuePair>();
             for (NameValuePair nameValuePair : params) {
+                if (nameValuePair.getValue() == null) {
+                    continue;
+                }
                 sortedSet.add(new KeyValuePair(nameValuePair.getName(), nameValuePair.getValue()));
             }
             String[] arr = new String[sortedSet.size()];

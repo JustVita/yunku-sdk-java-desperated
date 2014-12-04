@@ -74,6 +74,9 @@ final class NetConnection {
             if (method.equals("GET")) {
                 url += "?";
                 for (int i = 0; i < params.size(); i++) {
+                    if (params.get(i).getValue() == null) {
+                        continue;
+                    }
                     url += params.get(i).getName() + "=" + URLEncoder.encodeUTF8(params.get(i).getValue()) + ((i == params.size() - 1) ? "" : "&");
                 }
             }
@@ -89,6 +92,9 @@ final class NetConnection {
             }
             if (headParams != null && !headParams.isEmpty()) {
                 for (NameValuePair nameValuePair : headParams) {
+                    if (nameValuePair.getValue() == null) {
+                        continue;
+                    }
                     httpmethod.addHeader(nameValuePair.getName(),
                             nameValuePair.getValue());
                 }
@@ -103,7 +109,7 @@ final class NetConnection {
 
 
         } catch (Exception e) {
-            LogPrint.print(Level.WARNING,LOG_TAG + " sendRequest(): Exception is: " + e.toString());
+            LogPrint.print(Level.WARNING, LOG_TAG + " sendRequest(): Exception is: " + e.toString());
         } finally {
             httpclient.getConnectionManager().shutdown();
         }
