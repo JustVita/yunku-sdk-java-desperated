@@ -24,6 +24,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 /**
@@ -71,12 +72,18 @@ final class NetConnection {
                     httpParameters, registry);
             httpclient = new DefaultHttpClient(ccm, httpParameters);
 
+            //移除为null的数据
+            Iterator<NameValuePair> keyIterator = params.iterator();
+            while (keyIterator.hasNext()) {
+                NameValuePair nameValuePair = keyIterator.next();
+                if (nameValuePair.getValue() == null) {
+                    keyIterator.remove();
+                }
+            }
+
             if (method.equals("GET")) {
                 url += "?";
                 for (int i = 0; i < params.size(); i++) {
-                    if (params.get(i).getValue() == null) {
-                        continue;
-                    }
                     url += params.get(i).getName() + "=" + URLEncoder.encodeUTF8(params.get(i).getValue()) + ((i == params.size() - 1) ? "" : "&");
                 }
             }
