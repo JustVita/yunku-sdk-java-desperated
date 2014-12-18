@@ -1,11 +1,9 @@
 import Model.BaseData;
 import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
+import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Brandon on 2014/8/6.
@@ -38,7 +36,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(27123,"",""));
+//        deserializeReturn(mEntLibManager.bind(111252,"",""));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -76,8 +74,8 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "183925acbe239a820aea71862e4b44a2";
-        String orgClientSecret = "cc7c632dc5e8bdb1651e0113a600c000";
+        String orgClientId = "a4fc0669c3fb148ced91da8359f0681c";
+        String orgClientSecret = "7d5af78b07e5cc1bcf9b440b2918b896";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -100,7 +98,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test2","Brandon"));
 
         //上传文件 文件不得超过50MB
-//        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"test/test.txt","Brandon","D:\\test.txt"));
+//        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"test.png","Brandon","/Users/Brandon/Desktop/test.png"));
 
         //删除文件
 //        deserializeReturn(mFileManager.del((int) Util.getUnixDateline(),"test","Brandon"));
@@ -109,7 +107,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.move((int) Util.getUnixDateline(),"test/test.txt","test.txt","Brandon"));
 
         //文件连接
-//        deserializeReturn(mFileManager.link( (int) Util.getUnixDateline(), "test.txt"));
+//        deserializeReturn(mFileManager.link((int) Util.getUnixDateline(), "test.png", 0, EntFileManager.AuthType.PREVIEW, null));
 
         //发送消息
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
@@ -117,12 +115,28 @@ public class SDKTester {
         //获取当前库所有外链(new)
 //        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
 
+        //文件分块上传
+        mFileManager.uploadByBlock((int) Util.getUnixDateline(), "installer.exe", "Brandon", 0, "/Users/Brandon/Desktop/installer.exe", true, new UploadCallBack() {
+            public void onSuccess(long threadId) {
+                System.out.println("success:" + threadId);
+            }
+
+            public void onFail(long threadId, String errorMsg) {
+                System.out.println("fail:" + threadId + " errorMsg:" + errorMsg);
+
+            }
+
+            public void onProgress(long threadId, float percent) {
+                System.out.println("onProgress:" + threadId + " onProgress:" + percent * 100);
+
+            }
+        });
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-        mEntManager.accessToken(true);
+//        mEntManager.accessToken(true);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -146,7 +160,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
 
         //添加或修改同步成员
-        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1","", "111", "111"));
+//        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "1234", "111", "111"));
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", "", ""));
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest3", "Member3", "Member3", "", "", ""));
 

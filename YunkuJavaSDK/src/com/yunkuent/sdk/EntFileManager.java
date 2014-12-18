@@ -1,6 +1,6 @@
 package com.yunkuent.sdk;
 
-import com.yunkuent.sdk.utils.URLEncoder;
+import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -10,13 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * Created by Brandon on 2014/8/14.
  */
-public class EntFileManager implements HostConifg {
+public class EntFileManager extends SignAbility implements HostConifg {
 
     private static final int UPLOAD_LIMIT_SIZE = 52428800;
     private static final String URL_API_FILELIST = LIB_HOST + "/1/file/ls";
@@ -33,11 +31,10 @@ public class EntFileManager implements HostConifg {
 
 
     private String mOrgClientId;
-    private String mOrgSecret;
 
     public EntFileManager(String orgClientId, String orgClientSecret) {
         mOrgClientId = orgClientId;
-        mOrgSecret = orgClientSecret;
+        mClientSecret = orgClientSecret;//orgClientSecret
     }
 
     /**
@@ -165,7 +162,23 @@ public class EntFileManager implements HostConifg {
         }
 
         return "";
+    }
 
+
+    /**
+     *
+     * @param dateline
+     * @param fullPath
+     * @param opName
+     * @param opId
+     * @param localFilePath
+     * @param overWrite
+     * @param callBack
+     */
+    public void uploadByBlock(int dateline, String fullPath, String opName, int opId, String localFilePath,
+                              boolean overWrite, UploadCallBack callBack) {
+        Thread thread = new Thread(new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, dateline, callBack, mClientSecret, overWrite));
+        thread.start();
     }
 
     /**
@@ -241,15 +254,27 @@ public class EntFileManager implements HostConifg {
      *
      * @param dateline
      * @param fullPath
+     * @param deadline
+     * @param authType
+     * @param password
      * @return
      */
-    public String link(int dateline, String fullPath) {
+    public String link(int dateline, String fullPath, int deadline, AuthType authType, String password) {
         String method = "POST";
         String url = URL_API_LINK_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", dateline + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
+
+        if (deadline > 0) {
+            params.add(new BasicNameValuePair("deadline", deadline + ""));
+        }
+
+        if (!authType.equals(AuthType.DEFAULT)) {
+            params.add(new BasicNameValuePair("auth", authType.toString().toLowerCase()));
+        }
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -304,6 +329,7 @@ public class EntFileManager implements HostConifg {
 
     /**
      * 文件更新数量
+     *
      * @param dateline
      * @param beginDateline
      * @param endDateline
@@ -323,46 +349,6 @@ public class EntFileManager implements HostConifg {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    protected String generateSign(String[] array) {
-        String string_sign = "";
-        for (int i = 0; i < array.length; i++) {
-            string_sign += array[i] + (i == array.length - 1 ? "" : "\n");
-        }
-
-        return URLEncoder.encodeUTF8(Util.getHmacSha1(string_sign, mOrgSecret));
-    }
-
-    protected String[] paramSorted(ArrayList<NameValuePair> params) {
-        if (params != null) {
-            SortedSet<KeyValuePair> sortedSet = new TreeSet<KeyValuePair>();
-            for (NameValuePair nameValuePair : params) {
-                sortedSet.add(new KeyValuePair(nameValuePair.getName(), nameValuePair.getValue()));
-            }
-            String[] arr = new String[sortedSet.size()];
-            int i = 0;
-            for (KeyValuePair pair : sortedSet) {
-                arr[i] = pair.value;
-                i++;
-            }
-            return arr;
-
-        }
-        return new String[0];
-    }
-
-    class KeyValuePair implements Comparable<KeyValuePair> {
-        String key, value;
-
-        public KeyValuePair(String key, String value) {
-            super();
-            this.key = key;
-            this.value = value;
-        }
-
-        public int compareTo(KeyValuePair o) {
-            return key.compareTo(o.key);
-        }
-    }
 
     /**
      * 复制一个EntFileManager对象
@@ -370,7 +356,14 @@ public class EntFileManager implements HostConifg {
      * @return
      */
     public EntFileManager clone() {
-        return new EntFileManager(mOrgClientId, mOrgSecret);
+        return new EntFileManager(mOrgClientId, mClientSecret);
+    }
+
+    public enum AuthType {
+        DEFAULT,
+        PREVIEW,
+        DOWNLOAD,
+        UPLOAD
     }
 
 }

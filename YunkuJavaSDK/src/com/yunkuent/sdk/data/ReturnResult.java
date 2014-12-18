@@ -9,6 +9,10 @@ public class ReturnResult {
     int statusCode;
     String result;
 
+    public ReturnResult(){
+
+    }
+
     public ReturnResult(String result, int code) {
         statusCode = code;
         this.result = result;

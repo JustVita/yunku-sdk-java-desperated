@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -455,6 +456,57 @@ public class Util {
     public static long getUnixDateline() {
         Calendar ca = Calendar.getInstance(Locale.US);
         return ca.getTimeInMillis() / 1000;
+    }
+
+    private static char hexChar[] = {'0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+    private static String toHexString(byte b[]) {
+        StringBuilder sb = new StringBuilder(b.length * 2);
+        for (int i = 0; i < b.length; i++) {
+            sb.append(hexChar[(b[i] & 0xf0) >>> 4]);
+            sb.append(hexChar[b[i] & 0xf]);
+        }
+        return sb.toString();
+    }
+
+
+    public static String getFileSha1(String path) {
+        String filehash = "";
+        path = URLDecoder.decode(path.replace("file://", ""));
+        File file = new File(path);
+        if (file.exists()) {
+            FileInputStream in = null;
+            MessageDigest messagedigest;
+            try {
+                try {
+                    in = new FileInputStream(file);
+                    messagedigest = MessageDigest.getInstance("SHA-1");
+
+                    byte[] buffer = new byte[1024 * 1024 * 10];
+                    int len = 0;
+
+                    while ((len = in.read(buffer)) > 0) {
+                        messagedigest.update(buffer, 0, len);
+                    }
+
+                    filehash = toHexString(messagedigest.digest());
+                } catch (OutOfMemoryError e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return filehash;
     }
 
 

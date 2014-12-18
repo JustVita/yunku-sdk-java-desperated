@@ -73,11 +73,13 @@ final class NetConnection {
             httpclient = new DefaultHttpClient(ccm, httpParameters);
 
             //移除为null的数据
-            Iterator<NameValuePair> keyIterator = params.iterator();
-            while (keyIterator.hasNext()) {
-                NameValuePair nameValuePair = keyIterator.next();
-                if (nameValuePair.getValue() == null) {
-                    keyIterator.remove();
+            if(params!=null){
+                Iterator<NameValuePair> keyIterator = params.iterator();
+                while (keyIterator.hasNext()) {
+                    NameValuePair nameValuePair = keyIterator.next();
+                    if (nameValuePair.getValue() == null) {
+                        keyIterator.remove();
+                    }
                 }
             }
 
