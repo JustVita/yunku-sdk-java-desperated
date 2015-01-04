@@ -36,7 +36,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getLibList());
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(111252,"",""));
+//        deserializeReturn(mEntLibManager.bind(5235,"",""));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -74,8 +74,8 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "a4fc0669c3fb148ced91da8359f0681c";
-        String orgClientSecret = "7d5af78b07e5cc1bcf9b440b2918b896";
+        String orgClientId = "294925cc5b65f075677a3227141b9467";
+        String orgClientSecret = "e195dbb3f9c263890a269010f18bea50";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -107,7 +107,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.move((int) Util.getUnixDateline(),"test/test.txt","test.txt","Brandon"));
 
         //文件连接
-//        deserializeReturn(mFileManager.link((int) Util.getUnixDateline(), "test.png", 0, EntFileManager.AuthType.PREVIEW, null));
+        deserializeReturn(mFileManager.link((int) Util.getUnixDateline(), "test.png", 0, EntFileManager.AuthType.PREVIEW, null));
 
         //发送消息
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
@@ -116,7 +116,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
 
         //文件分块上传
-        mFileManager.uploadByBlock((int) Util.getUnixDateline(), "installer.exe", "Brandon", 0, "/Users/Brandon/Desktop/installer.exe", true, new UploadCallBack() {
+        mFileManager.uploadByBlock((int) Util.getUnixDateline(), "Transcend/纸牌屋烤肋排.docx", "Brandon", 0, "/Volumes/Transcend/纸牌屋烤肋排.docx", true, new UploadCallBack() {
             public void onSuccess(long threadId) {
                 System.out.println("success:" + threadId);
             }
