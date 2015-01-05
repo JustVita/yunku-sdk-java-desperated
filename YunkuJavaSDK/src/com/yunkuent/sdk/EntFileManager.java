@@ -266,7 +266,7 @@ public class EntFileManager extends SignAbility implements HostConifg {
         params.add(new BasicNameValuePair("dateline", dateline + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
 
-        if (deadline == 0) {
+        if (deadline != 0) {
             params.add(new BasicNameValuePair("deadline", deadline + ""));
         }
 
