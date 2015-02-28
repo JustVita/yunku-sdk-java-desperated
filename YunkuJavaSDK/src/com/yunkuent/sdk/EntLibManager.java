@@ -61,7 +61,7 @@ public class EntLibManager extends ParentEngine {
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
         params.add(new BasicNameValuePair("org_name", orgName));
-        params.add(new BasicNameValuePair("org_capacity", String.valueOf(orgCapacity)));
+        params.add(new BasicNameValuePair("org_capacity", orgCapacity));
         params.add(new BasicNameValuePair("storage_point_name", storagePointName));
         params.add(new BasicNameValuePair("org_desc", orgDesc));
         params.add(new BasicNameValuePair("org_logo", orgLogo));
