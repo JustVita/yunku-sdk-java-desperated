@@ -19,6 +19,9 @@ Robots: noindex,nofollow
 ## 初始化
 要使用云库api，您需要有效的CLIENT_ID和CLIENT_SECRET,和获得云库后台管理账号。
 
+##参数使用
+以下使用到的方法中，如果是string类型的非必要参数，如果是不传，则传null
+
 ## 企业库管理（**EntLibManager.java** ）
 
 ###构造方法

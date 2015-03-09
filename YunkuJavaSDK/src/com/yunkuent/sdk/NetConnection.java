@@ -112,9 +112,8 @@ final class NetConnection {
 
             String result = EntityUtils.toString(response.getEntity());
             ReturnResult returnResult = new ReturnResult(result, response.getStatusLine().getStatusCode());
-            Gson gosn = new Gson();
-            String jsonString = gosn.toJson(returnResult);
-            return jsonString;
+            Gson gson = new Gson();
+            return gson.toJson(returnResult);
 
 
         } catch (Exception e) {

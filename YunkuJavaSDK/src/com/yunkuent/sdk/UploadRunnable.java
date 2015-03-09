@@ -83,7 +83,7 @@ public class UploadRunnable extends SignAbility implements Runnable {
                 LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!");
                 return;
             }
-            String filename = Util.getNameFromPath(fullpath);
+            String filename = Util.getNameFromPath(fullpath).replace("/", "");
 
             String filehash = Util.getFileSha1(mLocalFullPath);
             long filesize = file.length();
@@ -346,8 +346,6 @@ public class UploadRunnable extends SignAbility implements Runnable {
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", mDateline + ""));
         params.add(new BasicNameValuePair("fullpath", fullpath + ""));
-        params.add(new BasicNameValuePair("filesize", filesize + ""));
-        params.add(new BasicNameValuePair("filehash", filehash + ""));
         if (mOpId > 0) {
             params.add(new BasicNameValuePair("op_id", mOpId + ""));
         }
@@ -356,6 +354,10 @@ public class UploadRunnable extends SignAbility implements Runnable {
         }
         params.add(new BasicNameValuePair("overwrite", (overWrite ? 1 : 0) + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+
+        params.add(new BasicNameValuePair("filesize", filesize + ""));
+        params.add(new BasicNameValuePair("filehash", filehash + ""));
+
         return NetConnection.sendRequest(url, method, params, null);
     }
 
