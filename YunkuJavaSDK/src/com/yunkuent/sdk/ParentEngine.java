@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Brandon on 2014/8/6.
  */
-abstract class ParentEngine extends SignAbility implements HostConifg {
+abstract class ParentEngine extends SignAbility implements HostConfig {
 
     protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token";
 

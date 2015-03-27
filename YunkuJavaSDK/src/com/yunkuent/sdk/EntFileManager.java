@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Brandon on 2014/8/14.
  */
-public class EntFileManager extends SignAbility implements HostConifg {
+public class EntFileManager extends SignAbility implements HostConfig {
 
     private static final int UPLOAD_LIMIT_SIZE = 52428800;
     private static final String URL_API_FILELIST = LIB_HOST + "/1/file/ls";
