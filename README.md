@@ -846,12 +846,12 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 	
 ###删除文件
-	del(int dateline, String fullPath, String opName)
+	del(int dateline, String fullPaths, String opName)
 #### 参数 
 | 参数 | 必需 | 类型 | 说明 |
 |------|------|------|------|
 | dateline | 是 | int | 10位当前时间戳 |
-| fullPath| 是 |string| 文件路径 |
+| fullPaths| 是 |string| 文件路径，如果是多个文件用“｜”符号隔开 |
 | opName | 是 | string | 用户名称 |
 #### 返回结果
 	正常返回 HTTP 200
