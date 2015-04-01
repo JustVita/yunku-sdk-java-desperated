@@ -210,17 +210,17 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * 删除文件
      *
      * @param dateline
-     * @param fullPath
+     * @param fullPaths
      * @param opName
      * @return
      */
-    public String del(int dateline, String fullPath, String opName) {
+    public String del(int dateline, String fullPaths, String opName) {
         String method = "POST";
         String url = URL_API_DEL_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", dateline + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
+        params.add(new BasicNameValuePair("fullpaths", fullPaths));
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -230,18 +230,18 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * 移动文件
      *
      * @param dateline
-     * @param fullPath
+     * @param fullPaths
      * @param destFullPath
      * @param opName
      * @return
      */
-    public String move(int dateline, String fullPath, String destFullPath, String opName) {
+    public String move(int dateline, String fullPaths, String destFullPath, String opName) {
         String method = "POST";
         String url = URL_API_MOVE_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", dateline + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
+        params.add(new BasicNameValuePair("fullpaths", fullPaths));
         params.add(new BasicNameValuePair("dest_fullpath", destFullPath));
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
