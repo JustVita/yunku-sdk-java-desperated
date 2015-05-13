@@ -26,7 +26,6 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_DEL_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/del_sync_group_member";
     private static final String URL_API_GET_GROUP_MEMBERS = LIB_HOST + "/1/ent/get_group_members";
 
-    //    @Deprecated
     public EntManager(String username, String password, String clientId, String clientSecret) {
         super(username, password, clientId, clientSecret);
     }
