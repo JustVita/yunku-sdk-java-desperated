@@ -121,14 +121,14 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 通过文件流上传
      *
+     * @param fileName
      * @param dateline
      * @param fullPath
      * @param opName
      * @param stream
-     * @param fileName
      * @return
      */
-    public String createFile(int dateline, String fullPath, String opName, FileInputStream stream, String fileName) {
+    public String createFile(int dateline, String fullPath, String opName, FileInputStream stream) {
         try {
             if (stream.available() > UPLOAD_LIMIT_SIZE) {
                 LogPrint.print("文件大小超过50MB");
@@ -137,6 +137,9 @@ public class EntFileManager extends SignAbility implements HostConfig {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        String fileName = Util.getNameFromPath(fullPath);
+
         try {
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
@@ -195,7 +198,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
         if (file.exists()) {
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                return createFile(dateline, fullPath, opName, inputStream, Util.getNameFromPath(localPath));
+                return createFile(dateline, fullPath, opName, inputStream);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

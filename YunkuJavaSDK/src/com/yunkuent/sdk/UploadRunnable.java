@@ -237,7 +237,9 @@ public class UploadRunnable extends SignAbility implements Runnable {
     private void upload_server(long filesize, String filehash, String fullPath) {
         ReturnResult returnResult = ReturnResult.create(addFile(filesize, filehash, fullPath));
         FileOperationData data = FileOperationData.create(returnResult.getResult(), returnResult.getStatusCode());
-        mServer = data.getServer();
+        if (data != null) {
+            mServer = data.getServer();
+        }
     }
 
     /**
@@ -348,8 +350,7 @@ public class UploadRunnable extends SignAbility implements Runnable {
         params.add(new BasicNameValuePair("fullpath", fullpath + ""));
         if (mOpId > 0) {
             params.add(new BasicNameValuePair("op_id", mOpId + ""));
-        }
-        if (mOpName != null) {
+        } else if (mOpName != null) {
             params.add(new BasicNameValuePair("op_name", mOpName));
         }
         params.add(new BasicNameValuePair("overwrite", (overWrite ? 1 : 0) + ""));
