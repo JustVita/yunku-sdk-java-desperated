@@ -121,7 +121,6 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 通过文件流上传
      *
-     * @param fileName
      * @param dateline
      * @param fullPath
      * @param opName
@@ -163,7 +162,6 @@ public class EntFileManager extends SignAbility implements HostConfig {
         } catch (IOException ex) {
             System.err.println(ex);
         }
-
         return "";
     }
 

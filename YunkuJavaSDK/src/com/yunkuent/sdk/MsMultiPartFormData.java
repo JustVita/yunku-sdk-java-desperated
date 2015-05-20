@@ -155,13 +155,14 @@ class MsMultiPartFormData {
             httpConn.disconnect();
         }
 
+
         for (String str : response) {
             result += str;
         }
         ReturnResult returnResult = new ReturnResult(result, code);
         Gson gosn = new Gson();
-        String jsonString = gosn.toJson(returnResult);
-        return jsonString;
+        LogPrint.print("createFile:finish");
+        return gosn.toJson(returnResult);
     }
 
 

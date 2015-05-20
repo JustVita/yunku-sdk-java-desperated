@@ -171,8 +171,8 @@ public class UploadRunnable extends SignAbility implements Runnable {
 
                     // upload_sussec
                     if (mCallBack != null) {
-                        mCallBack.onSuccess(mRId);
                         mCallBack.onProgress(mRId, 1);
+                        mCallBack.onSuccess(mRId, filehash);
                     }
                 } else {
                     // 上传失败
