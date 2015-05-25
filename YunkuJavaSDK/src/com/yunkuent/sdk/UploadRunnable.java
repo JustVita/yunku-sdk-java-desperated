@@ -51,7 +51,7 @@ public class UploadRunnable extends SignAbility implements Runnable {
     private UploadCallBack mCallBack;
     private long mRId;
 
-    public UploadRunnable(String apiUrl, String localFullPath, String fullPath,
+    protected UploadRunnable(String apiUrl, String localFullPath, String fullPath,
                           String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
 
         this.mApiUrl = apiUrl;
@@ -71,6 +71,7 @@ public class UploadRunnable extends SignAbility implements Runnable {
         return ++threadSeqNumber;
     }
 
+    @Override
     public void run() {
 
         ReturnResult result;
@@ -113,7 +114,7 @@ public class UploadRunnable extends SignAbility implements Runnable {
                         byte[] buffer = new byte[RANG_SIZE];
                         CRC32 crc = new CRC32();
                         bis.mark(RANG_SIZE);
-                        while ((datalength = bis.read(buffer)) != -1) {
+                        while ((datalength = bis.read(buffer)) != -1 && !isStop) {
 
                             range_end = RANG_SIZE * (range_index + 1) - 1;
                             if (range_end >= filesize) {
@@ -360,6 +361,12 @@ public class UploadRunnable extends SignAbility implements Runnable {
         params.add(new BasicNameValuePair("filehash", filehash + ""));
 
         return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    private boolean isStop;
+
+    public void stop() {
+        isStop = true;
     }
 
 

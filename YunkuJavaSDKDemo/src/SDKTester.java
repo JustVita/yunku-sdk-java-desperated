@@ -1,5 +1,8 @@
 import Model.BaseData;
-import com.yunkuent.sdk.*;
+import com.yunkuent.sdk.DebugConfig;
+import com.yunkuent.sdk.EntFileManager;
+import com.yunkuent.sdk.EntLibManager;
+import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
@@ -21,13 +24,13 @@ public class SDKTester {
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 //        //获取认证
-        mEntLibManager.accessToken(true);
+//        mEntLibManager.accessToken(true);
 
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.create("destroy2", "1073741824", "destroy", "test lib",""));
 
         //修改库信息 1T="1099511627776" 1G＝“1073741824”；
-//        deserializeReturn(mEntLibManager.set(109654, "ss", "1073741824", "", ""));
+//        deserializeReturn(mEntLibManager.set(379619, "中国梦", "9999", "", ""));
 
         //获取库信息
 //        deserializeReturn(mEntLibManager.getInfo(255166));
@@ -42,10 +45,10 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
 
         //添加库成员
-//        deserializeReturn(mEntLibManager.addMembers(150998,2892,new int[]{4}));
+//        deserializeReturn(mEntLibManager.addMembers(379620,2892,new int[]{125771}));
 
         //获取某一个库的成员
-//        deserializeReturn(mEntLibManager.getMembers(0, 10, 32647));
+//        deserializeReturn(mEntLibManager.getMembers(0, 10, 379620));
 //
         //查询库成员信息
 //        deserializeReturn(mEntLibManager. getMember(4405,MemberType.ACCOUNT,new String[]{"qwdqwdq1"}));
@@ -74,8 +77,8 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "294925cc5b65f075677a3227141b9467";
-        String orgClientSecret = "e195dbb3f9c263890a269010f18bea50";
+        String orgClientId = "b0dab7bae808de31b0cf18ccd23e05ab";
+        String orgClientSecret = "272a73249b946e4ef0f8bf520c725a63";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList((int)Util.getUnixDateline(), 0, ""));
@@ -92,22 +95,23 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts((int) Util.getUnixDateline(), date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-//        deserializeReturn(mFileManager.getFileInfo((int) Util.getUnixDateline(),"test"));
+//        deserializeReturn(mFileManager.getFileInfo((int) Util.getUnixDateline(), "纸牌屋烤肋排.docx"));
+
 
         //创建文件夹
-//        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test2","Brandon"));
+//        deserializeReturn(mFileManager.createFolder((int) Util.getUnixDateline(),"test","Brandon"));
 
         //上传文件 文件不得超过50MB
-//        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"test.png","Brandon","/Users/Brandon/Desktop/test.png"));
+//        deserializeReturn(mFileManager.createFile((int) Util.getUnixDateline(),"WoWScrnShot_031415_175713.jpeg","Brandon","/Users/Brandon/Desktop/gugepinyinshurufa_427.apk"));
 
         //删除文件
-//        deserializeReturn(mFileManager.del((int) Util.getUnixDateline(),"test","Brandon"));
+//        deserializeReturn(mFileManager.del((int) Util.getUnixDateline(),"0000000","Brandon"));
 
         //移动文件
 //        deserializeReturn(mFileManager.move((int) Util.getUnixDateline(),"test/test.txt","test.txt","Brandon"));
 
         //文件连接
-        deserializeReturn(mFileManager.link((int) Util.getUnixDateline(), "test.png", 0, EntFileManager.AuthType.PREVIEW, null));
+//        deserializeReturn(mFileManager.link((int) Util.getUnixDateline(), "test.png", 0, EntFileManager.AuthType.DEFAULT, null));
 
         //发送消息
 //        deserializeReturn(mFileManager.sendmsg( (int) Util.getUnixDateline(), "msgTest", "msg", "", "", "Brandon"));
@@ -116,27 +120,30 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.links((int) Util.getUnixDateline(), true));
 
         //文件分块上传
-        mFileManager.uploadByBlock((int) Util.getUnixDateline(), "Transcend/纸牌屋烤肋排.docx", "Brandon", 0, "/Volumes/Transcend/纸牌屋烤肋排.docx", true, new UploadCallBack() {
-            public void onSuccess(long threadId) {
-                System.out.println("success:" + threadId);
-            }
-
-            public void onFail(long threadId, String errorMsg) {
-                System.out.println("fail:" + threadId + " errorMsg:" + errorMsg);
-
-            }
-
-            public void onProgress(long threadId, float percent) {
-                System.out.println("onProgress:" + threadId + " onProgress:" + percent * 100);
-
-            }
-        });
+//        mFileManager.uploadByBlock((int) Util.getUnixDateline(), "Transcend/纸牌屋烤肋排.docx", "Brandon", 0, "/Volumes/Transcend/纸牌屋烤肋排.docx", true, new UploadCallBack() {
+//
+//            @Override
+//            public void onSuccess(long threadId, String fileHash) {
+//                System.out.println("success:" + threadId);
+//
+//            }
+//
+//            public void onFail(long threadId, String errorMsg) {
+//                System.out.println("fail:" + threadId + " errorMsg:" + errorMsg);
+//
+//            }
+//
+//            public void onProgress(long threadId, float percent) {
+//                System.out.println("onProgress:" + threadId + " onProgress:" + percent * 100);
+//
+//            }
+//        });
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-//        mEntManager.accessToken(true);
+        deserializeReturn(mEntManager.accessToken(true));
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
