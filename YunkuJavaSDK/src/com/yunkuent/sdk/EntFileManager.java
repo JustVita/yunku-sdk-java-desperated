@@ -28,6 +28,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
     private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
     private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/links";
     private static final String URL_API_UPDATE_COUNT = LIB_HOST + "/1/file/updates_count";
+    private static final String URL_API_GET_SERVER_SITE = LIB_HOST + "/1/file/servers";
 
 
     private String mOrgClientId;
@@ -346,6 +347,18 @@ public class EntFileManager extends SignAbility implements HostConfig {
         params.add(new BasicNameValuePair("begin_dateline", beginDateline + ""));
         params.add(new BasicNameValuePair("end_dateline", endDateline + ""));
         params.add(new BasicNameValuePair("showdel", (showDelete ? 1 : 0) + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+
+    public String getServerSite(String type, int dateline) {
+        String method = "POST";
+        String url = URL_API_GET_SERVER_SITE;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
+        params.add(new BasicNameValuePair("type", type));
+        params.add(new BasicNameValuePair("dateline", dateline + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
