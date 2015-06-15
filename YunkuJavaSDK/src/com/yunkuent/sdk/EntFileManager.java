@@ -41,17 +41,16 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 获取文件列表
      *
-     * @param dateline
      * @param start
      * @param fullPath
      * @return
      */
-    public String getFileList(int dateline, int start, String fullPath) {
+    public String getFileList(int start, String fullPath) {
         String method = "GET";
         String url = URL_API_FILELIST;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -62,17 +61,16 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 获取更新列表
      *
-     * @param dateline
      * @param isCompare
      * @param fetchDateline
      * @return
      */
-    public String getUpdateList(int dateline, boolean isCompare, long fetchDateline) {
+    public String getUpdateList(boolean isCompare, long fetchDateline) {
         String method = "GET";
         String url = URL_API_UPDATE_LIST;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         if (isCompare) {
             params.add(new BasicNameValuePair("mode", "compare"));
         }
@@ -84,16 +82,15 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 获取文件信息
      *
-     * @param dateline
      * @param fullPath
      * @return
      */
-    public String getFileInfo(int dateline, String fullPath) {
+    public String getFileInfo(String fullPath) {
         String method = "GET";
         String url = URL_API_FILE_INFO;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -102,17 +99,16 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 创建文件夹
      *
-     * @param dateline
      * @param fullPath
      * @param opName
      * @return
      */
-    public String createFolder(int dateline, String fullPath, String opName) {
+    public String createFolder(String fullPath, String opName) {
         String method = "POST";
         String url = URL_API_CREATE_FOLDER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -122,13 +118,12 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 通过文件流上传
      *
-     * @param dateline
      * @param fullPath
      * @param opName
      * @param stream
      * @return
      */
-    public String createFile(int dateline, String fullPath, String opName, FileInputStream stream) {
+    public String createFile(String fullPath, String opName, FileInputStream stream) {
         try {
             if (stream.available() > UPLOAD_LIMIT_SIZE) {
                 LogPrint.print("文件大小超过50MB");
@@ -141,6 +136,8 @@ public class EntFileManager extends SignAbility implements HostConfig {
         String fileName = Util.getNameFromPath(fullPath);
 
         try {
+            long dateline = Util.getUnixDateline();
+
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
             params.add(new BasicNameValuePair("dateline", dateline + ""));
@@ -168,7 +165,6 @@ public class EntFileManager extends SignAbility implements HostConfig {
 
 
     /**
-     * @param dateline
      * @param fullPath
      * @param opName
      * @param opId
@@ -176,9 +172,9 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @param overWrite
      * @param callBack
      */
-    public Thread uploadByBlock(int dateline, String fullPath, String opName, int opId, String localFilePath,
+    public Thread uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
                                 boolean overWrite, UploadCallBack callBack) {
-        Thread thread = new Thread(new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, dateline, callBack, mClientSecret, overWrite));
+        Thread thread = new Thread(new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite));
         thread.start();
         return thread;
     }
@@ -186,18 +182,17 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 通过本地路径上传
      *
-     * @param dateline
      * @param fullPath
      * @param opName
      * @param localPath
      * @return
      */
-    public String createFile(int dateline, String fullPath, String opName, String localPath) {
+    public String createFile(String fullPath, String opName, String localPath) {
         File file = new File(localPath.trim());
         if (file.exists()) {
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                return createFile(dateline, fullPath, opName, inputStream);
+                return createFile(fullPath, opName, inputStream);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -212,17 +207,16 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 删除文件
      *
-     * @param dateline
      * @param fullPaths
      * @param opName
      * @return
      */
-    public String del(int dateline, String fullPaths, String opName) {
+    public String del(String fullPaths, String opName) {
         String method = "POST";
         String url = URL_API_DEL_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpaths", fullPaths));
         params.add(new BasicNameValuePair("op_name", opName));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -232,18 +226,17 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 移动文件
      *
-     * @param dateline
      * @param fullPath
      * @param destFullPath
      * @param opName
      * @return
      */
-    public String move(int dateline, String fullPath, String destFullPath, String opName) {
+    public String move(String fullPath, String destFullPath, String opName) {
         String method = "POST";
         String url = URL_API_MOVE_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
         params.add(new BasicNameValuePair("dest_fullpath", destFullPath));
         params.add(new BasicNameValuePair("op_name", opName));
@@ -254,19 +247,18 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 获取文件链接
      *
-     * @param dateline
      * @param fullPath
      * @param deadline
      * @param authType
      * @param password
      * @return
      */
-    public String link(int dateline, String fullPath, int deadline, AuthType authType, String password) {
+    public String link(String fullPath, int deadline, AuthType authType, String password) {
         String method = "POST";
         String url = URL_API_LINK_FILE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
 
         if (deadline != 0) {
@@ -285,7 +277,6 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 发送消息
      *
-     * @param dateline
      * @param title
      * @param text
      * @param image
@@ -293,12 +284,12 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @param opName
      * @return
      */
-    public String sendmsg(int dateline, String title, String text, String image, String linkUrl, String opName) {
+    public String sendmsg(String title, String text, String image, String linkUrl, String opName) {
         String method = "POST";
         String url = URL_API_SENDMSG;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("text", text));
         params.add(new BasicNameValuePair("image", image));
@@ -312,15 +303,14 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 获取当前库所有外链
      *
-     * @param dateline
      * @return
      */
-    public String links(int dateline, boolean fileOnly) {
+    public String links(boolean fileOnly) {
         String method = "GET";
         String url = URL_API_GET_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         if (fileOnly) {
             params.add(new BasicNameValuePair("file", "1"));
         }
@@ -332,18 +322,17 @@ public class EntFileManager extends SignAbility implements HostConfig {
     /**
      * 文件更新数量
      *
-     * @param dateline
      * @param beginDateline
      * @param endDateline
      * @param showDelete
      * @return
      */
-    public String getUpdateCounts(int dateline, long beginDateline, long endDateline, boolean showDelete) {
+    public String getUpdateCounts(long beginDateline, long endDateline, boolean showDelete) {
         String method = "GET";
         String url = URL_API_UPDATE_COUNT;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("begin_dateline", beginDateline + ""));
         params.add(new BasicNameValuePair("end_dateline", endDateline + ""));
         params.add(new BasicNameValuePair("showdel", (showDelete ? 1 : 0) + ""));
@@ -352,13 +341,13 @@ public class EntFileManager extends SignAbility implements HostConfig {
     }
 
 
-    public String getServerSite(String type, int dateline) {
+    public String getServerSite(String type) {
         String method = "POST";
         String url = URL_API_GET_SERVER_SITE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("type", type));
-        params.add(new BasicNameValuePair("dateline", dateline + ""));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

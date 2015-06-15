@@ -5,9 +5,9 @@ package com.yunkuent.sdk;
  */
 interface HostConfig {
 
-//    static String OAUTH_HOST = "http://zka.goukuai.cn";
-        static final String OAUTH_HOST = "http://a.goukuai.cn";
-//    static String LIB_HOST = "http://zka-lib.goukuai.cn";
-//    static String LIB_HOST = "http://test4a-lib.goukuai.cn";
-    static final String LIB_HOST = "http://a-lib.goukuai.cn";
+//     String OAUTH_HOST = "http://zka.goukuai.cn";
+          String OAUTH_HOST = "http://a.goukuai.cn";
+//     String LIB_HOST = "http://zka-lib.goukuai.cn";
+//     String LIB_HOST = "http://test4a-lib.goukuai.cn";
+      String LIB_HOST = "http://a-lib.goukuai.cn";
 }
