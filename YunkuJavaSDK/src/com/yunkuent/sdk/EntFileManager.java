@@ -172,11 +172,12 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @param overWrite
      * @param callBack
      */
-    public Thread uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
+    public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
                                 boolean overWrite, UploadCallBack callBack) {
-        Thread thread = new Thread(new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite));
+        UploadRunnable uploadRunnable = new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite);
+        Thread thread = new Thread(uploadRunnable);
         thread.start();
-        return thread;
+        return uploadRunnable;
     }
 
     /**
