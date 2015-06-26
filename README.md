@@ -627,6 +627,9 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 
 ## 企业文件管理（**EntFileManager.java** ）
+
+orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
+
 ###构造方法
 	new EntFileManager(String orgClientId,String orgClientSecret);
 #### 参数 

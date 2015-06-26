@@ -1,9 +1,7 @@
 import Model.BaseData;
-import com.yunkuent.sdk.DebugConfig;
-import com.yunkuent.sdk.EntFileManager;
-import com.yunkuent.sdk.EntLibManager;
-import com.yunkuent.sdk.EntManager;
+import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
+import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
 
@@ -76,8 +74,10 @@ public class SDKTester {
 
 //=======文件操作========//
 
-        String orgClientId = "b0dab7bae808de31b0cf18ccd23e05ab";
-        String orgClientSecret = "272a73249b946e4ef0f8bf520c725a63";
+        // orgClientId orgClientSecret 需要通过 EntLibManager 中 bind 获取库授权获取
+
+        String orgClientId = "FkxXDGumDS8qfmAKYjd7tVOYps";
+        String orgClientSecret = "9jXXWx2a8mn9vX9bC10UbaOOh70";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
 //        deserializeReturn(mFileManager.getFileList( 0, ""));
@@ -94,7 +94,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts( date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-        deserializeReturn(mFileManager.getFileInfo("angularjs_tutorial.pdf"));
+//        deserializeReturn(mFileManager.getFileInfo("angularjs_tutorial.pdf"));
 
 
         //创建文件夹
@@ -119,7 +119,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.links( true));
 
         //文件分块上传
-//        mFileManager.uploadByBlock( "Transcend/纸牌屋烤肋排.docx", "Brandon", 0, "/Volumes/Transcend/纸牌屋烤肋排.docx", true, new UploadCallBack() {
+//        mFileManager.uploadByBlock( "test", "Brandon", 0, "/Users/Brandon/Desktop/SHA256-Swift-master.zip", true, new UploadCallBack() {
 //
 //            @Override
 //            public void onSuccess(long threadId, String fileHash) {
