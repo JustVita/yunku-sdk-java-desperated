@@ -778,7 +778,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 |string| 文件夹路径 |
-| opName | 否 | string | 创建人名称 |
+| opName | 否 | string | 操作人名称 |
 #### 返回结果
 
 | 字段 | 类型 | 说明 |
@@ -794,7 +794,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 | string | 文件路径 |
-| opName | 否 | string | 创建人名称|
+| opName | 否 | string | 操作人名称|
 | stream | 是 | stream | 文件流 |
 
 
@@ -813,7 +813,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 | string | 文件路径 |
-| opName | 否 | string | 创建人名称|
+| opName | 否 | string | 操作人名称|
 | localPath | 是 | string | 本地文件路径 |
 | fileName | 是 | string | 文件名 |
 #### 返回结果
@@ -846,7 +846,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必需 | 类型 | 说明 |
 |------|------|------|------|
 | fullPaths| 是 |string| 文件路径，如果是多个文件用“｜”符号隔开 |
-| opName | 否 | string | 创建人名称 |
+| opName | 否 | string | 操作人名称|
 #### 返回结果
 	正常返回 HTTP 200
 ---
@@ -858,7 +858,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 |------|------|------|------|
 | fullPath | 是 | string | 要移动文件的路径 |
 | destFullPath | 是 | string | 移动后的路径 |
-| opName | 否 | string | 创建人名称|
+| opName | 否 | string | 操作人名称|
 
 #### 返回结果
 	正常返回 HTTP 200
@@ -885,7 +885,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | text | 是 | string | 消息正文 |
 | image | 否 | string | 图片url |
 | linkUrl | 否 | string | 链接 |
-| opName | 否 | string | 创建人名称|
+| opName | 否 | string | 操作人名称|
 #### 返回结果
 	正常返回 HTTP 200 
 ---
