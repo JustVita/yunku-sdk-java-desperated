@@ -778,7 +778,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 |string| 文件夹路径 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称 |
 #### 返回结果
 
 | 字段 | 类型 | 说明 |
@@ -794,7 +794,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 | string | 文件路径 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称|
 | stream | 是 | stream | 文件流 |
 
 
@@ -813,7 +813,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 | string | 文件路径 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称|
 | localPath | 是 | string | 本地文件路径 |
 | fileName | 是 | string | 文件名 |
 #### 返回结果
@@ -832,7 +832,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必须 | 类型 | 说明 |	
 |------|------|------|------|
 | fullpath | 是 | string | 文件路径 |
-| opName | 否 | string |  创建人名称, 如果指定了op_id, 就不需要op_name， |
+| opName | 否 | string |  创建人名称, 如果指定了opId, 就不需要opName， |
 | opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替,|
 | localFilePath | 是 | string | 文件本地路径 |	
 | overWrite | 是 | boolean | 是否覆盖同名文件，true为覆盖 |
@@ -846,7 +846,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | 参数 | 必需 | 类型 | 说明 |
 |------|------|------|------|
 | fullPaths| 是 |string| 文件路径，如果是多个文件用“｜”符号隔开 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称 |
 #### 返回结果
 	正常返回 HTTP 200
 ---
@@ -858,7 +858,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 |------|------|------|------|
 | fullPath | 是 | string | 要移动文件的路径 |
 | destFullPath | 是 | string | 移动后的路径 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称|
 
 #### 返回结果
 	正常返回 HTTP 200
@@ -885,7 +885,7 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 | text | 是 | string | 消息正文 |
 | image | 否 | string | 图片url |
 | linkUrl | 否 | string | 链接 |
-| opName | 是 | string | 用户名称 |
+| opName | 否 | string | 创建人名称|
 #### 返回结果
 	正常返回 HTTP 200 
 ---
@@ -907,6 +907,24 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
     	},
     	...
 	]
+
+---
+
+###通过链接上传文件
+	
+	createFileByUrl(String fullpath,int opId,String opName,boolean overwrite,String url)
+
+#### 参数 
+| 名称 | 必需 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| fullpath | 是 | string | 文件路径 |
+| opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替|
+| opName | 否 | string | 创建人名称, 如果指定了opId, 就不需要opName|
+| overwrite | 是 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识|
+| url | 是 | string | 需要服务端获取的文件url|
+
+#### 返回结果
+	正常返回 HTTP 200 
 
 ---
 

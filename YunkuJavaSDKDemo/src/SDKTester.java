@@ -1,7 +1,9 @@
 import Model.BaseData;
-import com.yunkuent.sdk.*;
+import com.yunkuent.sdk.DebugConfig;
+import com.yunkuent.sdk.EntFileManager;
+import com.yunkuent.sdk.EntLibManager;
+import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
-import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
 
@@ -137,6 +139,10 @@ public class SDKTester {
 //
 //            }
 //        });
+
+        //通过链接上传文件
+        deserializeReturn(mFileManager.createFileByUrl("test.jpg", 0,
+                "Brandon", false, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_587953_527931.jpg"));
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);

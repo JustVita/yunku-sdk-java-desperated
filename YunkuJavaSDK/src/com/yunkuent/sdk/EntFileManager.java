@@ -29,6 +29,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
     private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/links";
     private static final String URL_API_UPDATE_COUNT = LIB_HOST + "/1/file/updates_count";
     private static final String URL_API_GET_SERVER_SITE = LIB_HOST + "/1/file/servers";
+    private static final String URL_API_CREATE_FILE_BY_URL = LIB_HOST + "/1/file/create_file_by_url";
 
 
     private String mOrgClientId;
@@ -173,7 +174,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @param callBack
      */
     public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
-                                boolean overWrite, UploadCallBack callBack) {
+                                        boolean overWrite, UploadCallBack callBack) {
         UploadRunnable uploadRunnable = new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite);
         Thread thread = new Thread(uploadRunnable);
         thread.start();
@@ -337,6 +338,34 @@ public class EntFileManager extends SignAbility implements HostConfig {
         params.add(new BasicNameValuePair("begin_dateline", beginDateline + ""));
         params.add(new BasicNameValuePair("end_dateline", endDateline + ""));
         params.add(new BasicNameValuePair("showdel", (showDelete ? 1 : 0) + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 通过链接上传文件
+     *
+     * @param fullPath
+     * @param opId
+     * @param opName
+     * @param overwrite
+     * @param fileUrl
+     * @return
+     */
+    public String createFileByUrl(String fullPath, int opId, String opName, boolean overwrite, String fileUrl) {
+        String method = "POST";
+        String url = URL_API_CREATE_FILE_BY_URL;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
+        params.add(new BasicNameValuePair("fullpath", fullPath));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        if (opId > 0) {
+            params.add(new BasicNameValuePair("op_id", opId + ""));
+        } else {
+            params.add(new BasicNameValuePair("op_name", opName + ""));
+        }
+        params.add(new BasicNameValuePair("overwrite", overwrite + ""));
+        params.add(new BasicNameValuePair("url", fileUrl));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
