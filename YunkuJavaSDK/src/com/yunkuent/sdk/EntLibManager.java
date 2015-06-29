@@ -73,19 +73,23 @@ public class EntLibManager extends ParentEngine {
 
     /**
      * 获取库列表
-     *
+     * @param memberId
      * @return
      */
-    public String getLibList() {
+    public String getLibList(int memberId) {
         String method = "GET";
         String url = URL_API_GET_LIB_LIST;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
+        if (memberId > 0) {
+            params.add(new BasicNameValuePair("member_id", memberId + ""));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
 
         return NetConnection.sendRequest(url, method, params, null);
     }
+
 
     /**
      * 获取库授权

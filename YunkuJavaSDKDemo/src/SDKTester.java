@@ -35,7 +35,7 @@ public class SDKTester {
 //        deserializeReturn(mEntLibManager.getInfo(407844));
 
         //获取库列表
-//        deserializeReturn(mEntLibManager.getLibList());
+//        deserializeReturn(mEntLibManager.getLibList(0));
 
         //获取库授权
 //        deserializeReturn(mEntLibManager.bind(5235,null,null));
@@ -96,7 +96,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts( date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-//        deserializeReturn(mFileManager.getFileInfo("angularjs_tutorial.pdf"));
+        deserializeReturn(mFileManager.getFileInfo("test.jpg"));
 
 
         //创建文件夹
@@ -141,8 +141,8 @@ public class SDKTester {
 //        });
 
         //通过链接上传文件
-        deserializeReturn(mFileManager.createFileByUrl("test.jpg", 0,
-                "Brandon", false, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_587953_527931.jpg"));
+//        deserializeReturn(mFileManager.createFileByUrl("test.jpg", 0,
+//                "Brandon", true, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_587953_527931.jpg"));
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
