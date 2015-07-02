@@ -96,7 +96,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts( date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-        deserializeReturn(mFileManager.getFileInfo("test.jpg"));
+//        deserializeReturn(mFileManager.getFileInfo("test.jpg", EntFileManager.NetType.IN));
 
 
         //创建文件夹
@@ -141,14 +141,14 @@ public class SDKTester {
 //        });
 
         //通过链接上传文件
-//        deserializeReturn(mFileManager.createFileByUrl("test.jpg", 0,
+//        deserializeReturn(mFileManager.createFileByUrl("中文.jpg", 0,
 //                "Brandon", true, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_587953_527931.jpg"));
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-//        deserializeReturn(mEntManager.accessToken(true));
+        deserializeReturn(mEntManager.accessToken(true));
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());
@@ -158,6 +158,9 @@ public class SDKTester {
 
         //获取成员
 //        deserializeReturn(mEntManager.getMembers(0, 99));
+
+        //获取企业成员信息
+        deserializeReturn(mEntManager.getMember(42));
 
         //分组成员列表
 //        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));

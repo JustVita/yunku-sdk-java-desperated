@@ -84,15 +84,23 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * 获取文件信息
      *
      * @param fullPath
+     * @param net
      * @return
      */
-    public String getFileInfo(String fullPath) {
+    public String getFileInfo(String fullPath, NetType net) {
         String method = "GET";
         String url = URL_API_FILE_INFO;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
+        switch (net) {
+            case DEFAULT:
+                break;
+            case IN:
+                params.add(new BasicNameValuePair("net",net.name().toLowerCase()));
+                break;
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -397,6 +405,11 @@ public class EntFileManager extends SignAbility implements HostConfig {
         PREVIEW,
         DOWNLOAD,
         UPLOAD
+    }
+
+    public enum NetType {
+        DEFAULT,
+        IN
     }
 
 }

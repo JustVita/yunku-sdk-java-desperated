@@ -142,7 +142,7 @@ Robots: noindex,nofollow
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | orgId | 是 | int | 库id |
-|
+
 
 #### 返回结果 
 	{
@@ -227,6 +227,31 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	}
 
 ---
+
+### 查询库成员信息
+	getMember(int memberId)
+
+#### 参数
+
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| memberId | 是 | int | 成员id |
+
+
+#### 返回结果
+
+	{
+      "member_id": 成员id,
+      "member_name": 成员显示名,
+      "member_email": 成员邮箱,
+      "out_id": 外部系统唯一id,
+      "account": 外部系统登录帐号,
+      "state": 成员状态。1：已接受，2：未接受
+	}
+
+---
+
+
 ### 添加库成员
 	addMembers(int orgId, int roleId, int[] memberIds) 
 #### 参数 
@@ -390,7 +415,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
-###获取成员
+###获取成员列表
 	getMembers(int start, int size)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
@@ -416,29 +441,26 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
-### 查询库成员信息
-	getMember(int orgid, MemberType type, String[] ids)
+### 查询企业成员信息
+	getMember(int memberId)
 
 #### 参数 
 	
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| orgid | 是 | int | 库id |
-| type | 是 | enum | ACCOUNT,OUT_ID,MEMBER_ID |
-| ids | 是 | array | 多个id数组 |
+| memberId | 是 | int | 成员id |
+
 
 #### 返回结果
-		
-		{
-			"id(传入时的id))":{
-				"member_id": 成员id,
-				"out_id": 成员外部id,
-				"account": 外部账号,
-				"member_name": 成员显示名,
-				"member_email": 成员邮箱
-			},
-			...
-		}
+
+	{
+      "member_id": 成员id,
+      "member_name": 成员显示名,
+      "member_email": 成员邮箱,
+      "out_id": 外部系统唯一id,
+      "account": 外部系统登录帐号,
+      "state": 成员状态。1：已接受，2：未接受
+	}
 
 ---
 
@@ -736,12 +758,13 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 ---
 
 ###获取文件信息
-	getFileInfo( String fullPath)
+	getFileInfo( String fullPath,NetType net)
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
 
 | fullPath | 是 | string | 文件路径 |
+| net | 是 | NetType | DEFAULT,返回公网下载地址；IN，返回内网下载地址 |
 
 #### 返回结果
 
