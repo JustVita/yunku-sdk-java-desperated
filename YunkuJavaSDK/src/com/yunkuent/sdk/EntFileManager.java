@@ -98,7 +98,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
             case DEFAULT:
                 break;
             case IN:
-                params.add(new BasicNameValuePair("net",net.name().toLowerCase()));
+                params.add(new BasicNameValuePair("net", net.name().toLowerCase()));
                 break;
         }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -372,7 +372,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
         } else {
             params.add(new BasicNameValuePair("op_name", opName + ""));
         }
-        params.add(new BasicNameValuePair("overwrite", overwrite + ""));
+        params.add(new BasicNameValuePair("overwrite", (overwrite ? 1 : 0) + ""));
         params.add(new BasicNameValuePair("url", fileUrl));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
