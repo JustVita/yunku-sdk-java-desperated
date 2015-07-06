@@ -162,8 +162,14 @@ public class SDKTester {
         //获取成员
 //        deserializeReturn(mEntManager.getMembers(0, 99));
 
-        //获取企业成员信息
-        deserializeReturn(mEntManager.getMember(0, "", "nishuonishuo"));
+        //根据成员Id查询企业成员信息
+//        deserializeReturn(mEntManager.getMemberById(42));
+
+        //根据外部系统唯一id查询企业成员信息
+//        deserializeReturn(mEntManager.getMemberByOutId("dqwdqw"));
+
+        //根据外部系统登录帐号查询企业成员信息
+//        deserializeReturn(mEntManager.getMemberByAccount("nishuonishuo"));
 
         //分组成员列表
 //        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));

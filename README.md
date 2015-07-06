@@ -229,15 +229,13 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 查询库成员信息
-	getMember(int memberId,String outId,String account)
+	getMember(int memberId)
 
 #### 参数
 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | memberId | 否 | int | 成员id |
-| outId | 否 | String | 外部系统唯一id|
-| account | 否 | String | 外部系统登录帐号 |
 ---		
 *参数中的member_id,out_id和account必须传其中之一*
 
@@ -444,8 +442,8 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
-### 查询企业成员信息
-	getMember(int memberId)
+### 根据成员Id查询企业成员信息
+	getMemberById(int memberId)
 
 #### 参数 
 	
@@ -466,6 +464,53 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	}
 
 ---
+
+### 根据外部系统唯一id查询企业成员信息
+	getMemberByOutId(String outId)
+
+#### 参数 
+	
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| outId | 是 | String | 外部系统唯一id|
+
+
+#### 返回结果
+
+	{
+      "member_id": 成员id,
+      "member_name": 成员显示名,
+      "member_email": 成员邮箱,
+      "out_id": 外部系统唯一id,
+      "account": 外部系统登录帐号,
+      "state": 成员状态。1：已接受，2：未接受
+	}
+
+---
+### 根据外部系统登录帐号查询企业成员信息
+	String getMemberByAccount(String account)
+
+#### 参数 
+	
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| account | 是 | String | 外部系统登录帐号 |
+
+
+#### 返回结果
+
+	{
+      "member_id": 成员id,
+      "member_name": 成员显示名,
+      "member_email": 成员邮箱,
+      "out_id": 外部系统唯一id,
+      "account": 外部系统登录帐号,
+      "state": 成员状态。1：已接受，2：未接受
+	}
+
+---
+
+
 
 ###获取分组
 	getGroups() 

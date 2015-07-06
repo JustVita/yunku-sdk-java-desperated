@@ -17,7 +17,7 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
     private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
     private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
-    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
+//    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
 
     private static final String URL_API_ADD_SYNC_MEMBER = LIB_HOST + "/1/ent/add_sync_member";
     private static final String URL_API_DEL_SYNC_MEMBER = LIB_HOST + "/1/ent/del_sync_member";
@@ -92,13 +92,8 @@ public class EntManager extends ParentEngine {
     }
 
 
-    /**
-     * 获取企业成员信息
-     *
-     * @param memberId
-     * @return
-     */
-    public String getMember(int memberId, String outId, String account) {
+
+    private String getMember(int memberId, String outId, String account) {
         String method = "GET";
         String url = URL_API_GET_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -111,6 +106,40 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("account", account));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 根据成员id获取企业成员信息
+     *
+     * @param memberId
+     * @return
+     */
+
+    public String getMemberById(int memberId) {
+        return getMember(memberId, null, null);
+    }
+
+    /**
+     * 根据外部id获取企业成员信息
+     *
+     * @param outId
+     * @return
+     */
+
+    public String getMemberByOutId(String outId) {
+        return getMember(0, outId, null);
+
+    }
+
+    /**
+     * 根据帐号获取企业成员信息
+     *
+     * @param account
+     * @return
+     */
+
+    public String getMemberByAccount(String account) {
+        return getMember(0, null, account);
     }
 
 
@@ -150,45 +179,45 @@ public class EntManager extends ParentEngine {
         return NetConnection.sendRequest(url, method, params, null);
     }
 
-    /**
-     * 根据外部成员id获取成员信息
-     *
-     * @return
-     */
-    public String getMemberByOutid(String outIds[]) {
-        if (outIds == null) {
-            throw new NullPointerException("outIds is null");
-        }
-        return getMemberByIds(null, outIds);
+//    /**
+//     * 根据外部成员id获取成员信息
+//     *
+//     * @return
+//     */
+//    public String getMemberByOutid(String outIds[]) {
+//        if (outIds == null) {
+//            throw new NullPointerException("outIds is null");
+//        }
+//        return getMemberByIds(null, outIds);
+//
+//    }
+//
+//    /**
+//     * 根据外部成员登录帐号获取成员信息
+//     *
+//     * @return
+//     */
+//    public String getMemberByUserId(String[] userIds) {
+//        if (userIds == null) {
+//            throw new NullPointerException("userIds is null");
+//        }
+//        return getMemberByIds(userIds, null);
+//    }
 
-    }
-
-    /**
-     * 根据外部成员登录帐号获取成员信息
-     *
-     * @return
-     */
-    public String getMemberByUserId(String[] userIds) {
-        if (userIds == null) {
-            throw new NullPointerException("userIds is null");
-        }
-        return getMemberByIds(userIds, null);
-    }
-
-    private String getMemberByIds(String[] userIds, String[] outIds) {
-        String method = "GET";
-        String url = URL_API_GET_MEMBER_BY_OUT_ID;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
-        if (outIds != null) {
-            params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
-        } else {
-            params.add(new BasicNameValuePair("user_ids", Util.strArrayToString(userIds, ",") + ""));
-        }
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
-    }
+//    private String getMemberByIds(String[] userIds, String[] outIds) {
+//        String method = "GET";
+//        String url = URL_API_GET_MEMBER_BY_OUT_ID;
+//        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+//        params.add(new BasicNameValuePair("token", mToken));
+//        params.add(new BasicNameValuePair("token_type", "ent"));
+//        if (outIds != null) {
+//            params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
+//        } else {
+//            params.add(new BasicNameValuePair("user_ids", Util.strArrayToString(userIds, ",") + ""));
+//        }
+//        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+//        return NetConnection.sendRequest(url, method, params, null);
+//    }
 
     /**
      * 添加或修改同步成员
