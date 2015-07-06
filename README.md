@@ -229,14 +229,17 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 ### 查询库成员信息
-	getMember(int memberId)
+	getMember(int memberId,String outId,String account)
 
 #### 参数
 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| memberId | 是 | int | 成员id |
-
+| memberId | 否 | int | 成员id |
+| outId | 否 | String | 外部系统唯一id|
+| account | 否 | String | 外部系统登录帐号 |
+---		
+*参数中的member_id,out_id和account必须传其中之一*
 
 #### 返回结果
 
@@ -951,6 +954,24 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 
 #### 返回结果
 	正常返回 HTTP 200 
+
+---
+
+###WEB直接上传文件
+	getUploadServers()
+
+#### 参数 
+
+(无)
+
+#### 返回结果
+	{
+       "upload":
+       [
+          上传服务器地址 如:http://upload.domain.com,
+         ...
+       ]
+	}
 
 ---
 
