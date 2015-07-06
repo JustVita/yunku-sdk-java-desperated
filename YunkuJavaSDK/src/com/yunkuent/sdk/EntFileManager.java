@@ -30,6 +30,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
     private static final String URL_API_UPDATE_COUNT = LIB_HOST + "/1/file/updates_count";
     private static final String URL_API_GET_SERVER_SITE = LIB_HOST + "/1/file/servers";
     private static final String URL_API_CREATE_FILE_BY_URL = LIB_HOST + "/1/file/create_file_by_url";
+    private static final String URL_API_UPLOAD_SERVERS = LIB_HOST + "/1/file/upload_servers";
 
 
     private String mOrgClientId;
@@ -374,6 +375,23 @@ public class EntFileManager extends SignAbility implements HostConfig {
         }
         params.add(new BasicNameValuePair("overwrite", (overwrite ? 1 : 0) + ""));
         params.add(new BasicNameValuePair("url", fileUrl));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 获取上传地址
+     *
+     * (支持50MB以上文件的上传)
+     *
+     * @return
+     */
+    public String getUploadServers(){
+        String method = "GET";
+        String url = URL_API_UPLOAD_SERVERS;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

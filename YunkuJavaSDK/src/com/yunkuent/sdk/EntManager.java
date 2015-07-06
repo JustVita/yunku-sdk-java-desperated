@@ -13,7 +13,7 @@ public class EntManager extends ParentEngine {
 
     private static final String URL_API_GET_GROUPS = LIB_HOST + "/1/ent/get_groups";
     private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/ent/get_members";
-    private static final String URL_API_GET_MEMBER= LIB_HOST + "/1/ent/get_member";
+    private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/ent/get_member";
     private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
     private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
     private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
@@ -93,17 +93,22 @@ public class EntManager extends ParentEngine {
 
 
     /**
-     * 获取成员信息
+     * 获取企业成员信息
+     *
      * @param memberId
      * @return
      */
-    public String getMember(int memberId){
+    public String getMember(int memberId, String outId, String account) {
         String method = "GET";
         String url = URL_API_GET_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", "ent"));
-        params.add(new BasicNameValuePair("member_id", memberId + ""));
+        if (memberId > 0) {
+            params.add(new BasicNameValuePair("member_id", memberId + ""));
+        }
+        params.add(new BasicNameValuePair("out_id", outId));
+        params.add(new BasicNameValuePair("account", account));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

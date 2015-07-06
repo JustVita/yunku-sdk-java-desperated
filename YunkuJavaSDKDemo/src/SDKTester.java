@@ -96,7 +96,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts( date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-//        deserializeReturn(mFileManager.getFileInfo("test.jpg", EntFileManager.NetType.IN));
+//        deserializeReturn(mFileManager.getFileInfo("中文.jpg", EntFileManager.NetType.DEFAULT));
 
 
         //创建文件夹
@@ -106,7 +106,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.createFile("WoWScrnShot_031415_175713.jpeg","Brandon","/Users/Brandon/Desktop/gugepinyinshurufa_427.apk"));
 
         //删除文件
-//        deserializeReturn(mFileManager.del("0000000","Brandon"));
+//        deserializeReturn(mFileManager.del("test","Brandon"));
 
         //移动文件
 //        deserializeReturn(mFileManager.move("test/test.txt","test.txt","Brandon"));
@@ -142,7 +142,10 @@ public class SDKTester {
 
         //通过链接上传文件
 //        deserializeReturn(mFileManager.createFileByUrl("中文.jpg", 0,
-//                "Brandon", true, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_587953_527931.jpg"));
+//                "Brandon", true, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_589214_521618.jpg"));
+
+        //WEB直接上传文件 (支持50MB以上文件的上传)
+//        deserializeReturn(mFileManager.getUploadServers());
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.UESRNAME, OauthConfig.PASSWORD, OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
@@ -160,7 +163,7 @@ public class SDKTester {
 //        deserializeReturn(mEntManager.getMembers(0, 99));
 
         //获取企业成员信息
-        deserializeReturn(mEntManager.getMember(42));
+        deserializeReturn(mEntManager.getMember(0, "", "nishuonishuo"));
 
         //分组成员列表
 //        deserializeReturn(mEntManager.getGroupMembers(1086, 0, 3, true));
