@@ -30,19 +30,13 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_GET_INFO = LIB_HOST + "/1/org/info";
 
 
-    //    @Deprecated
-    public EntLibManager(String username, String password, String clientId, String clientSecret) {
-        super(username, password, clientId, clientSecret);
+    public EntLibManager(String clientId, String clientSecret, boolean isEnt) {
+        super(clientId, clientSecret, isEnt);
     }
 
-//    public EntLibManager(){
-//        super(Config.UESRNAME, Config.PASSWORD, Config.CLIENT_ID, Config.CLIENT_SECRET);
-//    }
-
-    private EntLibManager(String username, String password, String clientId, String clientSecrect, String token) {
-        super(username, password, clientId, clientSecrect);
+    private EntLibManager(String clientId, String clientSecret, boolean isEnt, String token) {
+        super(clientId, clientSecret, isEnt);
         mToken = token;
-
     }
 
     /**
@@ -59,7 +53,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_CREATE_LIB;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_name", orgName));
         params.add(new BasicNameValuePair("org_capacity", orgCapacity));
         params.add(new BasicNameValuePair("storage_point_name", storagePointName));
@@ -81,7 +75,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_GET_LIB_LIST;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         if (memberId > 0) {
             params.add(new BasicNameValuePair("member_id", memberId + ""));
         }
@@ -104,7 +98,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_BIND;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", String.valueOf(orgId)));
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("url", linkUrl));
@@ -123,7 +117,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_UNBIND;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_client_id", orgClientId));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -135,7 +129,7 @@ public class EntLibManager extends ParentEngine {
 //        String url = URL_API_GET_ROLES;
 //        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 //        params.add(new BasicNameValuePair("token", mToken));
-//        params.add(new BasicNameValuePair("token_type", "ent"));
+//        params.add(new BasicNameValuePair("token_type", mTokenType));
 //        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
 //        return NetConnection.sendRequest(url, method, params, null);
 //    }
@@ -153,7 +147,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_GET_MEMBERS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("size", size + ""));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
@@ -174,7 +168,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_ADD_MEMBERS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("role_id", roleId + ""));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
@@ -195,7 +189,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_SET_MEMBER_ROLE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("role_id", roleId + ""));
         params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
@@ -215,7 +209,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_DEL_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("member_ids", Util.intArrayToString(memberIds, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -233,7 +227,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_GET_GROUPS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -252,7 +246,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_ADD_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("group_id", groupId + ""));
         params.add(new BasicNameValuePair("role_id", roleId + ""));
@@ -272,7 +266,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_DEL_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("group_id", groupId + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -292,7 +286,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_SET_GROUP_ROLE;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("group_id", groupId + ""));
         params.add(new BasicNameValuePair("role_id", roleId + ""));
@@ -311,7 +305,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_DESTROY;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_client_id", orgClientId + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -332,7 +326,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_SET;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         if (orgName != null && !orgName.isEmpty()) {
             params.add(new BasicNameValuePair("org_name", orgName));
@@ -364,7 +358,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_GET_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("type", type.toString().toLowerCase()));
         params.add(new BasicNameValuePair("ids", Util.strArrayToString(ids, ",") + ""));
@@ -383,7 +377,7 @@ public class EntLibManager extends ParentEngine {
         String url = URL_API_GET_INFO;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", "ent"));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", orgId + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -396,7 +390,7 @@ public class EntLibManager extends ParentEngine {
      * @return
      */
     public EntLibManager clone() {
-        return new EntLibManager(mUsername, mPassword, mClientId, mClientSecret, mToken);
+        return new EntLibManager(mClientId, mClientSecret, mIsEnt, mToken);
     }
 
 

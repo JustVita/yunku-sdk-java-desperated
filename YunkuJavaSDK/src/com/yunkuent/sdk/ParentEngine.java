@@ -16,15 +16,15 @@ abstract class ParentEngine extends SignAbility implements HostConfig {
     protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token";
 
     protected String mClientId;
-    protected String mUsername;
-    protected String mPassword;
     protected String mToken;
+    protected boolean mIsEnt;
+    protected String mTokenType;
 
-    public ParentEngine(String username, String password, String clientId, String clientSecrect) {
-        mUsername = username;
-        mPassword = password;
+    public ParentEngine(String clientId, String clientSecret, boolean isEnt) {
         mClientId = clientId;
-        mClientSecret = clientSecrect;
+        mClientSecret = clientSecret;
+        mIsEnt = isEnt;
+        mTokenType = isEnt ? "ent" : "";
     }
 
     /**
@@ -32,15 +32,15 @@ abstract class ParentEngine extends SignAbility implements HostConfig {
      *
      * @return
      */
-    public String accessToken(boolean isEnt) {
+    public String accessToken(String username, String password) {
         String url = URL_API_TOKEN;
         String method = "POST";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", mUsername));
-        params.add(new BasicNameValuePair("password", Util.convert2MD532(mPassword)));
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", Util.convert2MD532(password)));
         params.add(new BasicNameValuePair("client_id", mClientId));
         params.add(new BasicNameValuePair("client_secret", mClientSecret));
-        params.add(new BasicNameValuePair("grant_type", isEnt ? "ent_password" : "password"));
+        params.add(new BasicNameValuePair("grant_type", mIsEnt ? "ent_password" : "password"));
 
         String result = NetConnection.sendRequest(url, method, params, null);
         ReturnResult returnResult = ReturnResult.create(result);
