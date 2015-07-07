@@ -8,7 +8,7 @@ Robots: noindex,nofollow
 
 #够快云库Java SDK使用说明
 
-版本：1.0.3
+版本：1.0.25
 
 创建：2014-08-25
 
@@ -25,23 +25,23 @@ Robots: noindex,nofollow
 ## 企业库管理（**EntLibManager.java** ）
 
 ###构造方法
-	new EntLibManager（Username，Password,ClientId,ClientSecret）
+	new EntLibManager（ClientId,ClientSecret,boolean isEnt）
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| ClientId | 是 | string | 申请应用时分配的AppKey |
+| ClientSecret | 是 | string | 申请应用时分配的AppSecret |
+| isEnt | 是 | boolean | 是否是企业帐号登录|
+
+---
+
+### 授权
+	accessToken(Username，Password)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | Username | 是 | string | 用户名 |
 | Password | 是 | string | 密码|
-| ClientId | 是 | string | 申请应用时分配的AppKey |
-| ClientSecret | 是 | string | 申请应用时分配的AppSecret |
-
----
-
-### 授权
-	accessToken(boolean isEnt)
-#### 参数 
-| 参数 | 必须 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| isEnt | 是 | boolean | 是否是企业帐号登录|
 
 
 #### 返回结果
@@ -367,23 +367,23 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ## 企业管理（**EntManager.java** ）
 ###构造方法
-	new EntManager（String Username，String Password, String ClientId,String ClientSecret）
+	new EntManager（ String ClientId,String ClientSecret,boolean isEnt）
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| ClientId | 是 | string | 申请应用时分配的AppKey |
+| ClientSecret | 是 | string | 申请应用时分配的AppSecret |
+| isEnt | 是 | boolean | 是否是企业帐号登录|
+
+---
+
+### 授权
+	accessToken(String Username，String Password)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | Username | 是 | string | 用户名 |
 | Password | 是 | string | 密码|
-| ClientId | 是 | string | 申请应用时分配的AppKey |
-| ClientSecret | 是 | string | 申请应用时分配的AppSecret |
-
----
-
-### 授权
-	accessToken(boolean isEnt)
-#### 参数 
-| 参数 | 必须 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| isEnt | 是 | boolean | 是否是企业帐号登录|
 
 
 #### 返回结果
