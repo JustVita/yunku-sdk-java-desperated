@@ -1,6 +1,7 @@
 package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.data.ReturnResult;
+import com.yunkuent.sdk.utils.Base64;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -37,7 +38,13 @@ abstract class ParentEngine extends SignAbility implements HostConfig {
         String method = "POST";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", Util.convert2MD532(password)));
+        String passwordEncoded;
+        if (username.indexOf("/") > 0 || username.indexOf("\\") > 0) {
+            passwordEncoded = Base64.encodeBytes(password.getBytes());
+        } else {
+            passwordEncoded = Util.convert2MD532(password);
+        }
+        params.add(new BasicNameValuePair("password", passwordEncoded));
         params.add(new BasicNameValuePair("client_id", mClientId));
         params.add(new BasicNameValuePair("client_secret", mClientSecret));
         params.add(new BasicNameValuePair("grant_type", mIsEnt ? "ent_password" : "password"));
