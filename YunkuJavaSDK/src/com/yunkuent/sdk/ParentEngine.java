@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 abstract class ParentEngine extends SignAbility implements HostConfig {
 
-    protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token";
+    protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token2";
 
     protected String mClientId;
     protected String mToken;
@@ -46,8 +46,9 @@ abstract class ParentEngine extends SignAbility implements HostConfig {
         }
         params.add(new BasicNameValuePair("password", passwordEncoded));
         params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("client_secret", mClientSecret));
         params.add(new BasicNameValuePair("grant_type", mIsEnt ? "ent_password" : "password"));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
 
         String result = NetConnection.sendRequest(url, method, params, null);
         ReturnResult returnResult = ReturnResult.create(result);
