@@ -180,12 +180,6 @@ public class SDKTester {
         //根据成员id获取成员个人库外链
 //        deserializeReturn(mEntManager.getMemberFileLink(52, true));
 
-        //根据外部成员id获取成员信息
-//        deserializeReturn(mEntManager.getMemberByOutid(new String[]{"nishuonishuo","dqwdqw"}));
-
-        //根据外部成员登录帐号获取成员信息（new）
-//        deserializeReturn(mEntManager.getMemberByUserId(new String[]{"shipeng3"}));
-
         //添加或修改同步成员
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest1", "Member1", "Member1", "1234", "111", "111"));
 //        deserializeReturn(mEntManager.addSyncMember("MemberTest2", "Member2", "Member2", "", "", ""));
