@@ -15,7 +15,7 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/ent/get_members";
     private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/ent/get_member";
     private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
-    private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
+//    private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
     private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
 //    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
 
@@ -25,7 +25,12 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_DEL_SYNC_GROUP = LIB_HOST + "/1/ent/del_sync_group";
     private static final String URL_API_ADD_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/add_sync_group_member";
     private static final String URL_API_DEL_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/del_sync_group_member";
+    private static final String URL_API_DEL_SYNC_MEMBER_GROUP = LIB_HOST + "/1/ent/del_sync_member_group";
     private static final String URL_API_GET_GROUP_MEMBERS = LIB_HOST + "/1/ent/get_group_members";
+
+    public EntManager(String clientId, String clientSecret) {
+        super(clientId, clientSecret, true);
+    }
 
     public EntManager(String clientId, String clientSecret, boolean isEnt) {
         super(clientId, clientSecret, isEnt);
@@ -209,7 +214,6 @@ public class EntManager extends ParentEngine {
      * @param password    如果需要由够快验证帐号密码,密码为必须参数
      * @return
      */
-
     public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone, String password) {
         String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
@@ -217,11 +221,21 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("out_id", oudId));
-        params.add(new BasicNameValuePair("member_name", memberName));
-        params.add(new BasicNameValuePair("account", account));
-        params.add(new BasicNameValuePair("member_email", memberEmail));
-        params.add(new BasicNameValuePair("member_phone", memberPhone));
-        params.add(new BasicNameValuePair("password", password));
+        if (memberName != null) {
+            params.add(new BasicNameValuePair("member_name", memberName));
+        }
+        if (account != null) {
+            params.add(new BasicNameValuePair("account", account));
+        }
+        if (memberEmail != null) {
+            params.add(new BasicNameValuePair("member_email", memberEmail));
+        }
+        if (memberPhone != null) {
+            params.add(new BasicNameValuePair("member_phone", memberPhone));
+        }
+        if (password != null) {
+            params.add(new BasicNameValuePair("password", password));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -260,7 +274,9 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("out_id", outId));
         params.add(new BasicNameValuePair("name", name));
-        params.add(new BasicNameValuePair("parent_out_id", parentOutId));
+        if (parentOutId != null) {
+            params.add(new BasicNameValuePair("parent_out_id", parentOutId));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -339,6 +355,23 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("size", size + ""));
         params.add(new BasicNameValuePair("show_child", (showChild ? 1 : 0) + ""));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
+     * 删除成员的所有同步分组
+     *
+     * @param members
+     * @return
+     */
+    public String delSyncMemberGroup(String[] members) {
+        String method = "POST";
+        String url = URL_API_DEL_SYNC_MEMBER_GROUP;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }

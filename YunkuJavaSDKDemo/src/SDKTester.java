@@ -20,13 +20,10 @@ public class SDKTester {
         DebugConfig.PRINT_LOG = true;
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
-        //是否使用企业授权
-        boolean isEnt = true;
-
         //==========================云库企业库操作==========================//
-        mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET, isEnt);
+        mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 //        //获取认证
-        mEntLibManager.accessToken(OauthConfig.UESRNAME, OauthConfig.PASSWORD);
+        mEntLibManager.accessToken(OauthConfig.ADMIN, OauthConfig.PASSWORD);
 
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.create("destroy2", "1073741824", "destroy", "test lib", ""));
@@ -85,7 +82,7 @@ public class SDKTester {
         String orgClientSecret = "";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
-//        deserializeReturn(mFileManager.getFileList( 0, ""));
+//        deserializeReturn(mFileManager.getFileList());
 
         //获取更新列表
 //        deserializeReturn(mFileManager.getUpdateList( false, 0));
@@ -151,10 +148,10 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUploadServers());
 
 //==========================云库企业操作==========================//
-        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET, isEnt);
+        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取认证
-        deserializeReturn(mEntManager.accessToken(OauthConfig.UESRNAME, OauthConfig.PASSWORD));
+        deserializeReturn(mEntManager.accessToken(OauthConfig.ADMIN, OauthConfig.PASSWORD));
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());

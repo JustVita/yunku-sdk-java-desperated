@@ -30,6 +30,10 @@ public class EntLibManager extends ParentEngine {
     private static final String URL_API_GET_INFO = LIB_HOST + "/1/org/info";
 
 
+    public EntLibManager(String clientId, String clientSecret) {
+        super(clientId, clientSecret, true);
+    }
+
     public EntLibManager(String clientId, String clientSecret, boolean isEnt) {
         super(clientId, clientSecret, isEnt);
     }
@@ -60,13 +64,20 @@ public class EntLibManager extends ParentEngine {
         params.add(new BasicNameValuePair("org_desc", orgDesc));
         params.add(new BasicNameValuePair("org_logo", orgLogo));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-
         return NetConnection.sendRequest(url, method, params, null);
     }
 
 
     /**
-     * 获取库列表
+     * 获取企业库列表
+     * @return
+     */
+    public String getLibList() {
+        return this.getLibList(0);
+    }
+
+    /**
+     * 获取指定成员参与的库列表
      * @param memberId
      * @return
      */
@@ -80,7 +91,6 @@ public class EntLibManager extends ParentEngine {
             params.add(new BasicNameValuePair("member_id", memberId + ""));
         }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-
         return NetConnection.sendRequest(url, method, params, null);
     }
 
@@ -88,19 +98,19 @@ public class EntLibManager extends ParentEngine {
     /**
      * 获取库授权
      *
-     * @param orgId
-     * @param title
+     * @param orgId 库ID
+     * @param appName 调用SDK的应用的名称
      * @param linkUrl 可以不传
      * @return
      */
-    public String bind(int orgId, String title, String linkUrl) {
+    public String bind(int orgId, String appName, String linkUrl) {
         String method = "POST";
         String url = URL_API_BIND;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("org_id", String.valueOf(orgId)));
-        params.add(new BasicNameValuePair("title", title));
+        params.add(new BasicNameValuePair("title", appName));
         params.add(new BasicNameValuePair("url", linkUrl));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -122,17 +132,6 @@ public class EntLibManager extends ParentEngine {
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
-
-
-//    public String getRoles() {
-//        String method = "GET";
-//        String url = URL_API_GET_ROLES;
-//        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-//        params.add(new BasicNameValuePair("token", mToken));
-//        params.add(new BasicNameValuePair("token_type", mTokenType));
-//        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-//        return NetConnection.sendRequest(url, method, params, null);
-//    }
 
     /**
      * 获取库成员列表

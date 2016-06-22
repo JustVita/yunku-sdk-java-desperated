@@ -37,24 +37,49 @@ public class EntFileManager extends SignAbility implements HostConfig {
 
     public EntFileManager(String orgClientId, String orgClientSecret) {
         mOrgClientId = orgClientId;
-        mClientSecret = orgClientSecret;//orgClientSecret
+        mClientSecret = orgClientSecret;
+    }
+
+    /**
+     * 获取根目录文件列表
+     *
+     * @return
+     */
+    public String getFileList() {
+        return this.getFileList("", 0, 100, false);
     }
 
     /**
      * 获取文件列表
      *
-     * @param start
-     * @param fullPath
+     * @param fullPath 路径, 空字符串表示根目录
      * @return
      */
-    public String getFileList(int start, String fullPath) {
+    public String getFileList(String fullPath) {
+        return this.getFileList(fullPath, 0, 100, false);
+    }
+
+    /**
+     * 获取文件列表
+     *
+     * @param fullPath 路径, 空字符串表示根目录
+     * @param start 起始下标, 分页显示
+     * @param size 返回文件/文件夹数量限制
+     * @param dirOnly 只返回文件夹
+     * @return
+     */
+    public String getFileList(String fullPath, int start, int size, boolean dirOnly) {
         String method = "GET";
         String url = URL_API_FILELIST;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
         params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("fullpath", fullPath));
+        params.add(new BasicNameValuePair("start", start + ""));
+        params.add(new BasicNameValuePair("size", size + ""));
+        if (dirOnly) {
+            params.add(new BasicNameValuePair("dir", "1"));
+        }
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
 
