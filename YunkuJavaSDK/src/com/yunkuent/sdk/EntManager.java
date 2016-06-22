@@ -15,7 +15,7 @@ public class EntManager extends ParentEngine {
     private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/ent/get_members";
     private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/ent/get_member";
     private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
-//    private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
+    //    private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
     private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
 //    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
 
@@ -74,7 +74,6 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
-
 
 
     private String getMember(int memberId, String outId, String account) {
@@ -221,21 +220,11 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("token", mToken));
         params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("out_id", oudId));
-        if (memberName != null) {
-            params.add(new BasicNameValuePair("member_name", memberName));
-        }
-        if (account != null) {
-            params.add(new BasicNameValuePair("account", account));
-        }
-        if (memberEmail != null) {
-            params.add(new BasicNameValuePair("member_email", memberEmail));
-        }
-        if (memberPhone != null) {
-            params.add(new BasicNameValuePair("member_phone", memberPhone));
-        }
-        if (password != null) {
-            params.add(new BasicNameValuePair("password", password));
-        }
+        params.add(new BasicNameValuePair("member_name", memberName));
+        params.add(new BasicNameValuePair("account", account));
+        params.add(new BasicNameValuePair("member_email", memberEmail));
+        params.add(new BasicNameValuePair("member_phone", memberPhone));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -274,9 +263,7 @@ public class EntManager extends ParentEngine {
         params.add(new BasicNameValuePair("token_type", mTokenType));
         params.add(new BasicNameValuePair("out_id", outId));
         params.add(new BasicNameValuePair("name", name));
-        if (parentOutId != null) {
-            params.add(new BasicNameValuePair("parent_out_id", parentOutId));
-        }
+        params.add(new BasicNameValuePair("parent_out_id", parentOutId));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
