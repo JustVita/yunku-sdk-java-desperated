@@ -230,6 +230,24 @@ public class EntManager extends ParentEngine {
     }
 
     /**
+     * 设置成员状态
+     *
+     * @param oudId
+     * @return
+     */
+    public String setSyncMemberState(String oudId, boolean state) {
+        String method = "POST";
+        String url = URL_API_ADD_SYNC_MEMBER;
+        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("token", mToken));
+        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("out_id", oudId));
+        params.add(new BasicNameValuePair("state", state ? "1" : "0"));
+        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        return NetConnection.sendRequest(url, method, params, null);
+    }
+
+    /**
      * 删除同步成员
      *
      * @param members
