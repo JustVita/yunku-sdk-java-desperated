@@ -11,34 +11,25 @@ import java.util.ArrayList;
  */
 public class EntManager extends ParentEngine {
 
-    private static final String URL_API_GET_GROUPS = LIB_HOST + "/1/ent/get_groups";
-    private static final String URL_API_GET_MEMBERS = LIB_HOST + "/1/ent/get_members";
-    private static final String URL_API_GET_MEMBER = LIB_HOST + "/1/ent/get_member";
-    private static final String URL_API_GET_ROLES = LIB_HOST + "/1/ent/get_roles";
-    //    private static final String URL_API_SYNC_MEMBER = LIB_HOST + "/1/ent/sync_member";
-    private static final String URL_API_GET_MEMBER_FILE_LINK = LIB_HOST + "/1/ent/get_member_file_link";
-//    private static final String URL_API_GET_MEMBER_BY_OUT_ID = LIB_HOST + "/1/ent/get_member_by_out_id";
+    private static final String URL_API_GET_GROUPS = API_ENT_HOST + "/1/ent/get_groups";
+    private static final String URL_API_GET_MEMBERS = API_ENT_HOST + "/1/ent/get_members";
+    private static final String URL_API_GET_MEMBER = API_ENT_HOST + "/1/ent/get_member";
+    private static final String URL_API_GET_ROLES = API_ENT_HOST + "/1/ent/get_roles";
+    //    private static final String URL_API_SYNC_MEMBER = API_ENT_HOST + "/1/ent/sync_member";
+    private static final String URL_API_GET_MEMBER_FILE_LINK = API_ENT_HOST + "/1/ent/get_member_file_link";
+//    private static final String URL_API_GET_MEMBER_BY_OUT_ID = API_ENT_HOST + "/1/ent/get_member_by_out_id";
 
-    private static final String URL_API_ADD_SYNC_MEMBER = LIB_HOST + "/1/ent/add_sync_member";
-    private static final String URL_API_DEL_SYNC_MEMBER = LIB_HOST + "/1/ent/del_sync_member";
-    private static final String URL_API_ADD_SYNC_GROUP = LIB_HOST + "/1/ent/add_sync_group";
-    private static final String URL_API_DEL_SYNC_GROUP = LIB_HOST + "/1/ent/del_sync_group";
-    private static final String URL_API_ADD_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/add_sync_group_member";
-    private static final String URL_API_DEL_SYNC_GROUP_MEMBER = LIB_HOST + "/1/ent/del_sync_group_member";
-    private static final String URL_API_DEL_SYNC_MEMBER_GROUP = LIB_HOST + "/1/ent/del_sync_member_group";
-    private static final String URL_API_GET_GROUP_MEMBERS = LIB_HOST + "/1/ent/get_group_members";
+    private static final String URL_API_ADD_SYNC_MEMBER = API_ENT_HOST + "/1/ent/add_sync_member";
+    private static final String URL_API_DEL_SYNC_MEMBER = API_ENT_HOST + "/1/ent/del_sync_member";
+    private static final String URL_API_ADD_SYNC_GROUP = API_ENT_HOST + "/1/ent/add_sync_group";
+    private static final String URL_API_DEL_SYNC_GROUP = API_ENT_HOST + "/1/ent/del_sync_group";
+    private static final String URL_API_ADD_SYNC_GROUP_MEMBER = API_ENT_HOST + "/1/ent/add_sync_group_member";
+    private static final String URL_API_DEL_SYNC_GROUP_MEMBER = API_ENT_HOST + "/1/ent/del_sync_group_member";
+    private static final String URL_API_DEL_SYNC_MEMBER_GROUP = API_ENT_HOST + "/1/ent/del_sync_member_group";
+    private static final String URL_API_GET_GROUP_MEMBERS = API_ENT_HOST + "/1/ent/get_group_members";
 
     public EntManager(String clientId, String clientSecret) {
         super(clientId, clientSecret, true);
-    }
-
-    public EntManager(String clientId, String clientSecret, boolean isEnt) {
-        super(clientId, clientSecret, isEnt);
-    }
-
-    protected EntManager(String clientId, String clientSecret, boolean isEnt, String token) {
-        super(clientId, clientSecret, isEnt);
-        mToken = token;
     }
 
     /**
@@ -50,8 +41,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_ROLES;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -67,8 +58,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_MEMBERS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("size", size + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -80,8 +71,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         if (memberId > 0) {
             params.add(new BasicNameValuePair("member_id", memberId + ""));
         }
@@ -135,8 +126,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_GROUPS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
     }
@@ -152,8 +143,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_MEMBER_FILE_LINK;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("member_id", memberId + ""));
         if (fileOnly) {
             params.add(new BasicNameValuePair("file", "1"));
@@ -191,8 +182,8 @@ public class EntManager extends ParentEngine {
 //        String method = "GET";
 //        String url = URL_API_GET_MEMBER_BY_OUT_ID;
 //        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-//        params.add(new BasicNameValuePair("token", mToken));
-//        params.add(new BasicNameValuePair("token_type", mTokenType));
+//        params.add(new BasicNameValuePair("client_id", mClientId));
+//        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
 //        if (outIds != null) {
 //            params.add(new BasicNameValuePair("out_ids", Util.strArrayToString(outIds, ",") + ""));
 //        } else {
@@ -217,8 +208,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("out_id", oudId));
         params.add(new BasicNameValuePair("member_name", memberName));
         params.add(new BasicNameValuePair("account", account));
@@ -239,8 +230,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("out_id", oudId));
         params.add(new BasicNameValuePair("state", state ? "1" : "0"));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -257,8 +248,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_DEL_SYNC_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -277,8 +268,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("out_id", outId));
         params.add(new BasicNameValuePair("name", name));
         params.add(new BasicNameValuePair("parent_out_id", parentOutId));
@@ -296,8 +287,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("groups", Util.strArrayToString(groups, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -314,8 +305,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("group_out_id", groupOutId));
         params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -333,8 +324,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP_MEMBER;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("group_out_id", groupOutId));
         params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
@@ -354,8 +345,8 @@ public class EntManager extends ParentEngine {
         String method = "GET";
         String url = URL_API_GET_GROUP_MEMBERS;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("group_id", groupId + ""));
         params.add(new BasicNameValuePair("start", start + ""));
         params.add(new BasicNameValuePair("size", size + ""));
@@ -374,8 +365,8 @@ public class EntManager extends ParentEngine {
         String method = "POST";
         String url = URL_API_DEL_SYNC_MEMBER_GROUP;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("token", mToken));
-        params.add(new BasicNameValuePair("token_type", mTokenType));
+        params.add(new BasicNameValuePair("client_id", mClientId));
+        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
         params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
         params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
         return NetConnection.sendRequest(url, method, params, null);
@@ -388,7 +379,7 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public EntManager clone() {
-        return new EntManager(mClientId, mClientSecret, mIsEnt, mToken);
+        return new EntManager(mClientId, mClientSecret);
     }
 
 }

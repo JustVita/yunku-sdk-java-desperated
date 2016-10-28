@@ -17,20 +17,20 @@ import java.util.ArrayList;
 public class EntFileManager extends SignAbility implements HostConfig {
 
     private static final int UPLOAD_LIMIT_SIZE = 52428800;
-    private static final String URL_API_FILELIST = LIB_HOST + "/1/file/ls";
-    private static final String URL_API_UPDATE_LIST = LIB_HOST + "/1/file/updates";
-    private static final String URL_API_FILE_INFO = LIB_HOST + "/1/file/info";
-    private static final String URL_API_CREATE_FOLDER = LIB_HOST + "/1/file/create_folder";
-    private static final String URL_API_CREATE_FILE = LIB_HOST + "/1/file/create_file";
-    private static final String URL_API_DEL_FILE = LIB_HOST + "/1/file/del";
-    private static final String URL_API_MOVE_FILE = LIB_HOST + "/1/file/move";
-    private static final String URL_API_LINK_FILE = LIB_HOST + "/1/file/link";
-    private static final String URL_API_SENDMSG = LIB_HOST + "/1/file/sendmsg";
-    private static final String URL_API_GET_LINK = LIB_HOST + "/1/file/links";
-    private static final String URL_API_UPDATE_COUNT = LIB_HOST + "/1/file/updates_count";
-    private static final String URL_API_GET_SERVER_SITE = LIB_HOST + "/1/file/servers";
-    private static final String URL_API_CREATE_FILE_BY_URL = LIB_HOST + "/1/file/create_file_by_url";
-    private static final String URL_API_UPLOAD_SERVERS = LIB_HOST + "/1/file/upload_servers";
+    private static final String URL_API_FILELIST = API_ENT_HOST + "/1/file/ls";
+    private static final String URL_API_UPDATE_LIST = API_ENT_HOST + "/1/file/updates";
+    private static final String URL_API_FILE_INFO = API_ENT_HOST + "/1/file/info";
+    private static final String URL_API_CREATE_FOLDER = API_ENT_HOST + "/1/file/create_folder";
+    private static final String URL_API_CREATE_FILE = API_ENT_HOST + "/1/file/create_file";
+    private static final String URL_API_DEL_FILE = API_ENT_HOST + "/1/file/del";
+    private static final String URL_API_MOVE_FILE = API_ENT_HOST + "/1/file/move";
+    private static final String URL_API_LINK_FILE = API_ENT_HOST + "/1/file/link";
+    private static final String URL_API_SENDMSG = API_ENT_HOST + "/1/file/sendmsg";
+    private static final String URL_API_GET_LINK = API_ENT_HOST + "/1/file/links";
+    private static final String URL_API_UPDATE_COUNT = API_ENT_HOST + "/1/file/updates_count";
+    private static final String URL_API_GET_SERVER_SITE = API_ENT_HOST + "/1/file/servers";
+    private static final String URL_API_CREATE_FILE_BY_URL = API_ENT_HOST + "/1/file/create_file_by_url";
+    private static final String URL_API_UPLOAD_SERVERS = API_ENT_HOST + "/1/file/upload_servers";
 
 
     private String mOrgClientId;

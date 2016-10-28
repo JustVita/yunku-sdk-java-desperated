@@ -22,8 +22,6 @@ public class SDKTester {
 
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
-//        //获取认证
-        mEntLibManager.accessToken(OauthConfig.ADMIN, OauthConfig.PASSWORD);
 
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.create("destroy2", "1073741824", "destroy", "test lib", ""));
@@ -149,9 +147,6 @@ public class SDKTester {
 
 //==========================云库企业操作==========================//
         mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
-
-        //获取认证
-        deserializeReturn(mEntManager.accessToken(OauthConfig.ADMIN, OauthConfig.PASSWORD));
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());

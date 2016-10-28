@@ -5,9 +5,8 @@ package com.yunkuent.sdk;
  */
 interface HostConfig {
 
-//     String OAUTH_HOST = "http://zka.goukuai.cn";
-          String OAUTH_HOST = "http://a.goukuai.cn";
-//     String LIB_HOST = "http://zka-lib.goukuai.cn";
-//     String LIB_HOST = "http://test4a-lib.goukuai.cn";
-      String LIB_HOST = "http://a-lib.goukuai.cn";
+//     String OAUTH_HOST = "http://yk3-api.goukuai.cn";
+      String OAUTH_HOST = "http://yk3-api.gokuai.com";
+//     String API_ENT_HOST = "http://yk3-api-ent.goukuai.cn";
+      String API_ENT_HOST = "http://yk3-api-ent.gokuai.com";
 }

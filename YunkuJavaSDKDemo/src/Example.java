@@ -25,10 +25,7 @@ public class Example {
      * 企业文件库操作
      */
     private static void entLibExample() {
-        mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET, true);
-
-        //认证
-        mEntLibManager.accessToken(OauthConfig.ADMIN, OauthConfig.PASSWORD);
+        mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取文件库列表
         deserializeReturn(mEntLibManager.getLibList());
