@@ -1,62 +1,35 @@
 /*
-Title:够快云库Java SDK使用说明
+Title:够快云库3.0 Java SDK 使用说明
 Description:
 Author: Brandon
-Date: 2014/08/25
+Date: 2016/10/28
 Robots: noindex,nofollow
 */
 
-#够快云库Java SDK使用说明
+#够快云库3.0 Java SDK 使用说明
 
-版本：1.0.25
-
-创建：2014-08-25
+* 版本：3.0
+* 创建：2016-10-28
 
 ## 引用 
-将**[yunku-java-sdk].jar**文件引用进项目，包括YunkuJavaSDKlibs下的jar文件，或者将**YunkuJavaSDK**做为依赖项目。
-
+将`[yunku-java-sdk].jar`文件引用进项目，包括`YunkuJavaSDKlibs`下的jar文件，或者将`YunkuJavaSDK`做为依赖项目。
 
 ## 初始化
-要使用云库api，您需要有效的CLIENT_ID和CLIENT_SECRET,和获得云库后台管理账号。
+要使用云库3.0的API，您需要先在 <a href="http://developer.gokuai.com/yk/tutorial#yk3" target="_blank">企业授权</a> 中获取 `client_id` 和 `client_secret`
 
-##参数使用
-以下使用到的方法中，如果是string类型的非必要参数，如果是不传，则传null
+## 参数使用
 
-## 企业库管理（**EntLibManager.java** ）
+以下使用到的方法中，如果是string类型的非必要参数，如果是不传，则传`null`
+
+## 企业库管理（EntLibManager.java）
 
 ###构造方法
-	new EntLibManager（ClientId,ClientSecret,boolean isEnt）
+	new EntLibManager（ClientId, ClientSecret）
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | ClientId | 是 | string | 申请应用时分配的AppKey |
 | ClientSecret | 是 | string | 申请应用时分配的AppSecret |
-| isEnt | 是 | boolean | 是否是企业帐号登录|
-
----
-
-### 授权
-	accessToken(Username，Password)
-#### 参数 
-| 参数 | 必须 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| Username | 是 | string | 用户名 |
-| Password | 是 | string | 密码|
-
-
-#### 返回结果
-
-	{
-		access_token:
-		expires_in:
-		refresh_token:
-	}
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| access_token | string | 用于调用access_token，接口获取授权后的access token |
-| expires_in |int | access_token的有效期，unix时间戳 |
-| refresh_token | string | 用于刷新access_token 的 refresh_token，有效期1个月 |
 
 ---
 ### 创建库
@@ -237,7 +210,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 | --- | --- | --- | --- |
 | memberId | 否 | int | 成员id |
 ---		
-*参数中的member_id,out_id和account必须传其中之一*
+*参数中的member\_id,out\_id和account必须传其中之一*
 
 #### 返回结果
 
@@ -365,40 +338,17 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 
 
-## 企业管理（**EntManager.java** ）
+## 企业管理（EntManager.java）
+
 ###构造方法
-	new EntManager（ String ClientId,String ClientSecret,boolean isEnt）
+
+	new EntManager（ String ClientId, String ClientSecret）
+	
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | ClientId | 是 | string | 申请应用时分配的AppKey |
 | ClientSecret | 是 | string | 申请应用时分配的AppSecret |
-| isEnt | 是 | boolean | 是否是企业帐号登录|
-
----
-
-### 授权
-	accessToken(String Username，String Password)
-#### 参数 
-| 参数 | 必须 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| Username | 是 | string | 用户名 |
-| Password | 是 | string | 密码|
-
-
-#### 返回结果
-
-	{
-		access_token:
-		expires_in:
-		refresh_token:
-	}
-
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| access_token | string | 用于调用access_token，接口获取授权后的access token |
-| expires_in |int | access_token的有效期，unix时间戳 |
-| refresh_token | string | 用于刷新access_token 的 refresh_token，有效期1个月 |
 
 ---
 ###获取角色
@@ -659,12 +609,14 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 
-## 企业文件管理（**EntFileManager.java** ）
+## 企业文件管理（EntFileManager.java）
 
-orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
+`orgClientId`和`orgClientSecret`需要通过`EntLibManager`.`bind`方法获取
 
 ###构造方法
+
 	new EntFileManager(String orgClientId,String orgClientSecret);
+	
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
