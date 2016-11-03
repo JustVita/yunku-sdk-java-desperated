@@ -155,7 +155,7 @@ Robots: noindex,nofollow
 | org_client_id | string | 库授权client_id |
 | org_client_secret | string | 库授权client_secret |
 
-org_client_secret用于调用库文件相关API签名时的密钥
+org\_client\_secret用于调用库文件相关API签名时的密钥
 
 ---
 
@@ -266,7 +266,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	正常返回 HTTP 200
 
 ---
-### 获取库分组列表
+### 获取库部门列表
 	getGroups(int orgId)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
@@ -275,34 +275,34 @@ org_client_secret用于调用库文件相关API签名时的密钥
 #### 返回结果
 	{
 		{
-			"id": 分组id
-			"name": 分组名称
-			"role_id": 分组角色id, 如果是0 表示分组中的成员使用在该分组上的角色
+			"id": 部门id
+			"name": 部门名称
+			"role_id": 部门角色id
 		},
 		...
 	}
 
 ---
-### 库上添加分组
+### 库上添加部门
 	addGroup(int orgId, int groupId, int roleId)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | orgId | 是 | int | 库id |
-| groupId | 是 | int | 分组id|
-| roleId | 否 | int | 角色id,  默认0：分组中的成员使用在该分组上的角色 |
+| groupId | 是 | int | 部门id|
+| roleId | 否 | int | 角色id |
 #### 返回结果
 	
 	正常返回 HTTP 200
 
 ---
-### 删除库上的分组
+### 删除库上的部门
 	delGroup(int orgId, int groupId)
 #### 参数 
  参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | orgId | 是 | int | 库id |
-| groupId | 是 | int | 分组id |
+| groupId | 是 | int | 部门id |
 #### 返回结果
 	
 	正常返回 HTTP 200
@@ -310,14 +310,14 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 
-### 修改库上分组的角色
+### 修改库上部门的角色
 	setGroupRole(int orgId, int groupId, int roleId)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | orgId | 是 | int | 库id |
-| groupId | 是 | int | 分组id |
-| roleId | 否 | int | 角色id,  默认0：分组中的成员使用在该分组上的角色 |
+| groupId | 是 | int | 部门id |
+| roleId | 否 | int | 角色id |
 #### 返回结果
 	
 	正常返回 HTTP 200
@@ -461,7 +461,7 @@ org_client_secret用于调用库文件相关API签名时的密钥
 ---
 
 
-###获取分组
+###获取部门
 	getGroups() 
 #### 参数 
 （无）
@@ -470,24 +470,24 @@ org_client_secret用于调用库文件相关API签名时的密钥
 		"list":
 		[
 			{
-				"id": 分组id,
-				"name": 分组名称,
+				"id": 部门id,
+				"name": 部门名称,
 				"out_id": 外部唯一id,
-				"parent_id": 上级分组id, 0为顶级分组
+				"parent_id": 上级部门id, 0为顶级部门
 			}
 		]
 	}	
 
 ---
-### 分组成员列表
+### 部门成员列表
 	getGroupMembers(int groupId, int start, int size, boolean showChild) 
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| groupId | 是 | int | 分组id |
+| groupId | 是 | int | 部门id |
 | start | 是 | int | 记录开始位置 |
 | size | 是 | int | 返回条数 |
-| showChild | 是 | boolean | [0,1] 是否显示子分组内的成员 |
+| showChild | 是 | boolean | [0,1] 是否显示子部门内的成员 |
 #### 返回结果
 	
 	
@@ -560,48 +560,48 @@ org_client_secret用于调用库文件相关API签名时的密钥
 
 ---
 
-### 添加或修改同步分组
+### 添加或修改同步部门
 	addSyncGroup(String outId,String name,String parentOutId)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| outId | 是 | string | 分组在外部系统的唯一id |
+| outId | 是 | string | 部门在外部系统的唯一id |
 | name | 是 | string | 显示名称 |
-| parentOutId | 否 | string | 如果分组在另一个分组的下级, 需要指定上级分组唯一id, 不传表示在顶层, 修改分组时该字段无效 |
+| parentOutId | 否 | string | 如果部门在另一个部门的下级, 需要指定上级部门唯一id, 不传表示在顶层, 修改部门时该字段无效 |
 
 #### 返回结果
 
     HTTP 200
 
 ---
-### 删除同步分组
+### 删除同步部门
 	delSyncGroup(String[]groups)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| groups | 是 | string | 分组在外部系统的唯一id数组|
+| groups | 是 | string | 部门在外部系统的唯一id数组|
 
 #### 返回结果
 
     HTTP 200
 ---
-### 添加同步分组的成员
+### 添加同步部门的成员
 	addSyncGroupMember(String groupOutId,String[] members)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| groupOutId | 否 | string | 外部分组的唯一id, 不传表示顶层 |
+| groupOutId | 否 | string | 外部部门的唯一id, 不传表示顶层 |
 | members | 是 | array | 成员在外部系统的唯一id数组 |
 #### 返回结果
 
     HTTP 200
 ---
-### 删除同步分组的成员
+### 删除同步部门的成员
 	delSyncGroupMember(String groupOutId, String[] members)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| groupOutId | 否 | string | 外部分组的唯一id, 不传表示顶层 |
+| groupOutId | 否 | string | 外部部门的唯一id, 不传表示顶层 |
 | members | 是 | string | 成员在外部系统的唯一id数组 |
 #### 返回结果
 
@@ -935,4 +935,3 @@ org_client_secret用于调用库文件相关API签名时的密钥
 	}
 
 ---
-
