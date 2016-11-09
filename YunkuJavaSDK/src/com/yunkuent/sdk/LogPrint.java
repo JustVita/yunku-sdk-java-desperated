@@ -19,31 +19,24 @@ class LogPrint {
     private static DebugConfig.LogDetector mDectector;
 
     public static void print(String log) {
-        if (DebugConfig.PRINT_LOG) {
-            switch (DebugConfig.PRINT_LOG_TYPE) {
-                case DebugConfig.LOG_TYPE_MEMORY_HANDLER:
-                    print(Level.INFO, log);
-                    break;
-                case DebugConfig.LOG_TYPE_DETECTOR:
-                    if (mDectector != null) {
-                        mDectector.getLog(log);
-                    }
-                    break;
-            }
-        }
+        print(Level.INFO, log);
     }
 
-
     public static void print(Level level, String log) {
-        switch (DebugConfig.PRINT_LOG_TYPE) {
-            case DebugConfig.LOG_TYPE_DETECTOR:
-                break;
-            case DebugConfig.LOG_TYPE_MEMORY_HANDLER:
-                YunkuMemoryHandler mt = getHandlerInstance();
-                // 在MemoryHandler中缓存日志记录
-                mt.getLogger().log(level, log);
-                mt.getMhandler().push();
-                break;
+        if (DebugConfig.PRINT_LOG) {
+            switch (DebugConfig.PRINT_LOG_TYPE) {
+                case DebugConfig.LOG_TYPE_DETECTOR:
+                    if (mDectector != null) {
+                        mDectector.getLog(level, log);
+                    }
+                    break;
+                case DebugConfig.LOG_TYPE_MEMORY_HANDLER:
+                    YunkuMemoryHandler mt = getHandlerInstance();
+                    // 在MemoryHandler中缓存日志记录
+                    mt.getLogger().log(level, log);
+                    mt.getMhandler().push();
+                    break;
+            }
         }
 
     }
