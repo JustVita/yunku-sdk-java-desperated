@@ -8,7 +8,7 @@ Robots: noindex,nofollow
 
 #够快云库Java SDK使用说明
 
-版本：1.0.25
+版本：1.0.26
 
 创建：2014-08-25
 
@@ -983,4 +983,9 @@ orgClientId和orgClientSecret需要通过 EntLibManager bind方法获取
 	}
 
 ---
+
+## 编码问题
+
+SDK 运行的环境为 UTF-8，如果在其他环境运行需要制定系统运行的编码属性，例如Windows, 如果是命令行执行使用 java -Dfile.encoding=utf-8 XXX；或者 java options 中设置 -Dfile.encoding=utf-8。如果是编码问题的话会出现，在有中文参数出现时会报"签名错误"
+
 
