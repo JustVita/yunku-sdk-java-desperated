@@ -13,11 +13,13 @@ class OauthData {
 
 	private final static String ACCESS_TOKEN = "access_token";
 	private final static String EXPIRES_IN = "expires_in";
+	private final static String REFRESH_TOKEN = "refresh_token";
 	private final static String ERROR = "error";
 
 	private int code = 0;
 	private String access_token;
 	private int expires_in;
+	private String refresh_token;
     private String error;
 
 	public static OauthData create(String jsonString) {
@@ -36,6 +38,7 @@ class OauthData {
         OauthData data = new OauthData();
         data.setToken(json.optString(ACCESS_TOKEN));
         data.setExpires_in(json.optInt(EXPIRES_IN));
+		data.setRefresh_token(json.optString(REFRESH_TOKEN));
         data.setError(json.optString(ERROR));
         return data;
 	}
@@ -63,6 +66,14 @@ class OauthData {
 	public void setExpires_in(int expires_in) {
 		this.expires_in = expires_in;
 	}
+
+    public String getRefresh_token() {
+        return refresh_token;
+    }
+
+    public void setRefresh_token(String refresh_token) {
+        this.refresh_token = refresh_token;
+    }
 
 	@Override
 	public String toString() {

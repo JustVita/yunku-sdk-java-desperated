@@ -8,18 +8,12 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Brandon on 2014/8/6.
  */
-abstract class ParentEngine extends SignAbility implements HostConfig {
-
-    protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token2";
-
-    protected String mClientId;
-    protected String mToken;
-    protected boolean mIsEnt;
-    protected String mTokenType;
+abstract class ParentEngine extends SignAbility {
 
     public ParentEngine(String clientId, String clientSecret, boolean isEnt) {
         mClientId = clientId;
@@ -36,21 +30,21 @@ abstract class ParentEngine extends SignAbility implements HostConfig {
     public String accessToken(String username, String password) {
         String url = URL_API_TOKEN;
         String method = "POST";
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", username));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username", username);
         String passwordEncoded;
         if (username.indexOf("/") > 0 || username.indexOf("\\") > 0) {
             passwordEncoded = Base64.encodeBytes(password.getBytes());
         } else {
             passwordEncoded = Util.convert2MD532(password);
         }
-        params.add(new BasicNameValuePair("password", passwordEncoded));
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("grant_type", mIsEnt ? "ent_password" : "password"));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        params.put("password", passwordEncoded);
+        params.put("client_id", mClientId);
+        params.put("grant_type", mIsEnt ? "ent_password" : "password");
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
 
-        String result = NetConnection.sendRequest(url, method, params, null);
+        String result = NetConnection.sendRequest(url, RequestMethod.POST, params, null);
         ReturnResult returnResult = ReturnResult.create(result);
         LogPrint.print("accessToken:==>result:" + result);
 
