@@ -509,5 +509,30 @@ public class Util {
         return filehash;
     }
 
+    public static String getParamsStringFromHashMapParams(HashMap<String, String> params) {
+        String paramsString = "";
+        if (params != null && params.size() > 0) {
+            Set<String> keys = params.keySet();
+
+            for (String key : keys) {
+                paramsString += key + "=" + URLEncoder.encodeUTF8(params.get(key) + "") + "&";
+            }
+            if (paramsString.endsWith("&")) {
+                paramsString = paramsString.substring(0, paramsString.length() - 1);
+            }
+        }
+        return paramsString;
+    }
+
+    /**
+     * 判断是否有网络
+     * @return
+     */
+    public static boolean isNetworkAvailableEx() {
+//        return isNetworkAvailable(CustomApplication.getInstance());
+
+        //FIXME 这里可以加网络判断执行的方法
+        return true;
+    }
 
 }

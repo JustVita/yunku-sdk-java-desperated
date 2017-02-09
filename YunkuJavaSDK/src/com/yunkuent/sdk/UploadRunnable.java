@@ -7,12 +7,10 @@ import com.yunkuent.sdk.utils.URLEncoder;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -20,7 +18,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.zip.CRC32;
 
@@ -255,13 +253,13 @@ public class UploadRunnable extends SignAbility implements Runnable {
     private void upload_init(String hash, String filename, String fullpath,
                              String filehash, long filesize) throws Exception {
         String url = mServer + URL_UPLOAD_INIT + "?org_client_id=" + mOrgClientId;
-        final ArrayList<NameValuePair> headParams = new ArrayList<NameValuePair>();
-        headParams.add(new BasicNameValuePair("x-gk-upload-pathhash", hash));
-        headParams.add(new BasicNameValuePair("x-gk-upload-filename", URLEncoder.encodeUTF8(filename)));
-        headParams.add(new BasicNameValuePair("x-gk-upload-filehash", filehash));
-        headParams.add(new BasicNameValuePair("x-gk-upload-filesize", String.valueOf(filesize)));
+        final HashMap<String, String> headParams = new HashMap<>();
+        headParams.put("x-gk-upload-pathhash", hash);
+        headParams.put("x-gk-upload-filename", URLEncoder.encodeUTF8(filename));
+        headParams.put("x-gk-upload-filehash", filehash);
+        headParams.put("x-gk-upload-filesize", String.valueOf(filesize));
 //        headParams.add(new BasicNameValuePair("x-gk-token", mOrgClientId));
-        String returnString = NetConnection.sendRequest(url, "POST", null, headParams);
+        String returnString = new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
         ReturnResult result = ReturnResult.create(returnString);
         if (result.getStatusCode() == HttpStatus.SC_OK) {
             JSONObject json = new JSONObject(result.getResult());
@@ -326,9 +324,9 @@ public class UploadRunnable extends SignAbility implements Runnable {
      */
     private String upload_finish() {
         String url = mServer + URL_UPLOAD_FINISH;
-        final ArrayList<NameValuePair> headParams = new ArrayList<NameValuePair>();
-        headParams.add(new BasicNameValuePair("x-gk-upload-session", mSession));
-        return NetConnection.sendRequest(url, "POST", null, headParams);
+        final HashMap<String, String> headParams = new HashMap<>();
+        headParams.put("x-gk-upload-session", mSession);
+        return new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
 
@@ -337,30 +335,29 @@ public class UploadRunnable extends SignAbility implements Runnable {
      */
     public void upload_abort() {
         String url = mServer + URL_UPLOAD_ABORT;
-        final ArrayList<NameValuePair> headParams = new ArrayList<NameValuePair>();
-        headParams.add(new BasicNameValuePair("x-gk-upload-session", mSession));
-        NetConnection.sendRequest(url, "POST", null, headParams);
+        final HashMap<String, String> headParams = new HashMap<>();
+        headParams.put("x-gk-upload-session", mSession);
+        new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     public String addFile(long filesize, String filehash, String fullpath) {
-        String method = "POST";
         String url = mApiUrl;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", mDateline + ""));
-        params.add(new BasicNameValuePair("fullpath", fullpath + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", mDateline + "");
+        params.put("fullpath", fullpath + "");
         if (mOpId > 0) {
-            params.add(new BasicNameValuePair("op_id", mOpId + ""));
+            params.put("op_id", mOpId + "");
         } else if (mOpName != null) {
-            params.add(new BasicNameValuePair("op_name", mOpName));
+            params.put("op_name", mOpName);
         }
-        params.add(new BasicNameValuePair("overwrite", (overWrite ? 1 : 0) + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
+        params.put("overwrite", (overWrite ? 1 : 0) + "");
+        params.put("sign", generateSign(params));
 
-        params.add(new BasicNameValuePair("filesize", filesize + ""));
-        params.add(new BasicNameValuePair("filehash", filehash + ""));
+        params.put("filesize", filesize + "");
+        params.put("filehash", filehash + "");
 
-        return NetConnection.sendRequest(url, method, params, null);
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     private boolean isStop;

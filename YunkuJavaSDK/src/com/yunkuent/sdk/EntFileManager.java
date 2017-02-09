@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Brandon on 2014/8/14.
@@ -69,20 +70,18 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String getFileList(String fullPath, int start, int size, boolean dirOnly) {
-        String method = "GET";
         String url = URL_API_FILELIST;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
-        params.add(new BasicNameValuePair("start", start + ""));
-        params.add(new BasicNameValuePair("size", size + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpath", fullPath);
+        params.put("start", start + "");
+        params.put("size", size + "");
         if (dirOnly) {
-            params.add(new BasicNameValuePair("dir", "1"));
+            params.put("dir", "1");
         }
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
-
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -93,17 +92,16 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String getUpdateList(boolean isCompare, long fetchDateline) {
-        String method = "GET";
         String url = URL_API_UPDATE_LIST;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
         if (isCompare) {
-            params.add(new BasicNameValuePair("mode", "compare"));
+            params.put("mode", "compare");
         }
-        params.add(new BasicNameValuePair("fetch_dateline", fetchDateline + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("fetch_dateline", fetchDateline + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -114,21 +112,20 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String getFileInfo(String fullPath, NetType net) {
-        String method = "GET";
         String url = URL_API_FILE_INFO;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpath", fullPath);
         switch (net) {
             case DEFAULT:
                 break;
             case IN:
-                params.add(new BasicNameValuePair("net", net.name().toLowerCase()));
+                params.put("net", net.name().toLowerCase());
                 break;
         }
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -139,15 +136,14 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String createFolder(String fullPath, String opName) {
-        String method = "POST";
         String url = URL_API_CREATE_FOLDER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
-        params.add(new BasicNameValuePair("op_name", opName));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpath", fullPath);
+        params.put("op_name", opName);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -173,12 +169,12 @@ public class EntFileManager extends SignAbility implements HostConfig {
         try {
             long dateline = Util.getUnixDateline();
 
-            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-            params.add(new BasicNameValuePair("dateline", dateline + ""));
-            params.add(new BasicNameValuePair("fullpath", fullPath));
-            params.add(new BasicNameValuePair("op_name", opName));
-            params.add(new BasicNameValuePair("filefield", "file"));
+            HashMap<String, String> params = new HashMap<>();
+            params.put("org_client_id", mOrgClientId);
+            params.put("dateline", dateline + "");
+            params.put("fullpath", fullPath);
+            params.put("op_name", opName);
+            params.put("filefield", "file");
 
             MsMultiPartFormData multipart = new MsMultiPartFormData(URL_API_CREATE_FILE, "UTF-8");
             multipart.addFormField("org_client_id", mOrgClientId);
@@ -186,7 +182,7 @@ public class EntFileManager extends SignAbility implements HostConfig {
             multipart.addFormField("fullpath", fullPath);
             multipart.addFormField("op_name", opName);
             multipart.addFormField("filefield", "file");
-            multipart.addFormField("sign", generateSign(paramSorted(params)));
+            multipart.addFormField("sign", generateSign(params));
 
             multipart.addFilePart("file", stream, fileName);
 
@@ -248,15 +244,14 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String del(String fullPaths, String opName) {
-        String method = "POST";
         String url = URL_API_DEL_FILE;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpaths", fullPaths));
-        params.add(new BasicNameValuePair("op_name", opName));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpaths", fullPaths);
+        params.put("op_name", opName);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -268,16 +263,15 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String move(String fullPath, String destFullPath, String opName) {
-        String method = "POST";
         String url = URL_API_MOVE_FILE;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
-        params.add(new BasicNameValuePair("dest_fullpath", destFullPath));
-        params.add(new BasicNameValuePair("op_name", opName));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpath", fullPath);
+        params.put("dest_fullpath", destFullPath);
+        params.put("op_name", opName);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -290,23 +284,22 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String link(String fullPath, int deadline, AuthType authType, String password) {
-        String method = "POST";
         String url = URL_API_LINK_FILE;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("fullpath", fullPath);
 
         if (deadline != 0) {
-            params.add(new BasicNameValuePair("deadline", deadline + ""));
+            params.put("deadline", deadline + "");
         }
 
         if (!authType.equals(AuthType.DEFAULT)) {
-            params.add(new BasicNameValuePair("auth", authType.toString().toLowerCase()));
+            params.put("auth", authType.toString().toLowerCase());
         }
-        params.add(new BasicNameValuePair("password", password));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("password", password);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
 
@@ -321,18 +314,17 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String sendmsg(String title, String text, String image, String linkUrl, String opName) {
-        String method = "POST";
         String url = URL_API_SENDMSG;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("title", title));
-        params.add(new BasicNameValuePair("text", text));
-        params.add(new BasicNameValuePair("image", image));
-        params.add(new BasicNameValuePair("url", linkUrl));
-        params.add(new BasicNameValuePair("op_name", opName));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("title", title);
+        params.put("text", text);
+        params.put("image", image);
+        params.put("url", linkUrl);
+        params.put("op_name", opName);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
 
@@ -342,16 +334,15 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String links(boolean fileOnly) {
-        String method = "GET";
         String url = URL_API_GET_LINK;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
         if (fileOnly) {
-            params.add(new BasicNameValuePair("file", "1"));
+            params.put("file", "1");
         }
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
 
@@ -364,16 +355,15 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String getUpdateCounts(long beginDateline, long endDateline, boolean showDelete) {
-        String method = "GET";
         String url = URL_API_UPDATE_COUNT;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("begin_dateline", beginDateline + ""));
-        params.add(new BasicNameValuePair("end_dateline", endDateline + ""));
-        params.add(new BasicNameValuePair("showdel", (showDelete ? 1 : 0) + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("begin_dateline", beginDateline + "");
+        params.put("end_dateline", endDateline + "");
+        params.put("showdel", (showDelete ? 1 : 0) + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -387,21 +377,20 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String createFileByUrl(String fullPath, int opId, String opName, boolean overwrite, String fileUrl) {
-        String method = "POST";
         String url = URL_API_CREATE_FILE_BY_URL;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("fullpath", fullPath));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("fullpath", fullPath);
+        params.put("dateline", Util.getUnixDateline() + "");
         if (opId > 0) {
-            params.add(new BasicNameValuePair("op_id", opId + ""));
+            params.put("op_id", opId + "");
         } else {
-            params.add(new BasicNameValuePair("op_name", opName + ""));
+            params.put("op_name", opName + "");
         }
-        params.add(new BasicNameValuePair("overwrite", (overwrite ? 1 : 0) + ""));
-        params.add(new BasicNameValuePair("url", fileUrl));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("overwrite", (overwrite ? 1 : 0) + "");
+        params.put("url", fileUrl);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -412,25 +401,23 @@ public class EntFileManager extends SignAbility implements HostConfig {
      * @return
      */
     public String getUploadServers(){
-        String method = "GET";
         String url = URL_API_UPLOAD_SERVERS;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
 
     public String getServerSite(String type) {
-        String method = "POST";
         String url = URL_API_GET_SERVER_SITE;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("org_client_id", mOrgClientId));
-        params.add(new BasicNameValuePair("type", type));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("type", type);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
 

@@ -1,10 +1,7 @@
 package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.utils.Util;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Brandon on 2014/8/14.
@@ -38,13 +35,12 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String getRoles() {
-        String method = "GET";
         String url = URL_API_GET_ROLES;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -55,31 +51,29 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String getMembers(int start, int size) {
-        String method = "GET";
         String url = URL_API_GET_MEMBERS;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("start", start + ""));
-        params.add(new BasicNameValuePair("size", size + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("start", start + "");
+        params.put("size", size + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
 
     private String getMember(int memberId, String outId, String account) {
-        String method = "GET";
         String url = URL_API_GET_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
         if (memberId > 0) {
-            params.add(new BasicNameValuePair("member_id", memberId + ""));
+            params.put("member_id", memberId + "");
         }
-        params.add(new BasicNameValuePair("out_id", outId));
-        params.add(new BasicNameValuePair("account", account));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("out_id", outId);
+        params.put("account", account);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -123,13 +117,12 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String getGroups() {
-        String method = "GET";
         String url = URL_API_GET_GROUPS;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -140,17 +133,16 @@ public class EntManager extends ParentEngine {
      */
 
     public String getMemberFileLink(int memberId, boolean fileOnly) {
-        String method = "GET";
         String url = URL_API_GET_MEMBER_FILE_LINK;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("member_id", memberId + ""));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("member_id", memberId + "");
         if (fileOnly) {
-            params.add(new BasicNameValuePair("file", "1"));
+            params.put("file", "1");
         }
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
 //    /**
@@ -205,19 +197,18 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone, String password) {
-        String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("out_id", oudId));
-        params.add(new BasicNameValuePair("member_name", memberName));
-        params.add(new BasicNameValuePair("account", account));
-        params.add(new BasicNameValuePair("member_email", memberEmail));
-        params.add(new BasicNameValuePair("member_phone", memberPhone));
-        params.add(new BasicNameValuePair("password", password));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("out_id", oudId);
+        params.put("member_name", memberName);
+        params.put("account", account);
+        params.put("member_email", memberEmail);
+        params.put("member_phone", memberPhone);
+        params.put("password", password);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -227,15 +218,14 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String setSyncMemberState(String oudId, boolean state) {
-        String method = "POST";
         String url = URL_API_ADD_SYNC_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("out_id", oudId));
-        params.add(new BasicNameValuePair("state", state ? "1" : "0"));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("out_id", oudId);
+        params.put("state", state ? "1" : "0");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -245,14 +235,13 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String delSyncMember(String[] members) {
-        String method = "POST";
         String url = URL_API_DEL_SYNC_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("members", Util.strArrayToString(members, ","));
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -264,17 +253,15 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String addSyncGroup(String outId, String name, String parentOutId) {
-
-        String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("out_id", outId));
-        params.add(new BasicNameValuePair("name", name));
-        params.add(new BasicNameValuePair("parent_out_id", parentOutId));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("out_id", outId);
+        params.put("name", name);
+        params.put("parent_out_id", parentOutId);
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -284,14 +271,13 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String delSyncGroup(String[] groups) {
-        String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("groups", Util.strArrayToString(groups, ",")));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("groups", Util.strArrayToString(groups, ","));
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -302,15 +288,14 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String addSyncGroupMember(String groupOutId, String[] members) {
-        String method = "POST";
         String url = URL_API_ADD_SYNC_GROUP_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("group_out_id", groupOutId));
-        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("group_out_id", groupOutId);
+        params.put("members", Util.strArrayToString(members, ","));
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -321,15 +306,14 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String delSyncGroupMember(String groupOutId, String[] members) {
-        String method = "POST";
         String url = URL_API_DEL_SYNC_GROUP_MEMBER;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("group_out_id", groupOutId));
-        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("group_out_id", groupOutId);
+        params.put("members", Util.strArrayToString(members, ","));
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -342,17 +326,16 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String getGroupMembers(int groupId, int start, int size, boolean showChild) {
-        String method = "GET";
         String url = URL_API_GET_GROUP_MEMBERS;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("group_id", groupId + ""));
-        params.add(new BasicNameValuePair("start", start + ""));
-        params.add(new BasicNameValuePair("size", size + ""));
-        params.add(new BasicNameValuePair("show_child", (showChild ? 1 : 0) + ""));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("group_id", groupId + "");
+        params.put("start", start + "");
+        params.put("size", size + "");
+        params.put("show_child", (showChild ? 1 : 0) + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     /**
@@ -362,14 +345,13 @@ public class EntManager extends ParentEngine {
      * @return
      */
     public String delSyncMemberGroup(String[] members) {
-        String method = "POST";
         String url = URL_API_DEL_SYNC_MEMBER_GROUP;
-        ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", mClientId));
-        params.add(new BasicNameValuePair("dateline", Util.getUnixDateline() + ""));
-        params.add(new BasicNameValuePair("members", Util.strArrayToString(members, ",")));
-        params.add(new BasicNameValuePair("sign", generateSign(paramSorted(params))));
-        return NetConnection.sendRequest(url, method, params, null);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("client_id", mClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("members", Util.strArrayToString(members, ","));
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
     }
 
 
