@@ -2,20 +2,16 @@ package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by Brandon on 2014/8/14.
  */
-public class EntFileManager extends SignAbility implements HostConfig {
+public class EntFileManager extends HttpEngine implements HostConfig {
 
     private static final int UPLOAD_LIMIT_SIZE = 52428800;
     private static final String URL_API_FILELIST = API_ENT_HOST + "/1/file/ls";

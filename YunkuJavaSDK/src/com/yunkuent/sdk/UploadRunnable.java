@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.zip.CRC32;
 
-public class UploadRunnable extends SignAbility implements Runnable {
+public class UploadRunnable extends HttpEngine implements Runnable {
     private static final String LOG_TAG = "UploadRunnable ";
 
     private static final String URL_UPLOAD_INIT = "/upload_init";

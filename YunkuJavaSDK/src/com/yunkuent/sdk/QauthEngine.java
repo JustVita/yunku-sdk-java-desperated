@@ -4,18 +4,16 @@ import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Base64;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by Brandon on 2014/8/6.
  */
-abstract class ParentEngine extends SignAbility {
+abstract class QauthEngine extends HttpEngine{
 
-    public ParentEngine(String clientId, String clientSecret, boolean isEnt) {
+    protected boolean mIsEnt;
+
+    public QauthEngine(String clientId, String clientSecret, boolean isEnt) {
         mClientId = clientId;
         mClientSecret = clientSecret;
         mIsEnt = isEnt;
