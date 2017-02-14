@@ -5,7 +5,8 @@ import com.yunkuent.sdk.EntLibManager;
 import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Util;
-import org.apache.http.HttpStatus;
+
+import java.net.HttpURLConnection;
 
 /**
  * Created by Brandon on 2014/8/6.
@@ -207,7 +208,7 @@ public class SDKTester {
         //解析结果
         ReturnResult returnResult = ReturnResult.create(result);
 
-        if (returnResult.getStatusCode() == HttpStatus.SC_OK) {
+        if (returnResult.getStatusCode() == HttpURLConnection.HTTP_OK) {
             //成功的结果
             System.out.println("return 200");
 
