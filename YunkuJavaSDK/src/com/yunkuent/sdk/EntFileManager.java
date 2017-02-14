@@ -28,7 +28,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     private static final String URL_API_GET_SERVER_SITE = API_ENT_HOST + "/1/file/servers";
     private static final String URL_API_CREATE_FILE_BY_URL = API_ENT_HOST + "/1/file/create_file_by_url";
     private static final String URL_API_UPLOAD_SERVERS = API_ENT_HOST + "/1/file/upload_servers";
-
+    private static final String URL_API_GET_UPLOAD_URL = API_ENT_HOST + "/1/file/download_url";
 
     private String mOrgClientId;
 
@@ -424,6 +424,57 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      */
     public EntFileManager clone() {
         return new EntFileManager(mOrgClientId, mClientSecret);
+    }
+
+    /**
+     * 通过文件唯一标识获取下载地址
+     * @param hash
+     * @param isOpen
+     * @param net
+     * @return
+     */
+    public String getDownloadUrlByHash(String hash, final boolean isOpen, NetType net){
+        return getDownloadUrl(hash,null,isOpen,net);
+    }
+
+    /**
+     * 通过文件路径获取下载地址
+     * @param fullPath
+     * @param isOpen
+     * @param net
+     * @return
+     */
+    public String getDownloadUrlByFullPath(String fullPath, final boolean isOpen, NetType net){
+        return getDownloadUrl(null, fullPath, isOpen, net);
+    }
+
+    /**
+     * 获取下载地址
+     * @param hash
+     * @param fullPath
+     * @param isOpen
+     * @param net
+     * @return
+     */
+    private String getDownloadUrl(String hash, String fullPath, final boolean isOpen, NetType net){
+        String url = URL_API_GET_UPLOAD_URL;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("dateline", Util.getUnixDateline() + "");
+        if (!(Util.getUnixDateline() > 10*60)) {
+            params.put("fullpath", fullPath);
+            params.put("hash", hash);
+        }
+        params.put("open", (isOpen ? 1 : 0) + "");
+        switch (net) {
+            case DEFAULT:
+                break;
+            case IN:
+                params.put("net", net.name().toLowerCase());
+                break;
+        }
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
     }
 
     public enum AuthType {
