@@ -2,8 +2,6 @@ package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
-import org.apache.http.util.TextUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -79,7 +77,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
             params.put("dir", "1");
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -99,7 +97,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         }
         params.put("fetch_dateline", fetchDateline + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -123,7 +121,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
                 break;
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -141,7 +139,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("fullpath", fullPath);
         params.put("op_name", opName);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -249,7 +247,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("fullpaths", fullPaths);
         params.put("op_name", opName);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -269,7 +267,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("dest_fullpath", destFullPath);
         params.put("op_name", opName);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -297,7 +295,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         }
         params.put("password", password);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 
@@ -322,7 +320,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("url", linkUrl);
         params.put("op_name", opName);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 
@@ -340,7 +338,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
             params.put("file", "1");
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 
@@ -361,7 +359,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("end_dateline", endDateline + "");
         params.put("showdel", (showDelete ? 1 : 0) + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -388,7 +386,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("overwrite", (overwrite ? 1 : 0) + "");
         params.put("url", fileUrl);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -404,7 +402,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("org_client_id", mOrgClientId);
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 
@@ -415,7 +413,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("type", type);
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 
@@ -466,11 +464,8 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         HashMap<String, String> params = new HashMap<>();
         params.put("org_client_id", mOrgClientId);
         params.put("dateline", Util.getUnixDateline() + "");
-        if(!TextUtils.isEmpty(hash)){
-            params.put("hash", hash);
-        }else {
-            params.put("fullpath", fullPath);
-        }
+        params.put("hash", hash);
+        params.put("fullpath", fullPath);
         params.put("open", (isOpen ? 1 : 0) + "");
         switch (net) {
             case DEFAULT:
@@ -480,7 +475,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
                 break;
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     public enum AuthType {

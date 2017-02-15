@@ -41,7 +41,7 @@ class LogPrint {
 
     }
 
-    public static void setLogDector(DebugConfig.LogDetector detector) {
+    public static void setLogDetector(DebugConfig.LogDetector detector) {
         mDectector = detector;
     }
 

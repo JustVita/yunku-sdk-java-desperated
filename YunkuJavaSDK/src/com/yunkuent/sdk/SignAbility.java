@@ -1,7 +1,11 @@
 package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.utils.Util;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * Created by Brandon on 14/12/16.
@@ -41,10 +45,14 @@ abstract class SignAbility implements HostConfig {
             for (int i = 0; i < size - 1; i++) {
                 String key = keys.get(i);
                 String value = params.get(key);
-                if (value == null) {
+                if (value == null ) {
+                    params.remove(key);
                     continue;
                 }
 
+                if(ignoreKeys.contains(key)){
+                    continue;
+                }
                 string_sign += value + "\n";
             }
             string_sign += params.get(keys.get(size - 1));
@@ -54,14 +62,12 @@ abstract class SignAbility implements HostConfig {
 
     /**
      * 重新根据参数进行签名
-     *
-     * @param params
+     *  @param params
      * @param secret
-     * @param needEncode
      * @param ignoreKeys
      */
     protected void reSignParams(HashMap<String, String> params, String secret,
-                                boolean needEncode, ArrayList<String> ignoreKeys) {
+                                ArrayList<String> ignoreKeys) {
         params.remove("token");
         params.remove("sign");
         params.put("token", getToken());

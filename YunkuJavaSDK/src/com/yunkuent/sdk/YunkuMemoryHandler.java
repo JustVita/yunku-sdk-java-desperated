@@ -63,7 +63,7 @@ class YunkuMemoryHandler {
             // 为记录器添加一个MemoryHandler
             logger.addHandler(mhandler);
         } catch (IOException e) {
-            LogPrint.print(Level.WARNING,LOG_TAG+":"+e.getMessage());
+            System.err.print(e.getMessage());
         }
     }
 }

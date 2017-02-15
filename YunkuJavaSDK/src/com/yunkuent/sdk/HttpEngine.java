@@ -45,7 +45,7 @@ public abstract class HttpEngine extends SignAbility{
     }
 
     private void reSignParams(HashMap<String, String> params, ArrayList<String> ignoreKeys) {
-        reSignParams(params, mClientSecret, true, ignoreKeys);
+        reSignParams(params, mClientSecret, ignoreKeys);
     }
 
     /**
