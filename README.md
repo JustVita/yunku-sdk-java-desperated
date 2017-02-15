@@ -759,16 +759,29 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | preview | string | 文件预览地址 |
 | thumbnail | string | 文件缩略图地址 |
 
-###获取文件下载地址
-####通过文件唯一标识获取下载地址
+---
+###通过文件唯一标识获取下载地址
      getDownloadUrlByHash(String hash, final boolean isOpen, NetType net)
-####通过文件路径获取下载地址
-    getDownloadUrlByFullPath(String fullPath, final boolean isOpen, NetType net)
 #### 参数
 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | hash | 是 | string | 文件唯一标识 |
+| isOpen | 是 | boolean | 是否返回能直接在浏览器中打开的文件地址 |
+| net | 是 | NetType | DEFAULT,返回公网下载地址；IN，返回内网下载地址 |
+### 返回结果
+
+     	{
+     		"urls": [文件下载地址数组(可能有多个下载地址)]
+     	}
+
+---
+###通过文件路径获取下载地址
+    getDownloadUrlByFullPath(String fullPath, final boolean isOpen, NetType net)
+#### 参数
+
+| 名称 | 必需 | 类型 | 说明 |
+| --- | --- | --- | --- |
 | fullPath | 是 | string | 文件路径 |
 | isOpen | 是 | boolean | 是否返回能直接在浏览器中打开的文件地址 |
 | net | 是 | NetType | DEFAULT,返回公网下载地址；IN，返回内网下载地址 |
