@@ -23,21 +23,20 @@ public class SDKTester {
 
         //==========================云库企业库操作==========================//
         mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
-
         //创建云库 1T="1099511627776" 1G＝“1073741824”；
-//        deserializeReturn(mEntLibManager.create("destroy2", "1073741824", "destroy", "test lib", ""));
+//        deserializeReturn(mEntLibManager.create("ququ", "1073741824", "destroy", "test lib", ""));
 
         //修改库信息 1T="1099511627776" 1G＝“1073741824”；
 //        deserializeReturn(mEntLibManager.set(379619, "中国梦", "9999", "", ""));
 
         //获取库信息
-//        deserializeReturn(mEntLibManager.getInfo(407844));
+//        deserializeReturn(mEntLibManager.getInfo(1245337));
 
         //获取库列表
 //        deserializeReturn(mEntLibManager.getLibList(0));
 
         //获取库授权
-//        deserializeReturn(mEntLibManager.bind(5235,null,null));
+//        deserializeReturn(mEntLibManager.bind(1245361,"YunkuJavaSDKDemo",null));
 
         //取消库授权
 //        deserializeReturn(mEntLibManager.unBind("0b7bd4e22c1a9eb8e3ddba2b6c37f6e2"));
@@ -95,8 +94,13 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.getUpdateCounts( date.getTime(), System.currentTimeMillis(), false));
 
         //获取文件(夹)信息
-//        deserializeReturn(mFileManager.getFileInfo("中文.jpg", EntFileManager.NetType.DEFAULT));
+//        deserializeReturn(mFileManager.getFileInfo("p.jpg", EntFileManager.NetType.DEFAULT));
 
+        //通过文件唯一标识获取下载地址
+//        deserializeReturn(mFileManager.getDownloadUrlByHash("fe515ef69e56d6b60ecf3ed779c542f1920c3136",false,EntFileManager.NetType.DEFAULT));
+
+        //通过文件路径获取下载地址
+//        deserializeReturn(mFileManager.getDownloadUrlByFullPath("q.jpg",false, EntFileManager.NetType.DEFAULT));
 
         //创建文件夹
 //        deserializeReturn(mFileManager.createFolder("test","Brandon"));
@@ -140,14 +144,14 @@ public class SDKTester {
 //        });
 
         //通过链接上传文件
-//        deserializeReturn(mFileManager.createFileByUrl("中文.jpg", 0,
-//                "Brandon", true, "http://www.sinaimg.cn/dy/slidenews/1_img/2015_27/2841_589214_521618.jpg"));
+//        deserializeReturn(mFileManager.createFileByUrl("ppp", 0,
+//                "Brandon", true, "http://img02.tooopen.com/images/20150614/tooopen_sy_130377131846.jpg"));
 
         //WEB直接上传文件 (支持50MB以上文件的上传)
 //        deserializeReturn(mFileManager.getUploadServers());
 
 //==========================云库企业操作==========================//
-        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
+//        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
 
         //获取角色
 //        deserializeReturn(mEntManager.getRoles());

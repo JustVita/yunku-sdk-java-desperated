@@ -55,6 +55,12 @@ public class Example {
         //获取库中文件
         deserializeReturn(mFileManager.getFileList());
 
+        //通过文件唯一标识获取下载地址
+//        deserializeReturn(mFileManager.getDownloadUrlByHash("",false,EntFileManager.NetType.DEFAULT));
+
+        //通过文件路径获取下载地址
+//        deserializeReturn(mFileManager.getDownloadUrlByFullPath("",false, EntFileManager.NetType.DEFAULT));
+
         //获取文件(夹)信息, 返回结果中的"preview"即是预览URL地址
         deserializeReturn(mFileManager.getFileInfo("StoneBridgeMoonrise.jpg", EntFileManager.NetType.DEFAULT));
     }

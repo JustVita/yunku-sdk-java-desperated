@@ -2,6 +2,8 @@ package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
+import org.apache.http.util.TextUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,9 +62,9 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      * 获取文件列表
      *
      * @param fullPath 路径, 空字符串表示根目录
-     * @param start 起始下标, 分页显示
-     * @param size 返回文件/文件夹数量限制
-     * @param dirOnly 只返回文件夹
+     * @param start    起始下标, 分页显示
+     * @param size     返回文件/文件夹数量限制
+     * @param dirOnly  只返回文件夹
      * @return
      */
     public String getFileList(String fullPath, int start, int size, boolean dirOnly) {
@@ -391,12 +393,12 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
     /**
      * 获取上传地址
-     *
+     * <p>
      * (支持50MB以上文件的上传)
      *
      * @return
      */
-    public String getUploadServers(){
+    public String getUploadServers() {
         String url = URL_API_UPLOAD_SERVERS;
         HashMap<String, String> params = new HashMap<>();
         params.put("org_client_id", mOrgClientId);
@@ -428,42 +430,46 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
     /**
      * 通过文件唯一标识获取下载地址
+     *
      * @param hash
      * @param isOpen
      * @param net
      * @return
      */
-    public String getDownloadUrlByHash(String hash, final boolean isOpen, NetType net){
-        return getDownloadUrl(hash,null,isOpen,net);
+    public String getDownloadUrlByHash(String hash, final boolean isOpen, NetType net) {
+        return getDownloadUrl(hash, null, isOpen, net);
     }
 
     /**
      * 通过文件路径获取下载地址
+     *
      * @param fullPath
      * @param isOpen
      * @param net
      * @return
      */
-    public String getDownloadUrlByFullPath(String fullPath, final boolean isOpen, NetType net){
+    public String getDownloadUrlByFullPath(String fullPath, final boolean isOpen, NetType net) {
         return getDownloadUrl(null, fullPath, isOpen, net);
     }
 
     /**
      * 获取下载地址
+     *
      * @param hash
      * @param fullPath
      * @param isOpen
      * @param net
      * @return
      */
-    private String getDownloadUrl(String hash, String fullPath, final boolean isOpen, NetType net){
+    private String getDownloadUrl(String hash, String fullPath, final boolean isOpen, NetType net) {
         String url = URL_API_GET_UPLOAD_URL;
         HashMap<String, String> params = new HashMap<>();
         params.put("org_client_id", mOrgClientId);
         params.put("dateline", Util.getUnixDateline() + "");
-        if (!(Util.getUnixDateline() > 10*60)) {
-            params.put("fullpath", fullPath);
+        if(!TextUtils.isEmpty(hash)){
             params.put("hash", hash);
+        }else {
+            params.put("fullpath", fullPath);
         }
         params.put("open", (isOpen ? 1 : 0) + "");
         switch (net) {
