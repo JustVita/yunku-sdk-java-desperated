@@ -65,7 +65,7 @@ public class EntLibManager extends QauthEngine {
         params.put("org_desc", orgDesc);
         params.put("org_logo", orgLogo);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 
@@ -96,7 +96,7 @@ public class EntLibManager extends QauthEngine {
             params.put("member_id", memberId + "");
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 
@@ -122,7 +122,7 @@ public class EntLibManager extends QauthEngine {
         params.put("title", appName);
         params.put("url", linkUrl);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -143,7 +143,7 @@ public class EntLibManager extends QauthEngine {
         }
         params.put("org_client_id", orgClientId);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -168,7 +168,7 @@ public class EntLibManager extends QauthEngine {
         params.put("size", size + "");
         params.put("org_id", orgId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -193,7 +193,7 @@ public class EntLibManager extends QauthEngine {
         params.put("org_id", orgId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -218,7 +218,7 @@ public class EntLibManager extends QauthEngine {
         params.put("role_id", roleId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -241,7 +241,7 @@ public class EntLibManager extends QauthEngine {
         params.put("org_id", orgId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -262,7 +262,7 @@ public class EntLibManager extends QauthEngine {
         }
         params.put("org_id", orgId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -287,7 +287,7 @@ public class EntLibManager extends QauthEngine {
         params.put("group_id", groupId + "");
         params.put("role_id", roleId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -310,7 +310,7 @@ public class EntLibManager extends QauthEngine {
         params.put("org_id", orgId + "");
         params.put("group_id", groupId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -335,7 +335,7 @@ public class EntLibManager extends QauthEngine {
         params.put("group_id", groupId + "");
         params.put("role_id", roleId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -356,7 +356,7 @@ public class EntLibManager extends QauthEngine {
         }
         params.put("org_client_id", orgClientId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -394,7 +394,7 @@ public class EntLibManager extends QauthEngine {
             params.put("org_logo", orgLogo);
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -419,7 +419,7 @@ public class EntLibManager extends QauthEngine {
         params.put("type", type.toString().toLowerCase());
         params.put("ids", Util.strArrayToString(ids, ",") + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -440,7 +440,7 @@ public class EntLibManager extends QauthEngine {
         }
         params.put("org_id", orgId + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 

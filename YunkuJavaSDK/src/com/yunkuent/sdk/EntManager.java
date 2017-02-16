@@ -40,7 +40,7 @@ public class EntManager extends QauthEngine {
         params.put("client_id", mClientId);
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -58,7 +58,7 @@ public class EntManager extends QauthEngine {
         params.put("start", start + "");
         params.put("size", size + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 
@@ -73,7 +73,7 @@ public class EntManager extends QauthEngine {
         params.put("out_id", outId);
         params.put("account", account);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -122,7 +122,7 @@ public class EntManager extends QauthEngine {
         params.put("client_id", mClientId);
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -142,7 +142,7 @@ public class EntManager extends QauthEngine {
             params.put("file", "1");
         }
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 //    /**
@@ -208,7 +208,7 @@ public class EntManager extends QauthEngine {
         params.put("member_phone", memberPhone);
         params.put("password", password);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -225,7 +225,7 @@ public class EntManager extends QauthEngine {
         params.put("out_id", oudId);
         params.put("state", state ? "1" : "0");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -241,7 +241,7 @@ public class EntManager extends QauthEngine {
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -261,7 +261,7 @@ public class EntManager extends QauthEngine {
         params.put("name", name);
         params.put("parent_out_id", parentOutId);
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -277,7 +277,7 @@ public class EntManager extends QauthEngine {
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("groups", Util.strArrayToString(groups, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -295,7 +295,7 @@ public class EntManager extends QauthEngine {
         params.put("group_out_id", groupOutId);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -313,7 +313,7 @@ public class EntManager extends QauthEngine {
         params.put("group_out_id", groupOutId);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     /**
@@ -335,7 +335,7 @@ public class EntManager extends QauthEngine {
         params.put("size", size + "");
         params.put("show_child", (showChild ? 1 : 0) + "");
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
     /**
@@ -351,7 +351,7 @@ public class EntManager extends QauthEngine {
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 

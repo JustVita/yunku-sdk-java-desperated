@@ -12,6 +12,9 @@ import java.util.HashMap;
  */
 public abstract class HttpEngine extends SignAbility{
 
+    protected String mClientSecret;
+    protected String mClientId;
+
     protected static final String URL_API_TOKEN = OAUTH_HOST + "/oauth2/token2";
 
     private final static String LOG_TAG = HttpEngine.class.getSimpleName();
