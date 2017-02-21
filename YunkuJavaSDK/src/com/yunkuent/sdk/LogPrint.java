@@ -1,5 +1,8 @@
 package com.yunkuent.sdk;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.logging.Level;
 
 /**
@@ -45,5 +48,11 @@ class LogPrint {
         mDectector = detector;
     }
 
+    static {
+        System.setProperty("log4j.configurationFactory","CustomConfigurationFactory");
+    }
+    public static Logger print(){
+        return LogManager.getLogger();
+    }
 
 }

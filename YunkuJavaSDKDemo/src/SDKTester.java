@@ -1,8 +1,5 @@
 import Model.BaseData;
-import com.yunkuent.sdk.DebugConfig;
-import com.yunkuent.sdk.EntFileManager;
-import com.yunkuent.sdk.EntLibManager;
-import com.yunkuent.sdk.EntManager;
+import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Util;
 
@@ -19,6 +16,7 @@ public class SDKTester {
 
     public static void main(String[] args) {
         DebugConfig.PRINT_LOG = true;
+        YKConfig.PRINT_LOG = true;
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
         //==========================云库企业库操作==========================//
