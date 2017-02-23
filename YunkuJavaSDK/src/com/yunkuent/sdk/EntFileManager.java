@@ -143,7 +143,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     }
 
     /**
-     * 通过文件流上传
+     * 通过文件流上传 (覆盖同名文件)
      *
      * @param fullPath
      * @param opName
@@ -151,6 +151,18 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      * @return
      */
     public String createFile(String fullPath, String opName, FileInputStream stream) {
+        return createFile(fullPath, opName, stream, true);
+    }
+
+    /**
+     * 通过文件流上传
+     *
+     * @param fullPath
+     * @param opName
+     * @param stream
+     * @return
+     */
+    public String createFile(String fullPath, String opName, FileInputStream stream, boolean overWrite) {
         try {
             if (stream.available() > UPLOAD_LIMIT_SIZE) {
                 LogPrint.print("文件大小超过50MB");
@@ -177,6 +189,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
             multipart.addFormField("dateline", dateline + "");
             multipart.addFormField("fullpath", fullPath);
             multipart.addFormField("op_name", opName);
+            multipart.addFormField("overwrite", (overWrite ? 1 : 0) + "");
             multipart.addFormField("filefield", "file");
             multipart.addFormField("sign", generateSign(params));
 
@@ -192,6 +205,23 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
 
     /**
+     * 文件分块上传 (覆盖同名文件)
+     *
+     * @param fullPath
+     * @param opName
+     * @param opId
+     * @param localFilePath
+     * @param callBack
+     * @return
+     */
+    public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
+                                        UploadCallBack callBack) {
+        return uploadByBlock(fullPath, opName, opId, localFilePath, true, callBack);
+    }
+
+    /**
+     * 文件分块上传
+     *
      * @param fullPath
      * @param opName
      * @param opId
@@ -207,8 +237,9 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         return uploadRunnable;
     }
 
+
     /**
-     * 通过本地路径上传
+     * 通过本地路径上传 （覆盖同名文件）
      *
      * @param fullPath
      * @param opName
@@ -216,11 +247,24 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      * @return
      */
     public String createFile(String fullPath, String opName, String localPath) {
+        return createFile(fullPath, opName, localPath, true);
+    }
+
+    /**
+     * 通过本地路径上传
+     *
+     * @param fullPath
+     * @param opName
+     * @param localPath
+     * @param overWrite
+     * @return
+     */
+    public String createFile(String fullPath, String opName, String localPath, boolean overWrite) {
         File file = new File(localPath.trim());
         if (file.exists()) {
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                return createFile(fullPath, opName, inputStream);
+                return createFile(fullPath, opName, inputStream, overWrite);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -360,6 +404,19 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("showdel", (showDelete ? 1 : 0) + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
+    }
+
+    /**
+     * 通过链接上传文件（覆盖同名文件）
+     *
+     * @param fullPath
+     * @param opId
+     * @param opName
+     * @param fileUrl
+     * @return
+     */
+    public String createFileByUrl(String fullPath, int opId, String opName, String fileUrl) {
+        return createFileByUrl(fullPath, opId, opName, true, fileUrl);
     }
 
     /**
