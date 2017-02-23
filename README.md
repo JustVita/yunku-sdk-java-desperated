@@ -793,8 +793,7 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 
 ---
 ###创建文件夹
-	createFolder( String fullPath,
-	String opName)
+	createFolder( String fullPath,String opName)
 #### 参数 
 
 | 参数 | 必须 | 类型 | 说明 |
@@ -809,15 +808,17 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | fullpath | string | 文件夹的路径 |
 
 ---
+###通过文件流上传（50M以内文件，覆盖同名文件）
+	createFile( String fullPath, String opName, FileInputStream stream)
 ###通过文件流上传（50M以内文件）
-	createFile( String fullPath,
-	String opName, FileInputStream stream)
+	createFile( String fullPath, String opName, FileInputStream stream, boolean overWrite)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
 | fullPath | 是 | string | 文件路径 |
 | opName | 否 | string | 操作人名称|
 | stream | 是 | stream | 文件流 |
+| overWrite| 否 | boolean| 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识|
 
 
 #### 返回结果
@@ -829,8 +830,10 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | filesize | long | 文件大小 |
 
 ---
-###通过本地路径上传（50M以内文件）
+###通过本地路径上传（50M以内文件，覆盖同名文件）
 	createFile( String fullPath, String opName, String localPath)
+###通过本地路径上传（50M以内文件）
+	createFile( String fullPath, String opName, String localPath , boolean overWrite)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |
 |------|------|------|------|
@@ -838,6 +841,7 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | opName | 否 | string | 操作人名称|
 | localPath | 是 | string | 本地文件路径 |
 | fileName | 是 | string | 文件名 |
+| overWrite| 否 | boolean| 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识|
 #### 返回结果
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -847,6 +851,10 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | filesize | long | 文件大小 |
 
 ---
+
+###文件分块上传 (覆盖同名文件）
+	uploadByBlock( String fullPath, String opName,
+	 int opId, String localFilePath, UploadCallBack callBack)
 ###文件分块上传
 	uploadByBlock( String fullPath, String opName,
 	 int opId, String localFilePath,boolean overWrite, UploadCallBack callBack)
@@ -856,8 +864,8 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | fullpath | 是 | string | 文件路径 |
 | opName | 否 | string |  创建人名称, 如果指定了opId, 就不需要opName， |
 | opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替,|
-| localFilePath | 是 | string | 文件本地路径 |	
-| overWrite | 是 | boolean | 是否覆盖同名文件，true为覆盖 |
+| localFilePath | 是 | string | 文件本地路径 |
+| overWrite | 否 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识 |
 | callBack | 否 | UploadCallBack | 文件上传回调 |
 
 ---
@@ -932,17 +940,17 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 
 ---
 
+###通过链接上传文件（覆盖同名文件）
+	createFileByUrl(String fullpath,int opId,String opName,String url)
 ###通过链接上传文件
-	
 	createFileByUrl(String fullpath,int opId,String opName,boolean overwrite,String url)
-
 #### 参数 
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | fullpath | 是 | string | 文件路径 |
 | opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替|
 | opName | 否 | string | 创建人名称, 如果指定了opId, 就不需要opName|
-| overwrite | 是 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识|
+| overWrite | 否 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识|
 | url | 是 | string | 需要服务端获取的文件url|
 
 #### 返回结果
