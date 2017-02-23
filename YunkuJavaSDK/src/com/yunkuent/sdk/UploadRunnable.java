@@ -50,7 +50,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
     private long mRId;
 
     protected UploadRunnable(String apiUrl, String localFullPath, String fullPath,
-                          String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
+                             String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
 
         this.mApiUrl = apiUrl;
         this.mLocalFullPath = localFullPath;
@@ -79,7 +79,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         try {
             File file = new File(mLocalFullPath);
             if (!file.exists()) {
-                LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!");
+                LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!", UploadRunnable.class);
                 return;
             }
             String filename = Util.getNameFromPath(fullpath).replace("/", "");
@@ -183,7 +183,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
             }
 
         } catch (Exception ex) {
-            LogPrint.print(Level.WARNING, ex.getMessage());
+            LogPrint.print(Level.WARNING, ex.getMessage(), UploadRunnable.class);
             upload_abort();
             if (mCallBack != null) {
                 mCallBack.onFail(mRId, ex.getMessage());
@@ -197,7 +197,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                     bis.close();
                 }
             } catch (IOException e) {
-                LogPrint.print(Level.WARNING, "runnable with io exception:msg" + e.getMessage());
+                LogPrint.print(Level.WARNING, "runnable with io exception:msg" + e.getMessage(), UploadRunnable.class);
             }
 
             if (mUploadHttpClient != null) {
@@ -294,7 +294,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
             returns.setResult(EntityUtils.toString(response.getEntity()));
             returns.setStatusCode(response.getStatusLine().getStatusCode());
         } catch (Exception e) {
-            LogPrint.print(Level.WARNING, "upload exception:" + e.getMessage());
+            LogPrint.print(Level.WARNING, "upload exception:" + e.getMessage(), UploadRunnable.class);
         } finally {
             if (data != null) {
                 try {

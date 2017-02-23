@@ -3,6 +3,7 @@ package com.yunkuent.sdk;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.util.TextUtils;
+
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 /**
  * Created by qp on 2017/2/13.
  */
-public abstract class HttpEngine extends SignAbility{
+public abstract class HttpEngine extends SignAbility {
 
     protected String mClientSecret;
     protected String mClientId;
@@ -24,7 +25,7 @@ public abstract class HttpEngine extends SignAbility{
     protected String refreshToken;
     protected String mToken;
 
-    public String getToken(){
+    public String getToken() {
         return mToken;
     }
 
@@ -76,7 +77,7 @@ public abstract class HttpEngine extends SignAbility{
                     return true;
                 }
 
-                LogPrint.print(LOG_TAG + "token:" + mToken + "_refreshToken:" + refreshToken);
+                LogPrint.print(LOG_TAG + "token:" + mToken + "_refreshToken:" + refreshToken, HttpEngine.class);
             }
 
         }

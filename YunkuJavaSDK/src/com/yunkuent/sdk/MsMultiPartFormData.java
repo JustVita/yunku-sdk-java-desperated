@@ -116,7 +116,7 @@ class MsMultiPartFormData {
      * Completes the request and receives response from the server.
      *
      * @return a list of Strings as response in case the server returned
-     *         status OK, otherwise an exception is thrown.
+     * status OK, otherwise an exception is thrown.
      * @throws java.io.IOException
      */
     public String finish() {
@@ -161,7 +161,7 @@ class MsMultiPartFormData {
         }
         ReturnResult returnResult = new ReturnResult(result, code);
         Gson gosn = new Gson();
-        LogPrint.print("createFile:finish");
+        LogPrint.print("createFile:finish", MsMultiPartFormData.class);
         return gosn.toJson(returnResult);
     }
 

@@ -5,15 +5,16 @@ import com.yunkuent.sdk.utils.Base64;
 import com.yunkuent.sdk.utils.Util;
 import org.apache.http.HttpStatus;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * Created by Brandon on 2014/8/6.
  */
-abstract class QauthEngine extends HttpEngine{
+abstract class OauthEngine extends HttpEngine{
 
     protected boolean mIsEnt;
 
-    public QauthEngine(String clientId, String clientSecret, boolean isEnt) {
+    public OauthEngine(String clientId, String clientSecret, boolean isEnt) {
         mClientId = clientId;
         mClientSecret = clientSecret;
         mIsEnt = isEnt;
@@ -44,10 +45,10 @@ abstract class QauthEngine extends HttpEngine{
 
         String result = NetConnection.sendRequest(url, RequestMethod.POST, params, null);
         ReturnResult returnResult = ReturnResult.create(result);
-        LogPrint.print("accessToken:==>result:" + result);
+        LogPrint.print("accessToken:==>result:" + result, OauthEngine.class);
 
         if (returnResult.getStatusCode() == HttpStatus.SC_OK) {
-            LogPrint.print("accessToken:==>StatusCode:200");
+            LogPrint.print("accessToken:==>StatusCode:200", OauthEngine.class);
             OauthData data = OauthData.create(returnResult.getResult());
             mToken = data.getToken();
         }

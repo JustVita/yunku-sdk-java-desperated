@@ -2,6 +2,7 @@ package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -153,7 +154,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     public String createFile(String fullPath, String opName, FileInputStream stream) {
         try {
             if (stream.available() > UPLOAD_LIMIT_SIZE) {
-                LogPrint.print("文件大小超过50MB");
+                LogPrint.print("文件大小超过50MB", EntFileManager.class);
                 return "";
             }
         } catch (IOException e) {
@@ -225,7 +226,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
                 e.printStackTrace();
             }
         } else {
-            LogPrint.print("file not exist");
+            LogPrint.print("file not exist",EntFileManager.class );
         }
 
         return "";

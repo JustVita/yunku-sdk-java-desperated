@@ -29,6 +29,7 @@ final class NetConnection {
 
     /**
      * 发送请求
+     *
      * @param url
      * @param method
      * @param params
@@ -37,7 +38,7 @@ final class NetConnection {
      */
     public static String sendRequest(String url, RequestMethod method,
                                      HashMap<String, String> params, HashMap<String, String> headParams) {
-        LogPrint.print(LOG_TAG+"method：" + method + ", sendRequest(): url is: " + url + " " + params);
+        LogPrint.print(LOG_TAG + "method：" + method + ", sendRequest(): url is: " + url + " " + params, NetConnection.class);
         return returnOkHttpClientBundle(url, method, params, headParams);
     }
 
@@ -52,7 +53,7 @@ final class NetConnection {
 
         if (method.equals(RequestMethod.GET) && !TextUtils.isEmpty(paramsString)) {
             url += "?" + paramsString;
-            LogPrint.print(LOG_TAG+"method: " + method + ":" + url);
+            LogPrint.print(LOG_TAG + "method: " + method + ":" + url, NetConnection.class);
         }
 
 
