@@ -182,6 +182,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
             params.put("dateline", dateline + "");
             params.put("fullpath", fullPath);
             params.put("op_name", opName);
+            params.put("overwrite",(overWrite ? 1 : 0) + "");
             params.put("filefield", "file");
 
             MsMultiPartFormData multipart = new MsMultiPartFormData(URL_API_CREATE_FILE, "UTF-8");
