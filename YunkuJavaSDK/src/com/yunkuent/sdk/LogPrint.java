@@ -7,8 +7,6 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.builder.api.*;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 
-import java.util.logging.Level;
-
 import static com.yunkuent.sdk.DebugConfig.*;
 
 /**
@@ -16,25 +14,60 @@ import static com.yunkuent.sdk.DebugConfig.*;
  */
 class LogPrint {
 
-    private static final String INFO = "info";
+    private static final String TAG = "LogPrint";
 
-    private static final String ERROR = "error";
+    public static final String INFO = "info";
 
-    private static final String WARN = "warn";
+    public static final String ERROR = "error";
+
+    public static final String WARN = "warn";
+
+    private static DebugConfig.LogDetector mDetector;
+
+    public static void setLogDetector(DebugConfig.LogDetector detector) {
+        mDetector = detector;
+    }
 
 
     static {
         logConfiguration();
     }
 
-    public static void print(String log, Class<?> clazz) {
-        print(Level.INFO, log, clazz);
+    /**
+     * 打印 INFO 级别以下的日志
+     *
+     * @param logTag
+     * @param log
+     */
+    public static void info(String logTag, String log) {
+        print(logTag, INFO, log);
+
     }
 
-    public static void print(Level level, String log, Class<?> clazz) {
+    /**
+     * 打印 ERROR 级别以下的日志
+     *
+     * @param logTag
+     * @param log
+     */
+    public static void error(String logTag, String log) {
+        print(logTag, ERROR, log);
+    }
+
+    /**
+     * 打印 WARN 级别以下的日志
+     *
+     * @param logTag
+     * @param log
+     */
+    public static void warn(String logTag, String log) {
+        print(logTag, WARN, log);
+    }
+
+    private static void print(String logTag, String level, String log) {
         if (DebugConfig.PRINT_LOG) {
-            Logger logger = LogManager.getLogger(clazz);
-            switch (level.toString()) {
+            Logger logger = LogManager.getLogger(logTag);
+            switch (level) {
                 case INFO:
                     logger.info(log);
                     break;
@@ -44,6 +77,14 @@ class LogPrint {
                 case WARN:
                     logger.warn(log);
                     break;
+            }
+
+            if (PRINT_LOG_TYPE == LOG_TYPE_DETECTOR) {
+                if (mDetector != null) {
+                    mDetector.getLog(level, log);
+                } else {
+                    print(TAG, ERROR, "DebugConfig.setListener should call when PRINT_LOG_TYPE=LOG_TYPE_DETECTOR");
+                }
             }
         }
 
@@ -82,8 +123,8 @@ class LogPrint {
                             .addAttribute("min", 1)
                             .addAttribute("max", 1024);
                     appenderBuilder = builder.newAppender("rolling", "RollingFile")
-                            .addAttribute("fileName", "target/YunkuJavaSDK.log")
-                            .addAttribute("filePattern", "target/YunkuJavaSDK-%d{yyyy-MM}-%i.log")
+                            .addAttribute("fileName", LOG_PATH + "YunkuJavaSDK.log")
+                            .addAttribute("filePattern", LOG_PATH + "YunkuJavaSDK-%d{yyyy-MM}-%i.log")
                             .add(layoutBuilder)
                             .addComponent(triggeringPolicy)
                             .addComponent(defaultRolloverStrategy);

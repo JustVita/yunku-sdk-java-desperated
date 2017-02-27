@@ -14,6 +14,8 @@ import java.util.List;
  * 表单提交
  */
 class MsMultiPartFormData {
+
+    private static final String TAG = "MsMultiPartFormData";
     private final String boundary;
     private static final String LINE_FEED = "\r\n";
     private HttpURLConnection httpConn;
@@ -161,7 +163,7 @@ class MsMultiPartFormData {
         }
         ReturnResult returnResult = new ReturnResult(result, code);
         Gson gosn = new Gson();
-        LogPrint.print("createFile:finish", MsMultiPartFormData.class);
+        LogPrint.info(TAG, "createFile:finish");
         return gosn.toJson(returnResult);
     }
 

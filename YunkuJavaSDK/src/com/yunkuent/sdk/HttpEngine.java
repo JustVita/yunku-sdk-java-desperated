@@ -77,7 +77,7 @@ public abstract class HttpEngine extends SignAbility {
                     return true;
                 }
 
-                LogPrint.print(LOG_TAG + "token:" + mToken + "_refreshToken:" + refreshToken, HttpEngine.class);
+                LogPrint.info(LOG_TAG, LOG_TAG + "token:" + mToken + "_refreshToken:" + refreshToken);
             }
 
         }

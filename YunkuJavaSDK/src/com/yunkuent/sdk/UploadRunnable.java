@@ -19,7 +19,6 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.zip.CRC32;
 
 public class UploadRunnable extends HttpEngine implements Runnable {
@@ -79,7 +78,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         try {
             File file = new File(mLocalFullPath);
             if (!file.exists()) {
-                LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!", UploadRunnable.class);
+                LogPrint.error(LOG_TAG, "'" + mLocalFullPath + "'  file not exist!");
                 return;
             }
             String filename = Util.getNameFromPath(fullpath).replace("/", "");
@@ -183,7 +182,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
             }
 
         } catch (Exception ex) {
-            LogPrint.print(Level.WARNING, ex.getMessage(), UploadRunnable.class);
+            LogPrint.warn(LOG_TAG, ex.getMessage());
             upload_abort();
             if (mCallBack != null) {
                 mCallBack.onFail(mRId, ex.getMessage());
@@ -197,7 +196,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                     bis.close();
                 }
             } catch (IOException e) {
-                LogPrint.print(Level.WARNING, "runnable with io exception:msg" + e.getMessage(), UploadRunnable.class);
+                LogPrint.warn(LOG_TAG, "runnable with io exception:msg" + e.getMessage());
             }
 
             if (mUploadHttpClient != null) {
@@ -294,7 +293,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
             returns.setResult(EntityUtils.toString(response.getEntity()));
             returns.setStatusCode(response.getStatusLine().getStatusCode());
         } catch (Exception e) {
-            LogPrint.print(Level.WARNING, "upload exception:" + e.getMessage(), UploadRunnable.class);
+            LogPrint.warn(LOG_TAG, "upload exception:" + e.getMessage());
         } finally {
             if (data != null) {
                 try {

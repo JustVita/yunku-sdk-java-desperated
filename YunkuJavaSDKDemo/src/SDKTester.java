@@ -16,7 +16,6 @@ public class SDKTester {
 
     public static void main(String[] args) {
         DebugConfig.PRINT_LOG = true;
-        YKConfig.PRINT_LOG = true;
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
         //==========================云库企业库操作==========================//
@@ -78,7 +77,7 @@ public class SDKTester {
         String orgClientSecret = "";
         mFileManager = new EntFileManager(orgClientId, orgClientSecret);
         //获取库中文件
-//        deserializeReturn(mFileManager.getFileList());
+        deserializeReturn(mFileManager.getFileList());
 
         //获取更新列表
 //        deserializeReturn(mFileManager.getUpdateList( false, 0));

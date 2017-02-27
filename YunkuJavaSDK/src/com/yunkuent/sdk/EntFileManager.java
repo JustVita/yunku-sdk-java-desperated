@@ -14,6 +14,8 @@ import java.util.HashMap;
  */
 public class EntFileManager extends HttpEngine implements HostConfig {
 
+    private static final String TAG = "EntFileManager";
+
     private static final int UPLOAD_LIMIT_SIZE = 52428800;
     private static final String URL_API_FILELIST = API_ENT_HOST + "/1/file/ls";
     private static final String URL_API_UPDATE_LIST = API_ENT_HOST + "/1/file/updates";
@@ -154,7 +156,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     public String createFile(String fullPath, String opName, FileInputStream stream) {
         try {
             if (stream.available() > UPLOAD_LIMIT_SIZE) {
-                LogPrint.print("文件大小超过50MB", EntFileManager.class);
+                LogPrint.error(TAG, "文件大小超过50MB");
                 return "";
             }
         } catch (IOException e) {
@@ -226,7 +228,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
                 e.printStackTrace();
             }
         } else {
-            LogPrint.print("file not exist",EntFileManager.class );
+            LogPrint.error(TAG, "file not exist");
         }
 
         return "";
