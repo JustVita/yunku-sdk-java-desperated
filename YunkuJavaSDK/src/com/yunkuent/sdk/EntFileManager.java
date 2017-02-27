@@ -2,10 +2,8 @@ package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -29,6 +27,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     private static final String URL_API_CREATE_FILE_BY_URL = API_ENT_HOST + "/1/file/create_file_by_url";
     private static final String URL_API_UPLOAD_SERVERS = API_ENT_HOST + "/1/file/upload_servers";
     private static final String URL_API_GET_UPLOAD_URL = API_ENT_HOST + "/1/file/download_url";
+    private static final String URL_API_FILE_SEARCH = API_ENT_HOST + "/1/file/search";
 
     private String mOrgClientId;
 
@@ -182,7 +181,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
             params.put("dateline", dateline + "");
             params.put("fullpath", fullPath);
             params.put("op_name", opName);
-            params.put("overwrite",(overWrite ? 1 : 0) + "");
+            params.put("overwrite", (overWrite ? 1 : 0) + "");
             params.put("filefield", "file");
 
             MsMultiPartFormData multipart = new MsMultiPartFormData(URL_API_CREATE_FILE, "UTF-8");
@@ -232,6 +231,39 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      */
     public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, String localFilePath,
                                         boolean overWrite, UploadCallBack callBack) {
+        UploadRunnable uploadRunnable = new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite);
+        Thread thread = new Thread(uploadRunnable);
+        thread.start();
+        return uploadRunnable;
+    }
+
+
+    /**
+     * 文件流分块上传 (覆盖同名文件)
+     * @param fullPath
+     * @param opName
+     * @param opId
+     * @param inputStream
+     * @param callBack
+     * @return
+     */
+    public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, InputStream inputStream,
+                                        UploadCallBack callBack) {
+        return uploadByBlock(fullPath, opName, opId, inputStream, true, callBack);
+    }
+
+    /**
+     * 通过文件流分块上传
+     * @param fullPath
+     * @param opName
+     * @param opId
+     * @param localFilePath
+     * @param overWrite
+     * @param callBack
+     * @return
+     */
+    public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, InputStream localFilePath,
+                                         boolean overWrite, UploadCallBack callBack){
         UploadRunnable uploadRunnable = new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite);
         Thread thread = new Thread(uploadRunnable);
         thread.start();
@@ -464,6 +496,12 @@ public class EntFileManager extends HttpEngine implements HostConfig {
     }
 
 
+    /**
+     * 获取服务器地址
+     *
+     * @param type
+     * @return
+     */
     public String getServerSite(String type) {
         String url = URL_API_GET_SERVER_SITE;
         HashMap<String, String> params = new HashMap<>();
@@ -472,6 +510,29 @@ public class EntFileManager extends HttpEngine implements HostConfig {
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
+    }
+
+    /**
+     * 文件搜索
+     * @param keyWords
+     * @param path
+     * @param scope
+     * @param start
+     * @param size
+     * @return
+     */
+    public String search(String keyWords, String path, String scope, int start, int size) {
+        String url = URL_API_FILE_SEARCH;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("org_client_id", mOrgClientId);
+        params.put("keywords", keyWords);
+        params.put("path", path);
+        params.put("scope", scope);
+        params.put("start", start + "");
+        params.put("size", size + "");
+        params.put("dateline", Util.getUnixDateline() + "");
+        params.put("sign", generateSign(params));
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
 
 

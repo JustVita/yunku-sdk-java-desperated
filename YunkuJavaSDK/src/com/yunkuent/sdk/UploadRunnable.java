@@ -1,23 +1,17 @@
 package com.yunkuent.sdk;
 
+import com.squareup.okhttp.*;
+import com.yunkuent.sdk.data.FileInfo;
 import com.yunkuent.sdk.data.FileOperationData;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.URLEncoder;
 import com.yunkuent.sdk.utils.Util;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.util.TextUtils;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.zip.CRC32;
@@ -44,16 +38,34 @@ public class UploadRunnable extends HttpEngine implements Runnable {
     private static long threadSeqNumber;
     private boolean overWrite;
 
-    private HttpClient mUploadHttpClient;
+    private OkHttpClient mUploadHttpClient;
 
     private UploadCallBack mCallBack;
     private long mRId;
+    private InputStream mInputStream;
 
     protected UploadRunnable(String apiUrl, String localFullPath, String fullPath,
-                          String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
+                             String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
 
         this.mApiUrl = apiUrl;
         this.mLocalFullPath = localFullPath;
+        this.mFullPath = fullPath;
+        this.mOrgClientId = orgClientId;
+        this.mDateline = dateline;
+        this.mCallBack = callBack;
+        this.mClientSecret = clientSecret;
+        this.mOpId = opId;
+        this.mOpName = opName;
+        this.overWrite = overWrite;
+        this.mRId = nextThreadID();
+    }
+
+
+    protected UploadRunnable(String apiUrl, InputStream inputStream, String fullPath,
+                             String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
+
+        this.mApiUrl = apiUrl;
+        this.mInputStream = inputStream;
         this.mFullPath = fullPath;
         this.mOrgClientId = orgClientId;
         this.mDateline = dateline;
@@ -77,20 +89,34 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         InputStream in = null;
         BufferedInputStream bis = null;
         try {
-            File file = new File(mLocalFullPath);
-            if (!file.exists()) {
-                LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!");
-                return;
+
+            String filehash = "";
+            long filesize = 0;
+            if (!TextUtils.isEmpty(mLocalFullPath)) {
+                File file = new File(mLocalFullPath);
+                if (!file.exists()) {
+                    LogPrint.print(Level.WARNING, "'" + mLocalFullPath + "'  file not exist!");
+                    return;
+                }
+
+                filehash = Util.getFileSha1(mLocalFullPath);
+                filesize = file.length();
             }
+
+            if (mInputStream != null) {
+
+                FileInfo fileInfo = Util.getFileSha1(mInputStream);
+                filehash = fileInfo.fileHash;
+                filesize = fileInfo.fileSize;
+            }
+
             String filename = Util.getNameFromPath(fullpath).replace("/", "");
 
-            String filehash = Util.getFileSha1(mLocalFullPath);
-            long filesize = file.length();
             ReturnResult returnResult = ReturnResult.create(addFile(filesize, filehash, fullpath));
             FileOperationData data = FileOperationData.create(returnResult.getResult(), returnResult.getStatusCode());
 
             if (data != null) {
-                if (data.getCode() == HttpStatus.SC_OK) {
+                if (data.getCode() == HttpURLConnection.HTTP_OK) {
                     if (data.getState() != FileOperationData.STATE_NOUPLOAD) {
                         // 服务器上没有，上传文件
                         mServer = data.getServer();
@@ -100,7 +126,16 @@ public class UploadRunnable extends HttpEngine implements Runnable {
 
 
                         // upload_part
-                        in = new FileInputStream(mLocalFullPath);
+                        if (mInputStream != null) {
+                            in = mInputStream;
+                        } else {
+                            in = new FileInputStream(mLocalFullPath);
+                        }
+
+                        if (in == null) {
+                            throw new Exception(" error file InputString ");
+                        }
+
                         bis = new BufferedInputStream(in);
 
                         int code = 0;
@@ -131,26 +166,26 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                             range = currentLength + "-" + range_end;
 
                             mCallBack.onProgress(mRId, (float) currentLength / (float) filesize);
-                            result = upload_part(range, new ByteArrayInputStream(buffer), datalength, crc32);
+                            result = upload_part(range, buffer, (int) datalength, crc32);
                             code = result.getStatusCode();
-                            if (code == HttpStatus.SC_OK) {
+                            if (code == HttpURLConnection.HTTP_OK) {
                                 // 200
                                 bis.mark(RANG_SIZE);
                                 range_index++;
                                 System.gc();
-                            } else if (code == HttpStatus.SC_ACCEPTED) {
+                            } else if (code == HttpURLConnection.HTTP_ACCEPTED) {
                                 // 202-上传的文件已完成, 可以直接调finish接口
                                 break;
-                            } else if (code >= HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                            } else if (code >= HttpURLConnection.HTTP_INTERNAL_ERROR) {
                                 // >=500-服务器错误
                                 upload_server(filesize, filehash, fullpath);
                                 continue;
-                            } else if (code == HttpStatus.SC_UNAUTHORIZED) {
+                            } else if (code == HttpURLConnection.HTTP_UNAUTHORIZED) {
                                 // 401-session验证不通过
                                 upload_init(data.getHash(), filename, fullpath,
                                         filehash, filesize);
                                 continue;
-                            } else if (code == HttpStatus.SC_CONFLICT) {
+                            } else if (code == HttpURLConnection.HTTP_CONFLICT) {
                                 // 409-上传块序号错误, http内容中给出服务器期望的块序号
                                 JSONObject json = new JSONObject(result.getResult());
                                 long part_range_start = Long.parseLong(json.optString("expect"));
@@ -200,10 +235,6 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                 LogPrint.print(Level.WARNING, "runnable with io exception:msg" + e.getMessage());
             }
 
-            if (mUploadHttpClient != null) {
-                mUploadHttpClient.getConnectionManager().shutdown();
-            }
-
             System.gc();
 
         }
@@ -219,7 +250,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
     private void upload_check() throws Exception {
         String returnString = upload_finish();
         ReturnResult result = ReturnResult.create(returnString);
-        if (result.getStatusCode() == HttpStatus.SC_OK) {
+        if (result.getStatusCode() == HttpURLConnection.HTTP_OK) {
             return;
         } else {
             throw new Exception();
@@ -259,12 +290,12 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         headParams.put("x-gk-upload-filehash", filehash);
         headParams.put("x-gk-upload-filesize", String.valueOf(filesize));
 //        headParams.add(new BasicNameValuePair("x-gk-token", mOrgClientId));
-        String returnString = new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        String returnString = new RequestHelper().setHeadParams(headParams).setUrl(url).setMethod(RequestMethod.POST).executeSync();
         ReturnResult result = ReturnResult.create(returnString);
-        if (result.getStatusCode() == HttpStatus.SC_OK) {
+        if (result.getStatusCode() == HttpURLConnection.HTTP_OK) {
             JSONObject json = new JSONObject(result.getResult());
             mSession = json.optString("session");
-        } else if (result.getStatusCode() >= HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+        } else if (result.getStatusCode() >= HttpURLConnection.HTTP_INTERNAL_ERROR) {
             upload_server(filesize, filehash, fullpath);
             upload_init(hash, filename, fullpath, filehash, filesize);
         } else {
@@ -276,42 +307,43 @@ public class UploadRunnable extends HttpEngine implements Runnable {
      * 分块上传
      *
      * @param range
-     * @param data
-     * @param datalength
      * @param crc32
      * @return
      */
-    private ReturnResult upload_part(String range, InputStream data, long datalength, long crc32) {
-        ReturnResult returns = new ReturnResult();
-        HttpPut httpput = new HttpPut(mServer + URL_UPLOAD_PART);
+    private ReturnResult upload_part(String range, byte[] content, int dataLength, long crc32) {
+        ReturnResult returnResult = new ReturnResult();
+        String url = mServer + URL_UPLOAD_PART;
         try {
-            httpput.addHeader("Connection", "Keep-Alive");
-            httpput.addHeader("x-gk-upload-session", mSession);
-            httpput.addHeader("x-gk-upload-range", range);
-            httpput.addHeader("x-gk-upload-crc", String.valueOf(crc32));
-            httpput.setEntity(new InputStreamEntity(data, datalength));
-            HttpResponse response = getUploadHttpClient().execute(httpput);
-            returns.setResult(EntityUtils.toString(response.getEntity()));
-            returns.setStatusCode(response.getStatusLine().getStatusCode());
+
+            Headers.Builder headerBuilder = new Headers.Builder();
+            headerBuilder.add("Connection", "Keep-Alive");
+            headerBuilder.add("x-gk-upload-session", mSession);
+            headerBuilder.add("x-gk-upload-range", range);
+            headerBuilder.add("x-gk-upload-crc", String.valueOf(crc32));
+
+            Request.Builder requestBuilder = new Request.Builder();
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream")
+                    , content, 0, dataLength);
+            Request request = requestBuilder
+                    .url(url)
+                    .put(requestBody)
+                    .headers(headerBuilder.build())
+                    .build();
+
+            Response response = getUploadHttpClient().newCall(request).execute();
+
+            returnResult.setResult(response.body().string());
+            returnResult.setStatusCode(response.code());
+            response.body().close();
         } catch (Exception e) {
-            LogPrint.print(Level.WARNING, "upload exception:" + e.getMessage());
-        } finally {
-            if (data != null) {
-                try {
-                    data.close();
-                } catch (IOException e) {
-                }
-            }
+            LogPrint.print(Level.WARNING, "upload_part(): Exception is: " + e.toString());
         }
-        return returns;
+        return returnResult;
     }
 
-    private HttpClient getUploadHttpClient() {
+    private OkHttpClient getUploadHttpClient() {
         if (mUploadHttpClient == null) {
-            HttpParams httpParameters = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpParameters, NetConnection.TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpParameters, NetConnection.TIMEOUT);
-            mUploadHttpClient = new DefaultHttpClient(httpParameters);
+            mUploadHttpClient = NetConnection.getOkHttpClient();
         }
         return mUploadHttpClient;
     }
@@ -326,7 +358,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         String url = mServer + URL_UPLOAD_FINISH;
         final HashMap<String, String> headParams = new HashMap<>();
         headParams.put("x-gk-upload-session", mSession);
-        return new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setHeadParams(headParams).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
 
@@ -337,7 +369,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         String url = mServer + URL_UPLOAD_ABORT;
         final HashMap<String, String> headParams = new HashMap<>();
         headParams.put("x-gk-upload-session", mSession);
-        new RequestHelper().setParams(headParams).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        new RequestHelper().setHeadParams(headParams).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     public String addFile(long filesize, String filehash, String fullpath) {
@@ -357,7 +389,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
         params.put("filesize", filesize + "");
         params.put("filehash", filehash + "");
 
-        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).setCheckAuth(true).executeSync();
+        return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
     }
 
     private boolean isStop;

@@ -4,6 +4,7 @@ import com.yunkuent.sdk.EntFileManager;
 import com.yunkuent.sdk.EntLibManager;
 import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
+import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 
 import java.net.HttpURLConnection;
@@ -124,7 +125,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.links( true));
 
         //文件分块上传
-//        mFileManager.uploadByBlock( "test", "Brandon", 0, "/Users/Brandon/Desktop/SHA256-Swift-master.zip", true, new UploadCallBack() {
+//        mFileManager.uploadByBlock("test", "Brandon", 0, "/Users/Brandon/Desktop/android-fat-aar-master.zip", true, new UploadCallBack() {
 //
 //            @Override
 //            public void onSuccess(long threadId, String fileHash) {
@@ -143,12 +144,41 @@ public class SDKTester {
 //            }
 //        });
 
+//        InputStream inputStream = null;
+//        try {
+//            inputStream = new FileInputStream("/Users/Brandon/Desktop/android-fat-aar-master.zip");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        mFileManager.uploadByBlock("test", "Brandon", 0, inputStream, new UploadCallBack() {
+//            @Override
+//            public void onSuccess(long threadId, String fileHash) {
+//                System.out.println("success:" + threadId);
+//            }
+//
+//            @Override
+//            public void onFail(long threadId, String errorMsg) {
+//                System.out.println("onFail:" + threadId);
+//
+//            }
+//
+//            @Override
+//            public void onProgress(long threadId, float percent) {
+//                System.out.println("onProgress:" + threadId);
+//
+//
+//            }
+//        });
+
         //通过链接上传文件
 //        deserializeReturn(mFileManager.createFileByUrl("ppp", 0,
 //                "Brandon", true, "http://img02.tooopen.com/images/20150614/tooopen_sy_130377131846.jpg"));
 
         //WEB直接上传文件 (支持50MB以上文件的上传)
 //        deserializeReturn(mFileManager.getUploadServers());
+
+//        String string = new Gson().toJson(new String[]{"filename", "tag", "content"});
+//        deserializeReturn(mFileManager.search("txt", "/", string, 0, 100));
 
 //==========================云库企业操作==========================//
 //        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);

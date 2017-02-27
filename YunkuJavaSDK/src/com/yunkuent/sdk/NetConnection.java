@@ -111,7 +111,7 @@ final class NetConnection {
         return "";
     }
 
-    private static OkHttpClient getOkHttpClient() {
+    public static OkHttpClient getOkHttpClient() {
 
         ArrayList<Protocol> list = new ArrayList<>();
         list.add(Protocol.HTTP_1_1);

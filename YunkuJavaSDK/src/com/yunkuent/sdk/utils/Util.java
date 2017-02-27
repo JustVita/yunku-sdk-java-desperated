@@ -1,5 +1,7 @@
 package com.yunkuent.sdk.utils;
 
+import com.yunkuent.sdk.data.FileInfo;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.awt.*;
@@ -155,7 +157,7 @@ public class Util {
         return strReturn;
     }
 
-    public static String intArrayToString(int[] intArray, String conv){
+    public static String intArrayToString(int[] intArray, String conv) {
         String strReturn = "";
         int length = intArray.length;
         if (length > 0) {
@@ -509,6 +511,43 @@ public class Util {
         return filehash;
     }
 
+    /**
+     * 获取文件的filehash
+     */
+    public static FileInfo getFileSha1(InputStream in) {
+        String fileHash = "";
+        long fileSize = 0;
+        MessageDigest messagedigest;
+        try {
+            messagedigest = MessageDigest.getInstance("SHA-1");
+
+            try {
+                byte[] buffer = new byte[1024 * 1024 * 10];
+                int len = 0;
+
+                while ((len = in.read(buffer)) > 0) {
+                    messagedigest.update(buffer, 0, len);
+                    fileSize += len;
+                }
+                fileHash = toHexString(messagedigest.digest());
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return new FileInfo(fileSize, fileHash);
+    }
+
     public static String getParamsStringFromHashMapParams(HashMap<String, String> params) {
         String paramsString = "";
         if (params != null && params.size() > 0) {
@@ -526,6 +565,7 @@ public class Util {
 
     /**
      * 判断是否有网络
+     *
      * @return
      */
     public static boolean isNetworkAvailableEx() {
