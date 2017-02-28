@@ -1,5 +1,6 @@
 package com.yunkuent.sdk;
 
+import com.google.gson.Gson;
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 
@@ -240,6 +241,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
     /**
      * 文件流分块上传 (覆盖同名文件)
+     *
      * @param fullPath
      * @param opName
      * @param opId
@@ -254,6 +256,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
     /**
      * 通过文件流分块上传
+     *
      * @param fullPath
      * @param opName
      * @param opId
@@ -263,7 +266,7 @@ public class EntFileManager extends HttpEngine implements HostConfig {
      * @return
      */
     public UploadRunnable uploadByBlock(String fullPath, String opName, int opId, InputStream localFilePath,
-                                         boolean overWrite, UploadCallBack callBack){
+                                        boolean overWrite, UploadCallBack callBack) {
         UploadRunnable uploadRunnable = new UploadRunnable(URL_API_CREATE_FILE, localFilePath, fullPath, opName, opId, mOrgClientId, Util.getUnixDateline(), callBack, mClientSecret, overWrite);
         Thread thread = new Thread(uploadRunnable);
         thread.start();
@@ -514,20 +517,23 @@ public class EntFileManager extends HttpEngine implements HostConfig {
 
     /**
      * 文件搜索
+     *
      * @param keyWords
      * @param path
-     * @param scope
+     * @param scopes
      * @param start
      * @param size
      * @return
      */
-    public String search(String keyWords, String path, String scope, int start, int size) {
+    public String search(String keyWords, String path, int start, int size, ScopeType... scopes) {
         String url = URL_API_FILE_SEARCH;
         HashMap<String, String> params = new HashMap<>();
         params.put("org_client_id", mOrgClientId);
         params.put("keywords", keyWords);
         params.put("path", path);
-        params.put("scope", scope);
+        if (scopes != null) {
+            params.put("scope", new Gson().toJson(scopes).toLowerCase());
+        }
         params.put("start", start + "");
         params.put("size", size + "");
         params.put("dateline", Util.getUnixDateline() + "");

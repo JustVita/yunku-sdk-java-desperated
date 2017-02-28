@@ -513,8 +513,12 @@ public class Util {
 
     /**
      * 获取文件的filehash
+     *
+     * @param in
+     * @param forReadAgain
+     * @return
      */
-    public static FileInfo getFileSha1(InputStream in) {
+    public static FileInfo getFileSha1(InputStream in, boolean forReadAgain) {
         String fileHash = "";
         long fileSize = 0;
         MessageDigest messagedigest;
@@ -537,15 +541,46 @@ public class Util {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+
             try {
                 if (in != null) {
-                    in.close();
+                    if (forReadAgain) {
+                        in.close();
+                    } else {
+                        in.reset();
+                    }
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return new FileInfo(fileSize, fileHash);
+    }
+
+
+    /**
+     * 克隆 InputStream
+     *
+     * @param inputStream
+     * @return
+     */
+    public static InputStream cloneInputStream(final InputStream inputStream) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        byte[] buffer = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buffer)) > -1) {
+                baos.write(buffer, 0, len);
+            }
+            baos.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ByteArrayInputStream(baos.toByteArray());
     }
 
     public static String getParamsStringFromHashMapParams(HashMap<String, String> params) {

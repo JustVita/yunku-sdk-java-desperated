@@ -1,12 +1,12 @@
 import Model.BaseData;
-import com.yunkuent.sdk.DebugConfig;
-import com.yunkuent.sdk.EntFileManager;
-import com.yunkuent.sdk.EntLibManager;
-import com.yunkuent.sdk.EntManager;
+import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 
 /**
@@ -125,7 +125,7 @@ public class SDKTester {
 //        deserializeReturn(mFileManager.links( true));
 
         //文件分块上传
-//        mFileManager.uploadByBlock("test", "Brandon", 0, "/Users/Brandon/Desktop/android-fat-aar-master.zip", true, new UploadCallBack() {
+//        mFileManager.uploadByBlock("test", "Brandon", 0, "/Users/Brandon/Desktop/android-ndk-r13b-darwin-x86_64.zip", true, new UploadCallBack() {
 //
 //            @Override
 //            public void onSuccess(long threadId, String fileHash) {
@@ -144,9 +144,10 @@ public class SDKTester {
 //            }
 //        });
 
+        //通过文件流上传
 //        InputStream inputStream = null;
 //        try {
-//            inputStream = new FileInputStream("/Users/Brandon/Desktop/android-fat-aar-master.zip");
+//            inputStream = new FileInputStream("/Users/Brandon/Desktop/归档.zip");
 //        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
 //        }
@@ -158,13 +159,14 @@ public class SDKTester {
 //
 //            @Override
 //            public void onFail(long threadId, String errorMsg) {
-//                System.out.println("onFail:" + threadId);
+//                System.out.println("fail:" + threadId + " errorMsg:" + errorMsg);
+//
 //
 //            }
 //
 //            @Override
 //            public void onProgress(long threadId, float percent) {
-//                System.out.println("onProgress:" + threadId);
+//                System.out.println("onProgress:" + threadId + " onProgress:" + percent * 100);
 //
 //
 //            }
@@ -177,8 +179,8 @@ public class SDKTester {
         //WEB直接上传文件 (支持50MB以上文件的上传)
 //        deserializeReturn(mFileManager.getUploadServers());
 
-//        String string = new Gson().toJson(new String[]{"filename", "tag", "content"});
-//        deserializeReturn(mFileManager.search("txt", "/", string, 0, 100));
+        //文件搜索
+//        deserializeReturn(mFileManager.search("tes", "", 0, 100, ScopeType.FILENAME, ScopeType.TAG, ScopeType.CONTENT));
 
 //==========================云库企业操作==========================//
 //        mEntManager = new EntManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);

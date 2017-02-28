@@ -104,8 +104,8 @@ public class UploadRunnable extends HttpEngine implements Runnable {
             }
 
             if (mInputStream != null) {
-
-                FileInfo fileInfo = Util.getFileSha1(mInputStream);
+                mInputStream = Util.cloneInputStream(mInputStream);
+                FileInfo fileInfo = Util.getFileSha1(mInputStream, false);
                 filehash = fileInfo.fileHash;
                 filesize = fileInfo.fileSize;
             }
@@ -133,7 +133,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                         }
 
                         if (in == null) {
-                            throw new Exception(" error file InputString ");
+                            throw new Exception(" error file InputStream ");
                         }
 
                         bis = new BufferedInputStream(in);
