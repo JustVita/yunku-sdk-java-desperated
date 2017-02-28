@@ -206,7 +206,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
                     // upload_sussec
                     if (mCallBack != null) {
                         mCallBack.onProgress(mRId, 1);
-                        mCallBack.onSuccess(mRId, filehash);
+                        mCallBack.onSuccess(mRId, returnResult.getResult());
                     }
                 } else {
                     // 上传失败

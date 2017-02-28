@@ -1,5 +1,8 @@
 import Model.BaseData;
-import com.yunkuent.sdk.*;
+import com.yunkuent.sdk.DebugConfig;
+import com.yunkuent.sdk.EntFileManager;
+import com.yunkuent.sdk.EntLibManager;
+import com.yunkuent.sdk.EntManager;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.upload.UploadCallBack;
 import com.yunkuent.sdk.utils.Util;
@@ -128,8 +131,8 @@ public class SDKTester {
 //        mFileManager.uploadByBlock("test", "Brandon", 0, "/Users/Brandon/Desktop/android-ndk-r13b-darwin-x86_64.zip", true, new UploadCallBack() {
 //
 //            @Override
-//            public void onSuccess(long threadId, String fileHash) {
-//                System.out.println("success:" + threadId);
+//            public void onSuccess(long threadId, String fileJson) {
+//                 System.out.println("success:" + threadId + ",json:" + fileJson);
 //
 //            }
 //
@@ -153,8 +156,8 @@ public class SDKTester {
 //        }
 //        mFileManager.uploadByBlock("test", "Brandon", 0, inputStream, new UploadCallBack() {
 //            @Override
-//            public void onSuccess(long threadId, String fileHash) {
-//                System.out.println("success:" + threadId);
+//            public void onSuccess(long threadId, String fileJson) {
+//                System.out.println("success:" + threadId + ",json:" + fileJson);
 //            }
 //
 //            @Override
