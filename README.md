@@ -857,7 +857,7 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 	 int opId, String localFilePath, UploadCallBack callBack)
 ###文件分块上传
 	uploadByBlock( String fullPath, String opName,
-	 int opId, String localFilePath,boolean overWrite, UploadCallBack callBack)
+	 int opId, String localFilePath, boolean overWrite, UploadCallBack callBack)
 #### 参数 
 | 参数 | 必须 | 类型 | 说明 |	
 |------|------|------|------|
@@ -865,6 +865,24 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | opName | 否 | string |  创建人名称, 如果指定了opId, 就不需要opName， |
 | opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替,|
 | localFilePath | 是 | string | 文件本地路径 |
+| overWrite | 否 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识 |
+| callBack | 否 | UploadCallBack | 文件上传回调 |
+
+---
+
+###数据流分块上传 (覆盖同名文件）
+	uploadByBlock( String fullPath, String opName,
+	 int opId, InputStream inputStream, UploadCallBack callBack)
+###数据流分块上传
+	uploadByBlock( String fullPath, String opName,
+	 int opId, InputStream inputStream, boolean overWrite, UploadCallBack callBack)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |	
+|------|------|------|------|
+| fullpath | 是 | string | 文件路径 |
+| opName | 否 | string |  创建人名称, 如果指定了opId, 就不需要opName |
+| opId | 否 | int | 创建人id, 个人库默认是库拥有人id, 如果创建人不是云库用户, 可以用op_name代替,|
+| inputStream | 是 | InputStream | 流数据 |
 | overWrite | 否 | boolean | 是否覆盖同名文件, true覆盖(默认) false不覆盖,文件名后增加数字标识 |
 | callBack | 否 | UploadCallBack | 文件上传回调 |
 
@@ -974,6 +992,40 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
        ]
 	}
 
+---
+
+###文件搜索
+	search(String keyWords, String path, int start, int size, ScopeType... scopes)
+
+#### 参数 
+| 名称 | 必需 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| keyWords | 是 | string | 搜索关键字 |
+| path | 是 | string | 需要搜索的文件夹|
+| start | 是 | int | 开始位置|
+| size | 是 | int | 返回条数|
+| scopes | 是 | ScopeType... | 范围，FILENAME-文件名、TAG-标签、CONTENT-全文|
+
+#### 返回结果
+	{
+		count:
+		list:
+		[
+			{
+				hash:
+				dir:
+				fullpath:
+				filename:
+				filehash:
+				filesize:
+				create_member_name:
+				create_dateline:
+				last_member_name:
+				last_dateline:
+			},
+			...
+		]
+	}
 ---
 
 ##常见问题
