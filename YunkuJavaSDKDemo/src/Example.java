@@ -1,18 +1,17 @@
 import Model.BaseData;
-import com.yunkuent.sdk.DebugConfig;
-import com.yunkuent.sdk.EntFileManager;
-import com.yunkuent.sdk.EntLibManager;
-import com.yunkuent.sdk.EntManager;
+import com.yunkuent.sdk.*;
 import com.yunkuent.sdk.data.ReturnResult;
 import com.yunkuent.sdk.utils.Util;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 
 public class Example {
 
     private static EntLibManager mEntLibManager;
     private static EntManager mEntManager;
     private static EntFileManager mFileManager;
+    private static ThirdPartyManager mThirdPartyManager;
 
     public static void main(String[] args) {
         DebugConfig.PRINT_LOG = true;
@@ -20,6 +19,7 @@ public class Example {
 
         entLibExample();
 //        entFileExample();
+//            thirdPartyExample();
     }
 
     /**
@@ -65,6 +65,46 @@ public class Example {
         deserializeReturn(mFileManager.getFileInfo("StoneBridgeMoonrise.jpg", EntFileManager.NetType.DEFAULT));
     }
 
+    /**
+     * 单点登录
+     */
+
+    private static void thirdPartyExample(){
+
+        String outId = "";
+
+        mThirdPartyManager = new ThirdPartyManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET, outId);
+
+        //开通企业
+//          deserializeReturn(mThirdPartyManager.createEnt("yunku","yunku","","",""));
+
+        //扩展参数
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("__setting_site_url","aaa");
+//        deserializeReturn(mThirdPartyManager.createEnt(map,"yunkuTest","yunkuTest","","",""));
+
+        //获取企业信息
+//        deserializeReturn(mThirdPartyManager.getEntInfo());
+
+        //购买
+//        deserializeReturn(mThirdPartyManager.subscribe("subscribe",-1,1,12));
+
+        //升级
+//        deserializeReturn(mThirdPartyManager.upgrade("upgrade",-1,1));
+
+        //续费
+//        deserializeReturn(mThirdPartyManager.renew("renew",12));
+
+        //退订
+//        deserializeReturn(mThirdPartyManager.unsubscribe("unsubscribe"));
+
+        //获取企业token
+//        deserializeReturn(mThirdPartyManager.getEntToken());
+
+        //获取单点登录地址
+//        deserializeReturn(mThirdPartyManager.getSsoUrl(""));
+
+    }
     /**
      * 解析返回内容
      *
