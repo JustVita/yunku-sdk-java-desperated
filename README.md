@@ -1153,6 +1153,8 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
     	url: 单点登录URL
 	}
 
+###[单点登录流程](https://developer.gokuai.com/yk/thirdparty#/thirdparty/sso)
+
 ---
 ##常见问题
 ###编码问题
