@@ -1028,7 +1028,7 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 	}
 ---
 
-##单点登录（ThirdPartyManager.java）
+##企业合作API（ThirdPartyManager.java）
 ###构造方法
 	new ThirdPartyManager(String clientId, String clientSecret, String outId)
 ###参数
