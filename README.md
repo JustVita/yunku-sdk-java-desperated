@@ -1085,12 +1085,11 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 	}
 
 ###购买
-	subscribe(String type, int memberCount, int space, int month)
+	orderSubscribe(int memberCount, int space, int month)
 
 ####参数
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| type | 是 | string | 	固定值'subscribe' |
 | memberCount | 是 | int | 人数（不限是-1） |
 | space | 是 | int | 空间(G) |
 | month | 是 | int | 购买的月数 |
@@ -1098,32 +1097,29 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 	正常返回 HTTP 200 
 	
 ###升级
-	upgrade(String type, int memberCount,int space)
+	orderUpgrade(int memberCount, int space)
 ####参数
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| type | 是 | string | 	固定值'upgrade' |
 | memberCount | 是 | int | 人数（不限是-1） |
 | space | 是 | int | 空间(G) |
 #### 返回结果
 	正常返回 HTTP 200 
 	
 ###续费
-	renew(String type,int month)
+	orderRenew(int month)
 ####参数
 | 名称 | 必需 | 类型 | 说明 |
 | --- | --- | --- | --- |
-| type | 是 | string | 	固定值'renew' |
 | month | 是 | int | 购买的月数 |
 #### 返回结果
 	正常返回 HTTP 200 
 	
 ###退订
-	unsubscribe(String type)
+	orderUnsubscribe()
 ####参数
-| 名称 | 必需 | 类型 | 说明 |
-| --- | --- | --- | --- |
-| type | 是 | string | 	固定值'unsubscribe' |
+
+(无)
 
 #### 返回结果
 	正常返回 HTTP 200 
