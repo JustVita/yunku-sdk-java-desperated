@@ -16,10 +16,10 @@ public class ThirdPartyManager extends QauthEngine {
     private static final String URL_GET_TOKEN = OAUTH_HOST + "/1/thirdparty/get_token";
     private static final String URL_GET_SSO_URL = OAUTH_HOST + "/1/thirdparty/get_sso_url";
 
-    public static final String SUBSCRIBE = "subscribe";
-    public static final String UPGRADE = "upgrade";
-    public static final String RENEW = "renew";
-    public static final String UNSUBSCRIBE = "unsubscribe";
+    public static final String SUBSCRIBE = "orderSubscribe";
+    public static final String UPGRADE = "orderUpgrade";
+    public static final String RENEW = "orderRenew";
+    public static final String UNSUBSCRIBE = "orderUnsubscribe";
 
     public static String OUT_ID = "";
 
@@ -105,7 +105,7 @@ public class ThirdPartyManager extends QauthEngine {
      * @param space
      * @return
      */
-    public String upgrade(int memberCount, int space) {
+    public String orderUpgrade(int memberCount, int space) {
 
         return order(UPGRADE, memberCount, space, 0);
     }
@@ -116,7 +116,7 @@ public class ThirdPartyManager extends QauthEngine {
      * @param month
      * @return
      */
-    public String renew(int month) {
+    public String orderRenew(int month) {
         return order(UPGRADE, -1, 0, month);
     }
 
@@ -125,7 +125,7 @@ public class ThirdPartyManager extends QauthEngine {
      *
      * @return
      */
-    public String unsubscribe() {
+    public String orderUnsubscribe() {
         return order(UNSUBSCRIBE, -1, 0, 0);
     }
 
@@ -137,7 +137,7 @@ public class ThirdPartyManager extends QauthEngine {
      * @param month
      * @return
      */
-    public String subscribe(int memberCount, int space, int month) {
+    public String orderSubscribe(int memberCount, int space, int month) {
         return order(SUBSCRIBE, memberCount, space, month);
     }
 

@@ -87,16 +87,16 @@ public class Example {
 //        deserializeReturn(mThirdPartyManager.getEntInfo());
 
         //购买
-//        deserializeReturn(mThirdPartyManager.subscribe("subscribe",-1,1,12));
+//        deserializeReturn(mThirdPartyManager.orderSubscribe(-1,1,12));
 
         //升级
-//        deserializeReturn(mThirdPartyManager.upgrade("upgrade",-1,1));
+//        deserializeReturn(mThirdPartyManager.orderUpgrade(-1,1));
 
         //续费
-//        deserializeReturn(mThirdPartyManager.renew("renew",12));
+//        deserializeReturn(mThirdPartyManager.orderRenew(12));
 
         //退订
-//        deserializeReturn(mThirdPartyManager.unsubscribe("unsubscribe"));
+//        deserializeReturn(mThirdPartyManager.orderUnsubscribe());
 
         //获取企业token
 //        deserializeReturn(mThirdPartyManager.getEntToken());
