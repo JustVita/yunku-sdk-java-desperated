@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by qp on 2017/3/9.
  */
-public class ThirdPartyManager extends QauthEngine {
+public class ThirdPartyManager extends HttpEngine {
 
     private static final String URL_API_CREATE_ENT = OAUTH_HOST + "/1/thirdparty/create_ent";
     private static final String URL_API_ENT_INFO = OAUTH_HOST + "/1/thirdparty/ent_info";
@@ -24,7 +24,7 @@ public class ThirdPartyManager extends QauthEngine {
     public static String OUT_ID = "";
 
     public ThirdPartyManager(String clientId, String clientSecret, String outId) {
-        super(clientId, clientSecret, true);
+        super(clientId, clientSecret);
         OUT_ID = outId;
     }
 
@@ -144,6 +144,7 @@ public class ThirdPartyManager extends QauthEngine {
 
     /**
      * 订单处理
+     *
      * @param type
      * @param memberCount
      * @param space

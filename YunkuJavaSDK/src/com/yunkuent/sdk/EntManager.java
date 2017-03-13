@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Created by Brandon on 2014/8/14.
  */
-public class EntManager extends QauthEngine {
+public class EntManager extends OauthEngine {
 
     private static final String URL_API_GET_GROUPS = API_ENT_HOST + "/1/ent/get_groups";
     private static final String URL_API_GET_MEMBERS = API_ENT_HOST + "/1/ent/get_members";
@@ -29,6 +29,11 @@ public class EntManager extends QauthEngine {
         super(clientId, clientSecret, true);
     }
 
+    private EntManager(String clientId, String clientSecret, boolean isEnt, String token) {
+        super(clientId, clientSecret, isEnt);
+        mToken = token;
+    }
+
     /**
      * 获取角色
      *
@@ -37,7 +42,7 @@ public class EntManager extends QauthEngine {
     public String getRoles() {
         String url = URL_API_GET_ROLES;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
+        addAuthParams(params);
         params.put("dateline", Util.getUnixDateline() + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
@@ -53,8 +58,7 @@ public class EntManager extends QauthEngine {
     public String getMembers(int start, int size) {
         String url = URL_API_GET_MEMBERS;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("start", start + "");
         params.put("size", size + "");
         params.put("sign", generateSign(params));
@@ -65,8 +69,7 @@ public class EntManager extends QauthEngine {
     private String getMember(int memberId, String outId, String account) {
         String url = URL_API_GET_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         if (memberId > 0) {
             params.put("member_id", memberId + "");
         }
@@ -119,8 +122,7 @@ public class EntManager extends QauthEngine {
     public String getGroups() {
         String url = URL_API_GET_GROUPS;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
     }
@@ -135,8 +137,7 @@ public class EntManager extends QauthEngine {
     public String getMemberFileLink(int memberId, boolean fileOnly) {
         String url = URL_API_GET_MEMBER_FILE_LINK;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("member_id", memberId + "");
         if (fileOnly) {
             params.put("file", "1");
@@ -199,8 +200,7 @@ public class EntManager extends QauthEngine {
     public String addSyncMember(String oudId, String memberName, String account, String memberEmail, String memberPhone, String password) {
         String url = URL_API_ADD_SYNC_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("out_id", oudId);
         params.put("member_name", memberName);
         params.put("account", account);
@@ -220,8 +220,7 @@ public class EntManager extends QauthEngine {
     public String setSyncMemberState(String oudId, boolean state) {
         String url = URL_API_ADD_SYNC_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("out_id", oudId);
         params.put("state", state ? "1" : "0");
         params.put("sign", generateSign(params));
@@ -237,8 +236,7 @@ public class EntManager extends QauthEngine {
     public String delSyncMember(String[] members) {
         String url = URL_API_DEL_SYNC_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
@@ -255,8 +253,7 @@ public class EntManager extends QauthEngine {
     public String addSyncGroup(String outId, String name, String parentOutId) {
         String url = URL_API_ADD_SYNC_GROUP;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("out_id", outId);
         params.put("name", name);
         params.put("parent_out_id", parentOutId);
@@ -273,8 +270,7 @@ public class EntManager extends QauthEngine {
     public String delSyncGroup(String[] groups) {
         String url = URL_API_DEL_SYNC_GROUP;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("groups", Util.strArrayToString(groups, ","));
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
@@ -290,8 +286,7 @@ public class EntManager extends QauthEngine {
     public String addSyncGroupMember(String groupOutId, String[] members) {
         String url = URL_API_ADD_SYNC_GROUP_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("group_out_id", groupOutId);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
@@ -308,8 +303,7 @@ public class EntManager extends QauthEngine {
     public String delSyncGroupMember(String groupOutId, String[] members) {
         String url = URL_API_DEL_SYNC_GROUP_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("group_out_id", groupOutId);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
@@ -328,8 +322,7 @@ public class EntManager extends QauthEngine {
     public String getGroupMembers(int groupId, int start, int size, boolean showChild) {
         String url = URL_API_GET_GROUP_MEMBERS;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("group_id", groupId + "");
         params.put("start", start + "");
         params.put("size", size + "");
@@ -347,8 +340,7 @@ public class EntManager extends QauthEngine {
     public String delSyncMemberGroup(String[] members) {
         String url = URL_API_DEL_SYNC_MEMBER_GROUP;
         HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", mClientId);
-        params.put("dateline", Util.getUnixDateline() + "");
+        addAuthParams(params);
         params.put("members", Util.strArrayToString(members, ","));
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
@@ -361,7 +353,7 @@ public class EntManager extends QauthEngine {
      * @return
      */
     public EntManager clone() {
-        return new EntManager(mClientId, mClientSecret);
+        return new EntManager(mClientId, mClientSecret, mIsEnt, mToken);
     }
 
 }

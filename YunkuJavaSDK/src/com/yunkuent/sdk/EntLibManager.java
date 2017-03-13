@@ -1,12 +1,13 @@
 package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.utils.Util;
+
 import java.util.HashMap;
 
 /**
  * 企业库管理http请求类
  */
-public class EntLibManager extends QauthEngine {
+public class EntLibManager extends OauthEngine {
 
     private static final String URL_API_CREATE_LIB = API_ENT_HOST + "/1/org/create";
     private static final String URL_API_GET_LIB_LIST = API_ENT_HOST + "/1/org/ls";
@@ -52,13 +53,7 @@ public class EntLibManager extends QauthEngine {
     public String create(String orgName, String orgCapacity, String storagePointName, String orgDesc, String orgLogo) {
         String url = URL_API_CREATE_LIB;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_name", orgName);
         params.put("org_capacity", orgCapacity);
         params.put("storage_point_name", storagePointName);
@@ -71,6 +66,7 @@ public class EntLibManager extends QauthEngine {
 
     /**
      * 获取企业库列表
+     *
      * @return
      */
     public String getLibList() {
@@ -79,19 +75,14 @@ public class EntLibManager extends QauthEngine {
 
     /**
      * 获取指定成员参与的库列表
+     *
      * @param memberId
      * @return
      */
     public String getLibList(int memberId) {
         String url = URL_API_GET_LIB_LIST;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         if (memberId > 0) {
             params.put("member_id", memberId + "");
         }
@@ -103,7 +94,7 @@ public class EntLibManager extends QauthEngine {
     /**
      * 获取库授权
      *
-     * @param orgId 库ID
+     * @param orgId   库ID
      * @param appName 调用SDK的应用的名称
      * @param linkUrl 可以不传
      * @return
@@ -111,13 +102,7 @@ public class EntLibManager extends QauthEngine {
     public String bind(int orgId, String appName, String linkUrl) {
         String url = URL_API_BIND;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", String.valueOf(orgId));
         params.put("title", appName);
         params.put("url", linkUrl);
@@ -134,13 +119,7 @@ public class EntLibManager extends QauthEngine {
     public String unBind(String orgClientId) {
         String url = URL_API_UNBIND;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_client_id", orgClientId);
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
@@ -157,13 +136,7 @@ public class EntLibManager extends QauthEngine {
     public String getMembers(int start, int size, int orgId) {
         String url = URL_API_GET_MEMBERS;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("start", start + "");
         params.put("size", size + "");
         params.put("org_id", orgId + "");
@@ -182,13 +155,7 @@ public class EntLibManager extends QauthEngine {
     public String addMembers(int orgId, int roleId, int[] memberIds) {
         String url = URL_API_ADD_MEMBERS;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("role_id", roleId + "");
         params.put("org_id", orgId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
@@ -207,13 +174,7 @@ public class EntLibManager extends QauthEngine {
     public String setMemberRole(int orgId, int roleId, int[] memberIds) {
         String url = URL_API_SET_MEMBER_ROLE;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("role_id", roleId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
@@ -231,13 +192,7 @@ public class EntLibManager extends QauthEngine {
     public String delMember(int orgId, int[] memberIds) {
         String url = URL_API_DEL_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("member_ids", Util.intArrayToString(memberIds, ","));
         params.put("sign", generateSign(params));
@@ -253,13 +208,7 @@ public class EntLibManager extends QauthEngine {
     public String getGroups(int orgId) {
         String url = URL_API_GET_GROUPS;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
@@ -276,13 +225,7 @@ public class EntLibManager extends QauthEngine {
     public String addGroup(int orgId, int groupId, int roleId) {
         String url = URL_API_ADD_GROUP;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("group_id", groupId + "");
         params.put("role_id", roleId + "");
@@ -300,13 +243,7 @@ public class EntLibManager extends QauthEngine {
     public String delGroup(int orgId, int groupId) {
         String url = URL_API_DEL_GROUP;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("group_id", groupId + "");
         params.put("sign", generateSign(params));
@@ -324,13 +261,7 @@ public class EntLibManager extends QauthEngine {
     public String setGroupRole(int orgId, int groupId, int roleId) {
         String url = URL_API_SET_GROUP_ROLE;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("group_id", groupId + "");
         params.put("role_id", roleId + "");
@@ -347,13 +278,7 @@ public class EntLibManager extends QauthEngine {
     public String destroy(String orgClientId) {
         String url = URL_API_DESTROY;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_client_id", orgClientId + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.POST).executeSync();
@@ -372,13 +297,7 @@ public class EntLibManager extends QauthEngine {
     public String set(int orgId, String orgName, String orgCapacity, String orgDes, String orgLogo) {
         String url = URL_API_SET;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         if (orgName != null && !orgName.isEmpty()) {
             params.put("org_name", orgName);
@@ -408,13 +327,7 @@ public class EntLibManager extends QauthEngine {
     public String getMember(int orgId, MemberType type, String[] ids) {
         String url = URL_API_GET_MEMBER;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("type", type.toString().toLowerCase());
         params.put("ids", Util.strArrayToString(ids, ",") + "");
@@ -431,13 +344,7 @@ public class EntLibManager extends QauthEngine {
     public String getInfo(int orgId) {
         String url = URL_API_GET_INFO;
         HashMap<String, String> params = new HashMap<>();
-        if (mToken == null) {
-            params.put("client_id", mClientId);
-            params.put("dateline", Util.getUnixDateline() + "");
-        } else {
-            params.put("token", mToken);
-            params.put("token_type", mTokenType);
-        }
+        addAuthParams(params);
         params.put("org_id", orgId + "");
         params.put("sign", generateSign(params));
         return new RequestHelper().setParams(params).setUrl(url).setMethod(RequestMethod.GET).executeSync();
