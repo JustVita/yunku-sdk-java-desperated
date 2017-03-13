@@ -31,6 +31,11 @@ abstract class OauthEngine extends HttpEngine implements IAuthRequest {
         mTokenType = isEnt ? "ent" : "";
     }
 
+    public OauthEngine(String clientId, String clientSecret, boolean isEnt, String token) {
+        this(clientId, clientSecret, isEnt);
+        mToken = token;
+    }
+
     /**
      * 使用帐号用户名获取token
      *

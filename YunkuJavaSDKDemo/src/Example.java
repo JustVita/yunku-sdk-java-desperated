@@ -17,6 +17,9 @@ public class Example {
         DebugConfig.PRINT_LOG = true;
 //        DebugConfig.LOG_PATH="D://LogPath";//默认在D盘根目录
 
+        //如果是使用合作方方案认证，请先调用这个方法
+        //mEntLibManager.accessTokenWithThirdPartyOutId("[合作方ID]");
+
         entLibExample();
 //        entFileExample();
 //            thirdPartyExample();
@@ -27,6 +30,9 @@ public class Example {
      */
     private static void entLibExample() {
         mEntLibManager = new EntLibManager(OauthConfig.CLIENT_ID, OauthConfig.CLIENT_SECRET);
+
+        //如果是使用合作方方案认证，请先调用这个方法
+        //mEntLibManager.accessTokenWithThirdPartyOutId("[合作方ID]");
 
         //获取文件库列表
         deserializeReturn(mEntLibManager.getLibList());

@@ -1,6 +1,7 @@
 package com.yunkuent.sdk;
 
 import com.yunkuent.sdk.utils.Util;
+
 import java.util.HashMap;
 
 /**
@@ -30,8 +31,7 @@ public class EntManager extends OauthEngine {
     }
 
     private EntManager(String clientId, String clientSecret, boolean isEnt, String token) {
-        super(clientId, clientSecret, isEnt);
-        mToken = token;
+        super(clientId, clientSecret, isEnt, token);
     }
 
     /**

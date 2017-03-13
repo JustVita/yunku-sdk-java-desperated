@@ -32,6 +32,21 @@ Robots: noindex,nofollow
 | ClientSecret | 是 | string | 申请应用时分配的AppSecret |
 
 ---
+
+###使用合作方 OutID 进行认证
+	accessTokenWithThirdPartyOutId(String outId)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| outId | 是 | String | 企业在合作方系统中的唯一ID |
+
+#### 返回结果
+	{
+    access_token: 企业token
+    expires_in: token过期时间
+	}
+
+---
 ### 创建库
 	create(String orgName, int orgCapacity, 
 	String storagePointName, String orgDesc) 
@@ -351,6 +366,22 @@ org\_client\_secret用于调用库文件相关API签名时的密钥
 | ClientSecret | 是 | string | 申请应用时分配的AppSecret |
 
 ---
+
+###使用合作方 OutID 进行认证
+	accessTokenWithThirdPartyOutId(String outId)
+#### 参数 
+| 参数 | 必须 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| outId | 是 | String | 企业在合作方系统中的唯一ID |
+
+#### 返回结果
+	{
+    access_token: 企业token
+    expires_in: token过期时间
+	}
+
+---
+
 ###获取角色
 	getRoles() 
 #### 参数

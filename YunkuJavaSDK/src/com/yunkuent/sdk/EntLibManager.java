@@ -32,14 +32,10 @@ public class EntLibManager extends OauthEngine {
         super(clientId, clientSecret, true);
     }
 
-    public EntLibManager(String clientId, String clientSecret, boolean isEnt) {
-        super(clientId, clientSecret, isEnt);
+    private EntLibManager(String clientId, String clientSecret, boolean isEnt, String token) {
+        super(clientId, clientSecret, isEnt, token);
     }
 
-    private EntLibManager(String clientId, String clientSecret, boolean isEnt, String token) {
-        super(clientId, clientSecret, isEnt);
-        mToken = token;
-    }
 
     /**
      * 创建库
