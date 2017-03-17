@@ -31,7 +31,6 @@ public class UploadRunnable extends HttpEngine implements Runnable {
 
     private String mLocalFullPath;
     private String mFullPath;
-    private String mOrgClientId;
     private long mDateline;
     private String mOpName;
     private int mOpId;
@@ -46,14 +45,12 @@ public class UploadRunnable extends HttpEngine implements Runnable {
 
     protected UploadRunnable(String apiUrl, String localFullPath, String fullPath,
                              String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
-
+        super(orgClientId, clientSecret);
         this.mApiUrl = apiUrl;
         this.mLocalFullPath = localFullPath;
         this.mFullPath = fullPath;
-        this.mOrgClientId = orgClientId;
         this.mDateline = dateline;
         this.mCallBack = callBack;
-        this.mClientSecret = clientSecret;
         this.mOpId = opId;
         this.mOpName = opName;
         this.overWrite = overWrite;
@@ -63,11 +60,10 @@ public class UploadRunnable extends HttpEngine implements Runnable {
 
     protected UploadRunnable(String apiUrl, InputStream inputStream, String fullPath,
                              String opName, int opId, String orgClientId, long dateline, UploadCallBack callBack, String clientSecret, boolean overWrite) {
-
+        super(orgClientId, clientSecret);
         this.mApiUrl = apiUrl;
         this.mInputStream = inputStream;
         this.mFullPath = fullPath;
-        this.mOrgClientId = orgClientId;
         this.mDateline = dateline;
         this.mCallBack = callBack;
         this.mClientSecret = clientSecret;
@@ -283,7 +279,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
      */
     private void upload_init(String hash, String filename, String fullpath,
                              String filehash, long filesize) throws Exception {
-        String url = mServer + URL_UPLOAD_INIT + "?org_client_id=" + mOrgClientId;
+        String url = mServer + URL_UPLOAD_INIT + "?org_client_id=" + mClientId;
         final HashMap<String, String> headParams = new HashMap<>();
         headParams.put("x-gk-upload-pathhash", hash);
         headParams.put("x-gk-upload-filename", URLEncoder.encodeUTF8(filename));
@@ -375,7 +371,7 @@ public class UploadRunnable extends HttpEngine implements Runnable {
     public String addFile(long filesize, String filehash, String fullpath) {
         String url = mApiUrl;
         HashMap<String, String> params = new HashMap<>();
-        params.put("org_client_id", mOrgClientId);
+        params.put("org_client_id", mClientId);
         params.put("dateline", mDateline + "");
         params.put("fullpath", fullpath + "");
         if (mOpId > 0) {
